@@ -15,7 +15,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/kh0abug/Melodic">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/kh0abug/Melodic/blob/master/Melodic.Web/wwwroot/images/logo.png" alt="Logo" width="100" height="65">
   </a>
 
 <h3 align="center">Melodic</h3>
