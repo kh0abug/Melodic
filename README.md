@@ -4,6 +4,7 @@
 
 <!-- PROJECT SHIELDS -->
 [![Contributors][contributors-shield]][contributors-url]
+[![Commits][commits-shield]][commits-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -209,6 +210,8 @@ Project Link: [Melodic](https://github.com/kh0abug/Melodic)
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/kh0abug/Melodic.svg?style=for-the-badge
 [contributors-url]: https://github.com/kh0abug/Melodic/graphs/contributors
+[commits-shield]: https://img.shields.io/github/commit-activity/w/kh0abug/Melodic?style=for-the-badge&labelColor=000000
+[commits-url]: https://github.com/kh0abug/Melodic/graphs/commit-activity
 [forks-shield]: https://img.shields.io/github/forks/kh0abug/Melodic.svg?style=for-the-badge
 [forks-url]: https://github.com/kh0abug/Melodic/network/members
 [stars-shield]: https://img.shields.io/github/stars/kh0abug/Melodic.svg?style=for-the-badge
