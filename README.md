@@ -1,52 +1,36 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
+<a name="readme-top"></a>
 
 
 <!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-153-orange.svg?style=flat-square)](#contributors-)
+[![CircleCI](https://circleci.com/gh/codesandbox/codesandbox-client.svg?style=svg)](https://circleci.com/gh/codesandbox/codesandbox-client)
+[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=cVJuczlJWUtqWXhIbFN1ZjVQekF4NzNsd3phNEZRaGlWU0pHYVVkdGRFWT0tLXFtTVhaOWRySmN0ZG5QVDNDQ0g5Z0E9PQ==--79fe3eae4f149a400d396c9b12d3988f685785cf)](https://www.browserstack.com/automate/public-build/cVJuczlJWUtqWXhIbFN1ZjVQekF4NzNsd3phNEZRaGlWU0pHYVVkdGRFWT0tLXFtTVhaOWRySmN0ZG5QVDNDQ0g5Z0E9PQ==--79fe3eae4f149a400d396c9b12d3988f685785cf)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![first-timers-only Friendly](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](http://www.firsttimersonly.com/)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/kh0abug/Melodic">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Melodic</h3>
 
   <p align="center">
-    project_description
+    This is project for swp course
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/kh0abug/Melodic"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/kh0abug/Melodic">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/kh0abug/Melodic">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/kh0abug/Melodic">Request Feature</a>
   </p>
 </div>
 
@@ -93,9 +77,10 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Dotnet][Dotnet.com]][Dotnet-url]
+* ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
+* ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -237,7 +222,5 @@ Project Link: [Melodic](https://github.com/kh0abug/Melodic)
 [product-screenshot]: images/screenshot.png
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
-[Dotnet.com]: https://img.shields.io/badge/-.NET%206.0-blueviolet
-[Dotnet-url]: https://dotnet.microsoft.com/en-us/
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
