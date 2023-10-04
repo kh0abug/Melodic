@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Melodic.Domain.ValueObjects;
+using Microsoft.AspNetCore.Identity;
 
-namespace Melodic.Infracstucture.Identity;
+namespace Melodic.Infracstructure.Identity;
 public class ApplicationUser : IdentityUser
 {
-
+    public IReadOnlyCollection<Payment>? Payments { get; set; }
 }

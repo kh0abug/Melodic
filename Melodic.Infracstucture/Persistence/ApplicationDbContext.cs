@@ -1,16 +1,11 @@
 ﻿using Melodic.Application.Common.Interfaces;
-using Melodic.Infracstucture.Identity;
+using Melodic.Infracstructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Melodic.Infracstucture.Persistence;
-public class ApplicationDbContext : IdentityDbContext<IdentityUser> , IApplicationDbContext
+namespace Melodic.Infracstructure.Persistence;
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>, IApplicationDbContext
 {
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -23,12 +18,9 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser> , IApplicati
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfiguration(new Configurations.CategoriesConfiguration());
+        modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
 
-        OnModelCreatingPartial(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

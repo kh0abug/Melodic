@@ -1,17 +1,12 @@
-﻿using Melodic.Infracstucture.Identity;
+﻿using Melodic.Infracstructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Melodic.Infracstucture.Persistence.Configurations;
+namespace Melodic.Infracstructure.Persistence.Configurations;
 public class ApplicationUsersConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
-    public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+    public void Configure(EntityTypeBuilder<ApplicationUser> entity)
     {
-        throw new NotImplementedException();
+        entity.OwnsMany(u => u.Payments);
     }
 }

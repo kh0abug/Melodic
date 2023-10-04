@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -15,5 +15,9 @@
 
 	<ItemGroup>
 	  <Folder Include="Common\Behaviours\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Melodic.Domain\Melodic.Domain.csproj" />
 	</ItemGroup>
 </Project>

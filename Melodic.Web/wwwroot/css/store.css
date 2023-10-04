@@ -1,0 +1,24 @@
+﻿.ellipsis-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to display */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-body {
+    border-top: solid 2px orange;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: 210px;
+}
+
+.priceinput {
+    display: flex;
+}
+
+.price-input-form {
+    width: 90px;
+    margin-bottom: 10px;
+}
