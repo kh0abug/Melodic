@@ -109,8 +109,8 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+> IMPORTANT:
+> Comment external provider authentication in /Melodic.Infrastructure/ConfigureServices.cs or add your OAuth 2.0 Client ID and secret in user secrets.
   ```sh
   npm install npm@latest -g
   ```
@@ -176,6 +176,17 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Contributor
+
+<table>
+  <tr align="center">
+    <td align="center"><a href="https://github.com/william-le1004"><img src="https://avatars.githubusercontent.com/u/87595769?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>William</b></sub></a><br />💻</a></td>
+    <td align="center"><a href="https://github.com/ya3k"><img src="https://avatars.githubusercontent.com/u/98958049?v=4"  width="100px;" alt="Donavon West"/><br /><sub><b>ya3k</b></sub></a><br />💻</a></td>
+    <td align="center"><a href="https://github.com/wnosphan"><img src="https://avatars.githubusercontent.com/u/137595499?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>wnosphan</b></sub></a><br />💻</a></td>
+    <td align="center"><a href="https://github.com/dokkazy"><img src="https://avatars.githubusercontent.com/u/87236537?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>Võ Công Huy</b></sub></a><br />💻</a></td>
+    <td align="center"><a href="https://github.com/kh0abug"><img src="https://avatars.githubusercontent.com/u/134161378?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>Tran Dang Khoa</b></sub></a><br />💻</a></td>
+  </tr>
+</table>
 
 
 <!-- LICENSE -->
