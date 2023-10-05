@@ -78,10 +78,10 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* ![.Net][.net.com][.net-url]
+* [![.Net][.net.com]][.net-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
-* ![MicrosoftSQLServer][mssql.com][mssql-url]
+* [![MicrosoftSQLServer][mssql.com]][mssql-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
