@@ -5,53 +5,85 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+<h1 class="container text-center">@ViewData["Title"]</h1>
+
 <div class="row">
-    <div class="col-md-4">
-        <section>
+    @* mainpagelogin *@
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <section >
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+            @*     <h2>Use a local account to log in.</h2> *@
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-floating">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                    <label asp-for="Input.Email" class="form-label"></label>
+
+                @* input usename *@
+                <div class="wrap-input100 validate-input">
+                    <label asp-for="Input.Email" class="form-label label-input100 fw-bold"></label>
+                    <input asp-for="Input.Email" placeholder="Enter your Email" class="form-control input100" autocomplete="username" aria-required="true"  />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <label asp-for="Input.Password" class="form-label"></label>
+                <br />
+                @* inputpassword *@
+                <div class="wrap-input100 validate-input">
+                    <label asp-for="Input.Password" class="form-label label-input100 fw-bold"></label>  
+                    <input asp-for="Input.Password" placeholder="Enter your Password" class="form-control input100" autocomplete="current-password" aria-required="true" />
+                   
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div>
-                    <div class="checkbox">
+
+                <br />
+                <div class="row">
+                    <div class="checkbox col-md-6">
                         <label asp-for="Input.RememberMe" class="form-label">
-                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            <input class="form-check-input check-remem" asp-for="Input.RememberMe" />
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
+                    <div class="col-md-6 ">
+                        <a class="float-end forgot-pass" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </div>
                 </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button id="login-submit" type="submit" class="login100-form-btn ">
+                            Login
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
+                
+
             </form>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
+    <div class="col-md-3"></div>
+</div>
+<br />  
+    @* another sevice *@
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+        <section class="login-another">
+
+            @* re send email*@
+            <h6>
+                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="re-sentmail">Resend email confirmation</a>
+            </h6>
+
+            <br />
+
+            @* login with  *@
+            <div>
+                <h5 class="">Login With</h5>
+            </div>
+           <br />
+            <div class="">
+
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
@@ -69,14 +101,30 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                        <button type="submit" class="login100-social-item bg-@provider.Name.ToLower()" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="bi bi-@provider.DisplayName.ToLower() "></i></button>
                                 }
                             </p>
                         </div>
                     </form>
                 }
             }
+
+            </div>
         </section>
+        </div>
+    </div>
+
+
+    <br />
+
+    @*Create account*@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+    <h5 class="text-center create-account">
+            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="create-account">Register as a new Account<i class="bi bi-arrow-right"></i></a>
+    </h5>
+    
     </div>
 </div>
 

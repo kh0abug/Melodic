@@ -140,6 +140,8 @@ public class StoreController : Controller
         {
             TempData["NotFoundInRange"] = "No Speaker Found In Range Price.";
         }
+        ViewBag.MinPrice = minPrice;
+        ViewBag.MaxPrice = maxPrice;
 
         return View("Store", storeVM);
     }

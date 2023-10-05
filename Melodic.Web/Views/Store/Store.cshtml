@@ -10,7 +10,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
 
 }
 
-<h1>Store</h1>
+
 @if (TempData.ContainsKey("NotFoundMessage"))
 {
     <div class="alert alert-info">@TempData["NotFoundMessage"]</div>
@@ -37,27 +37,28 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                     data-bs-toggle="collapse"
                                     data-bs-target="#panelsStayOpen-collapseThree"
                                     aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseThree">
+                                    aria-controls="panelsStayOpen-collapseThree"
+                                    style="font-size:23px;">
                                 Sort
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
                             <div class="accordion-body">
                                 <span>Name </span>
-                                <button>
-                                    <a asp-controller="Store" asp-action="SortSpeakerByNameDesc"><i class="bi bi-sort-alpha-down-alt " style="font-size: 20px"></i></a>
+                                <button class="icon-sort">
+                                    <a asp-controller="Store" asp-action="SortSpeakerByNameDesc"><i class="bi bi-sort-alpha-down-alt icon-sort" style="font-size: 20px"></i></a>
                                 </button>
-                                <button>
-                                    <a asp-controller="Store" asp-action="SortSpeakerByNameIsc"><i class="bi bi-sort-alpha-down " style="font-size: 20px"></i></a>
+                                <button class="icon-sort">
+                                    <a asp-controller="Store" asp-action="SortSpeakerByNameIsc"><i class="bi bi-sort-alpha-down icon-sort" style="font-size: 20px"></i></a>
                                 </button>
                             </div>
                             <div class="accordion-body">
                                 <span>Price </span>
-                                <button>
-                                    <a asp-controller="Store" asp-action="SortSpeakerByPriceDesc"><i class="bi bi-sort-numeric-down-alt" style="font-size: 20px"></i></a>
+                                <button class="icon-sort">
+                                    <a asp-controller="Store" asp-action="SortSpeakerByPriceDesc"><i class="bi bi-sort-numeric-down-alt icon-sort" style="font-size: 20px"></i></a>
                                 </button>
-                                <button>
-                                    <a asp-controller="Store" asp-action="SortSpeakerByPriceIsc"><i class="bi bi-sort-numeric-down" style="font-size: 20px"></i></a>
+                                <button class="icon-sort">
+                                    <a asp-controller="Store" asp-action="SortSpeakerByPriceIsc"><i class="bi bi-sort-numeric-down icon-sort" style="font-size: 20px"></i></a>
                                 </button>
                             </div>
                         </div>
@@ -66,12 +67,14 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                     <!-- brand -->
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button text-dark bg-light"
+                            <button class="accordion-button text-dark bg-light "
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#panelsStayOpen-collapseTwo"
                                     aria-expanded="true"
-                                    aria-controls="panelsStayOpen-collapseTwo">
+                                    aria-controls="panelsStayOpen-collapseTwo"
+                            style="font-size:23px;">
+                                    
                                 Brands
                             </button>
                         </h2>
@@ -82,7 +85,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                     @foreach (var brands in Model.Brands)
                                     {
                                         <div class="form-check">
-                                            <a asp-controller="Store" asp-action="GetSpeakerByBrand" asp-route-id="@brands.Id" class="form-check-label" for="flexCheckChecked1">@brands.Name</a>
+                                            <a asp-controller="Store" asp-action="GetSpeakerByBrand" asp-route-id="@brands.Id" class="form-check-label brand-list" for="flexCheckChecked1">@brands.Name</a>
                                         </div>
                                     }
                                 </div>
@@ -98,7 +101,8 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                     data-bs-toggle="collapse"
                                     data-bs-target="#panelsStayOpen-collapseFour"
                                     aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseFour">
+                                    aria-controls="panelsStayOpen-collapseFour"
+                                    style="font-size:23px;">
                                 Price
                             </button>
                         </h2>
@@ -106,8 +110,8 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                             <div class="accordion-body">
                                 <form asp-controller="Store" asp-action="SortByPriceMinToMax" method="get">
                                     <div class="priceinput text-center">
-                                        <input type="number" name="minPrice" class="price-input-form" placeholder="Min Price">&nbsp;&nbsp;&nbsp;
-                                        <input type="number" name="maxPrice" class="price-input-form" placeholder="Max Price">
+                                        <input type="number" name="minPrice" class="price-input-form" placeholder="Min Price" value="@ViewBag.MinPrice">&nbsp;&nbsp;&nbsp;
+                                        <input type="number" name="maxPrice" class="price-input-form" placeholder="Max Price" value="@ViewBag.MaxPrice">
                                     </div>
                                     <button type="submit">Sort</button>
                                 </form>
@@ -125,19 +129,19 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                 {
                     <div class="col-md-4">
                         <div class="card mb-4">
-                            <img src="@speaker.Img" class="card-img-top" alt="Product @speaker.Id">
+                            <img src="@speaker.Img" class="card-img-top img-hover" alt="Product @speaker.Id" width="259px" height="261px">
                             <div class="card-body">
                                 <div>
                                     <h5 class="card-title">
-                                        <a asp-controller="Store" asp-action="DetailSpeaker" asp-route-id="@speaker.Id" class="text-decoration-none" style="color: black  ">@speaker.Name</a>
+                                        <a asp-controller="Store" asp-action="DetailSpeaker" asp-route-id="@speaker.Id" class="text-decoration-none  ellipsis-text" style="color: black  ">@speaker.Name</a>
                                     </h5>
                                     <p class="card-text ellipsis-text" style="height: 48px">@speaker.Decription</p>
                                     <p class="card-price">Price: @speaker.Price Đ</p>
                                 </div>
 
                                 <div class="">
-                                    <a href="#!" class="btn btn-primary shadow-0 me-1"><i class="bi bi-cart3"></i></a>
-                                    <a asp-controller="Store" asp-action="DetailSpeaker" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1"><i class="bi bi-info-circle"></i></a>
+                                    <a href="#!" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-cart3"></i></a>
+                                    <a asp-controller="Store" asp-action="DetailSpeaker" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-info-circle"></i></a>
                                 </div>
                             </div>
                         </div>
