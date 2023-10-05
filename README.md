@@ -78,10 +78,10 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+* ![.Net][.net.com][.net-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
-* ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
+* ![MicrosoftSQLServer][mssql.com][mssql-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -227,3 +227,7 @@ Project Link: [Melodic](https://github.com/kh0abug/Melodic)
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+[.net-url]: https://dotnet.microsoft.com/en-us/
+[mssql-url]: https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+[mssql.com]: https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white
+[.net.com]: https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white
