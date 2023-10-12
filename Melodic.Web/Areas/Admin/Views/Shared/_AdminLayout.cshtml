@@ -1,0 +1,47 @@
+﻿<!doctype html>
+
+<html class="no-js" lang="">
+ <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ela Admin</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+
+    <!-- Css -->
+    <partial name="_CssPartial"></partial>
+    <!-- Css -->
+</head>
+
+<body>
+    <!-- Left Panel -->
+    <partial name="_LeftPanelPartial"></partial>
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <partial name="_HeaderPartial"></partial>
+        <!-- /#header -->
+
+        <!-- Content -->
+        <div class="content">
+           @RenderBody();
+        </div>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+
+        <!-- Footer -->
+        <partial name="_FooterPartial"></partial>
+        <!-- /.site-footer -->
+    </div>
+    <!-- /#right-panel -->
+
+    <!-- Scripts -->
+
+    <partial name="_JsPartial"></partial>
+</body>
+</html>

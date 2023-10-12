@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Melodic.Infrastructure\Melodic.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\user\" />
+  </ItemGroup>
+
 </Project>
