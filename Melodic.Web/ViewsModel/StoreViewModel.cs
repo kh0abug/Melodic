@@ -1,6 +1,4 @@
-﻿
-
-using Melodic.Domain.Entities;
+﻿using Melodic.Domain.Entities;
 
 namespace Melodic.Web.ViewsModel;
 

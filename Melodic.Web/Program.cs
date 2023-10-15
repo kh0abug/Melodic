@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddRazorPages();
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight;
+});
+
 
 var app = builder.Build();
 
@@ -24,6 +30,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+
+
 
 app.MapControllerRoute(
     name: "default",

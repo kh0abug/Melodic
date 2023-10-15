@@ -5,13 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin</title>
+    <title>MLD Admin</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
-
+    <link rel="shortcut icon" href="~/images/logo.png">
     <!-- Css -->
     <partial name="_CssPartial"></partial>
     <!-- Css -->
@@ -29,7 +28,7 @@
 
         <!-- Content -->
         <div class="content">
-           @RenderBody();
+           @RenderBody()
         </div>
         <!-- /.content -->
         <div class="clearfix"></div>
@@ -43,5 +42,7 @@
     <!-- Scripts -->
 
     <partial name="_JsPartial"></partial>
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts",required:false);
 </body>
 </html>
