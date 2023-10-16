@@ -1,0 +1,89 @@
+﻿@model Speaker
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>Delete Speaker</strong>
+        </div>
+
+        <div class="card-body card-block">
+            <form method="post" enctype="multipart/form-data" class="form-horizontal">
+                <input asp-for="Id" hidden />
+                <input asp-for="Img" hidden />
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Name" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Name" disabled class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Price" class=" form-control-label">Price</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Price" disabled class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Decription" class=" form-control-label">Description</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <textarea asp-for="Decription" disabled class="form-control" rows="5" autocomplete="off"></textarea>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Brand" class=" form-control-label">Brand</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Brand.Name" disabled class="form-control">
+                    </div>
+                </div>
+
+                <div class="row form-group d-flex align-items-center">
+                    <div class="col col-md-3">
+                        <label asp-for="Img" class=" form-control-label">Image</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="file" name="file" disabled class="form-control-file border-3" autocomplete="off">
+                    </div>
+
+                    <div class="col-12 col-md-3 ">
+                        <img src="@Model.Img" width="60%"
+                             style="border-radius:5px; border:1px solid #bbb9b9" />
+                    </div>
+
+                </div>
+
+                <div class="card-footer d-flex justify-content-center">
+                    <div class="col-6 col-md-3 py-3 mx-auto">
+
+                        <button class="btn btn-outline-light form-control rounded-4 shadow " type="submit">
+                            Delete
+                        </button>
+
+                    </div>
+                    <div class="col-6 col-md-3 py-3 mx-auto">
+                        <a asp-action="Index" class="btn btn-outline-warning form-control rounded-4 shadow">
+                            Return
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

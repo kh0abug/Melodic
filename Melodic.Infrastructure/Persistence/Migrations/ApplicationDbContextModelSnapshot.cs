@@ -36,7 +36,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.Speaker", b =>
@@ -67,7 +67,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Speakers");
+                    b.ToTable("Speakers", (string)null);
                 });
 
             modelBuilder.Entity("Melodic.Infrastructure.Identity.ApplicationUser", b =>
@@ -281,7 +281,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Melodic.Infrastructure.Identity.ApplicationUser", b =>
                 {
-                    b.OwnsMany("Melodic.Domain.ValueObjects.Payment", "Payments", b1 =>
+                    b.OwnsMany("Melodic.Infrastructure.Identity.ApplicationUser.Payments#Melodic.Domain.ValueObjects.Payment", "Payments", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -303,7 +303,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("ApplicationUserId", "Id");
 
-                            b1.ToTable("Payment");
+                            b1.ToTable("Payment", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");
