@@ -98,7 +98,7 @@ To get a local copy up and running follow these simple example steps.
 > IMPORTANT:
 > Comment external provider authentication in /Melodic.Infrastructure/ConfigureServices.cs or add your OAuth 2.0 Client ID and secret in user secrets.
   ```sh
-  npm install npm@latest -g
+   Add-Migration TEN_MIGration_Muon_Add -OutputDir "Persistence/Migrations"
   ```
 
 ### Installation
