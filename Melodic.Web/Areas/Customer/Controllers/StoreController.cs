@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 
-namespace Melodic.Web.Controllers;
+namespace Melodic.Web.Areas.Customer.Controllers;
 
+[Area("Customer")]
 public class StoreController : Controller
 {
     private StoreViewModel storeVM = new StoreViewModel();

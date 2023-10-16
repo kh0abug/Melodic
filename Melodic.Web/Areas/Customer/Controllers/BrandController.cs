@@ -2,8 +2,9 @@
 using Melodic.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Melodic.Web.Controllers;
+namespace Melodic.Web.Areas.Customer.Controllers;
 
+[Area("Customer")]
 public class BrandController : Controller
 {
     //private readonly ApplicationDbContext _context;
