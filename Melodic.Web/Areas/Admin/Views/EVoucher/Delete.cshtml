@@ -1,0 +1,61 @@
+﻿@model EVoucher
+
+<div class="col-lg-8">
+    <div class="card">
+        <div class="card-header">
+            <strong>Delete Brand</strong>
+        </div>
+        <div class="card-body card-block">
+            <form method="post" class="form-horizontal">
+                <input asp-for="Id" hidden />
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="VouncherName" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="VouncherName" disabled placeholder="Enter Speaker's Name" class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Code" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Code" disabled placeholder="Enter Speaker's Name" class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Description" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Description" disabled placeholder="Enter Speaker's Name" class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Percent" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Percent" disabled placeholder="Enter Speaker's Name" class="form-control">
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <div class="col-6 col-md-3 py-3 mx-auto">
+                        
+                            <button class="btn btn-dark form-control rounded-4 shadow " type="submit">
+                                Delete
+                            </button>
+                        
+                    </div>
+                    <div class="col-6 col-md-3 py-3 mx-auto">
+                        <a asp-action="Index" class="btn btn-outline-warning form-control rounded-4 shadow">
+                            Return
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

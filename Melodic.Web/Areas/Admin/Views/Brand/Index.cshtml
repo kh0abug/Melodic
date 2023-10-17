@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Brand>
+﻿@model PaginatedList<Brand>
+
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -49,11 +50,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @{
+                                    int i = 1;
+                                }
                                 @foreach (var item in Model)
                                 {
-
                                     <tr>
-                                        <td>@item.Id</td>
+                                        <td>
+                                            @i
+                                        </td>
                                         <td>@item.Name</td>
                                         <td style="width:20%;">
                                             <div style="display:flex;justify-content:space-evenly">
@@ -64,16 +69,65 @@
                                                     <span class="ti-pencil-alt text-white"> Delete</span>
                                                 </a>
                                             </div>
-
                                         </td>
                                     </tr>
+                                    i++;
                                 }
                             </tbody>
                         </table>
+                        @{
+                            var previous = !Model.HasPrevious ? "disabled" : "";
+                            var next = !Model.HasNext ? "disabled" : "";
+                        }
+                        <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @previous">
+                            Previous
+                        </a>
+                        <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @next">
+                            Next
+                        </a>
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                @for(int x = 1; x <= Model.TotalPage; x++)
+                                {
+                                <li class="page-item">
+                                        <a class="page-link @(x==x ? "active" : "")" asp-action="Index" asp-route-pageNumber="@x">
+                                            @x
+                                        </a>
+                                </li>
+                                }
+                                @* <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">2</a>
+                                </li> *@
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
+                    @* <form method="post" hidden>
+
+                    </form> *@
                 </div>
             </div>
         </div>
-    </div><!-- .animated -->
-</div><!-- .content -->
+    </div>
+</div>
 
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>

@@ -4,6 +4,7 @@ using Melodic.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Melodic.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231017040516_AddEVouncherAndSeedData")]
+    partial class AddEVouncherAndSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +58,6 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Percent")
-                        .HasColumnType("float");
-
                     b.Property<string>("VouncherName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -72,7 +72,6 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Id = 1,
                             Code = "EVOUNCHERKM5%",
                             Description = "Discount for speaker",
-                            Percent = 0.5,
                             VouncherName = "KM5%"
                         },
                         new
@@ -80,7 +79,6 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Id = 2,
                             Code = "EVOUNCHERKM10%",
                             Description = "Discount for speaker",
-                            Percent = 0.10000000000000001,
                             VouncherName = "KM10%"
                         },
                         new
@@ -88,7 +86,6 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Id = 3,
                             Code = "EVOUNCHERKM15%",
                             Description = "Discount for speaker",
-                            Percent = 0.14999999999999999,
                             VouncherName = "KM15%"
                         },
                         new
@@ -96,7 +93,6 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Id = 4,
                             Code = "EVOUNCHERKM20%",
                             Description = "Discount for speaker",
-                            Percent = 0.20000000000000001,
                             VouncherName = "KM20%"
                         },
                         new
@@ -104,7 +100,6 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Id = 5,
                             Code = "EVOUNCHERKM25%",
                             Description = "Discount for speaker",
-                            Percent = 0.25,
                             VouncherName = "KM25%"
                         });
                 });
@@ -120,7 +115,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Decription")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -203,7 +198,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -230,7 +225,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -255,7 +250,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -280,7 +275,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -302,7 +297,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -317,7 +312,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -336,7 +331,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.Speaker", b =>

@@ -16,20 +16,60 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Speaker> Speakers { get; set; }
     public DbSet<Brand> Brands { get; set; }
+    public DbSet<EVoucher> EVouchers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
 
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            var tableName = entityType.GetTableName();
-            if (tableName.StartsWith("AspNet"))
-                entityType.SetTableName(tableName.Substring(6));
-        }
+        modelBuilder.Entity<EVoucher>().HasData(
+           new EVoucher()
+           {
+               Id = 1,
+               Code = "EVOUNCHERKM5%",
+               VouncherName = "KM5%",
+               Description = "Discount for speaker",
+               Percent = 0.5
+           },
+           new EVoucher()
+           {
+               Id = 2,
+               Code = "EVOUNCHERKM10%",
+               VouncherName = "KM10%",
+               Description = "Discount for speaker",
+               Percent = 0.10
+           },
+           new EVoucher()
+           {
+               Id = 3,
+               Code = "EVOUNCHERKM15%",
+               VouncherName = "KM15%",
+               Description = "Discount for speaker",
+               Percent = 0.15
+           },
+           new EVoucher()
+           {
+               Id = 4,
+               Code = "EVOUNCHERKM20%",
+               VouncherName = "KM20%",
+               Description = "Discount for speaker",
+               Percent = 0.20
+           },
+           new EVoucher()
+           {
+               Id = 5,
+               Code = "EVOUNCHERKM25%",
+               VouncherName = "KM25%",
+               Description = "Discount for speaker",
+               Percent = 0.25
+           }
+        ) ;
 
+
+        base.OnModelCreating(modelBuilder);
     }
+
+
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

@@ -1,0 +1,77 @@
+﻿@model EVoucher
+
+<div class="col-lg-8">
+    <div class="card">
+        <div class="card-header">
+            <strong>@(Model.Id != 0 ? "Update" : "Add") Brand</strong>
+        </div>
+        <div class="card-body card-block">
+            <form method="post" class="form-horizontal">
+                <input asp-for="Id" hidden />
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="VouncherName" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="VouncherName" placeholder="Enter Speaker's Name" class="form-control">
+                        <span asp-validation-for="VouncherName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Code" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Code" placeholder="Enter Speaker's Name" class="form-control">
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Description" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Description" placeholder="Enter Speaker's Name" class="form-control">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="Percent" class=" form-control-label">Name</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="Percent" placeholder="Enter Speaker's Name" class="form-control">
+                        <span asp-validation-for="Percent" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <div class="col-6 col-md-3 py-3 mx-auto">
+                        @if (Model.Id != 0)
+                        {
+                            <button class="btn btn-dark form-control rounded-4 shadow " type="submit">
+                                Update
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-dark form-control rounded-4 shadow " type="submit">
+                                Add
+                            </button>
+                        }
+                    </div>
+                    <div class="col-6 col-md-3 py-3 mx-auto">
+                        <a asp-action="Index" class="btn btn-outline-warning form-control rounded-4 shadow">
+                            Return
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
