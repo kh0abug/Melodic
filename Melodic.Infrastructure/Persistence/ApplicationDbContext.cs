@@ -22,21 +22,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     {
         modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
 
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            var tableName = entityType.GetTableName();
-            if (tableName.StartsWith("AspNet"))
-                entityType.SetTableName(tableName.Substring(6));
-        }
-
         modelBuilder.Entity<EVoucher>().HasData(
            new EVoucher()
-            {
-                Id = 1,
-                Code = "EVOUNCHERKM5%",
-                VouncherName = "KM5%",
-                Description = "Discount for speaker"
-            },
+           {
+               Id = 1,
+               Code = "EVOUNCHERKM5%",
+               VouncherName = "KM5%",
+               Description = "Discount for speaker"
+           },
            new EVoucher()
            {
                Id = 2,
@@ -65,7 +58,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                VouncherName = "KM25%",
                Description = "Discount for speaker"
            }
-            );
+        );
+
+
         base.OnModelCreating(modelBuilder);
     }
 
