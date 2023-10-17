@@ -9,12 +9,14 @@ namespace Melodic.Domain.Entities
 {
     public class EVoucher
     {
-
+        [Key]
         public int Id { get; set; }
         [Required]
         public string Code { get; set; }
         [Required]
         public string VouncherName { get; set; }
+        [Required]
+        public double Percent { get; set; }
         [Required]
         public string Description { get; set; }
     }
