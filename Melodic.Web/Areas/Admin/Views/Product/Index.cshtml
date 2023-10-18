@@ -84,39 +84,11 @@
                             var next = !Model.HasNext ? "disabled" : "";
                         }
                         <p>Page @Model.PageIndex / @Model.TotalPage</p>
-                        <nav aria-label="...">
-                            @* <ul class="pagination datatable-pagination-list" id="pagination"></ul> *@
-                            <ul class="pagination">
-                                <li class="page-item @previous ">
-                                    <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
-                                </li>
-                                @for (int x = 1; x <= Model.TotalPage; x++)
-                                {
-                                    @if (Model.PageIndex == x)
-                                    {
-                                        <li class="page-item bg-dark ">
-                                            <a class="page-link active text-white bg-dark"
-                                               asp-action="Index"
-                                               asp-route-pageNumber="@x">
-                                                @x
-                                            </a>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li class="page-item ">
-                                            <a class="page-link text-dark" asp-action="Index" asp-route-pageNumber="@x">
-                                                @x
-                                            </a>
-                                        </li>
-                                    }
-                                }
-                                <li class="page-item @next ">
-                                    <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <ul class="pagination" id="pagination"></ul>
                     </div>
+                    <form hidden id="page-form" asp-action="Index" method="get">
+                        <input id="page-index" name="pageNumber" />
+                    </form>
                 </div>
             </div>
 
@@ -124,3 +96,10 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts{
+    @{
+        <partial name="_CustomPaging" />
+    }
+}
