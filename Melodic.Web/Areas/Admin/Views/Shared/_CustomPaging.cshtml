@@ -1,41 +1,16 @@
-﻿<style>
-    .pagination {
-        display: inline-block;
-    }
-
-        .pagination a {
-            color: black;
-            float: left;
-            padding: 8px 16px;
-            text-decoration: none;
-        }
-
-            .pagination a.active {
-                background-color: #4CAF50;
-                color: white;
-            }
-
-            .pagination a:hover:not(.active) {
-                background-color: #ddd;
-            } 
-</style>
-<script>
+﻿<script>
     $(document).ready(function () {
-        $('#pagination').jqPaginator({
+        $('#pagination').twbsPagination({
             totalPages: @Model.TotalPage,
             visiblePages: 1,
             currentPage: @Model.PageIndex,
-            prev: '<li class="pagination"><a class="page-link" href="javascript:;">‹</a></li>',
-            next: '<li class="pagination"><a class="page-link" href="javascript:;">›</a></li>',
-            page: '<li class="pagination"><a href="javascript:;">{{page}}</a></li>',
+            prev: '‹',
+            next: '›',
             onPageChange: function (num) {
                 if (this.currentPage != num) {
                     $('#page-index').val(num),
                         $('#page-form').submit(),
-                        $(".pagination-page-number.active").css({
-                            color: "#333d45"
-                        });
-                }
+                    }
             }
         });
     })
