@@ -113,11 +113,18 @@
                             </ul>
                         </nav>
                     </div>
-                    @* <form method="post" hidden>
-
-                    </form> *@
+                    <form hidden id="page-form" asp-action="Index" method="get">
+                        <input id="page-index" name="pageNumber" />
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@section Scripts{
+    @{
+        <partial name="_CustomPaging" />
+    }
+}
