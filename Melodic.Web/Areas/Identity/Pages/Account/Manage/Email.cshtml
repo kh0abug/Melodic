@@ -8,7 +8,7 @@
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
-    <div class="col-md-6">
+    @* <div class="col-md-6"> *@
         <form id="email-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             @if (Model.IsEmailConfirmed)
@@ -38,7 +38,7 @@
             <br />
             <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
         </form>
-    </div>
+    @* </div> *@
 </div>
 
 @section Scripts {
