@@ -25,7 +25,8 @@ public class ProductController : Controller
     // GET: ProductController
     public async Task<ActionResult> IndexAsync(int? pageNumber)
     {
-        var paginatedList = await _db.Speakers.PaginatedListAsync(pageNumber ?? 1, 4);
+        var paginatedList = await _db.Speakers.Include(x => x.Brand)
+            .PaginatedListAsync(pageNumber ?? 1, 4);
         return View(paginatedList);
     }
 
