@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Brand>
+﻿@model PaginatedList<Brand>
+
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -53,7 +54,9 @@
                                 {
 
                                     <tr>
-                                        <td>@item.Id</td>
+                                        <td>
+                                            @item.Id
+                                        </td>
                                         <td>@item.Name</td>
                                         <td style="width:20%;">
                                             <div style="display:flex;justify-content:space-evenly">
@@ -64,16 +67,75 @@
                                                     <span class="ti-pencil-alt text-white"> Delete</span>
                                                 </a>
                                             </div>
-
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
+                        @{
+                            var previous = !Model.HasPrevious ? "disabled" : "";
+                            var next = !Model.HasNext ? "disabled" : "";
+                        }
+                        <p>Page @Model.PageIndex / @Model.TotalPage</p>
+                        <ul class="pagination" id="pagination"></ul>
+                        @*  <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item @previous ">
+                                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
+                                </li>
+                                @for (int x = 1; x <= Model.TotalPage; x++)
+                                {
+                                    @if (Model.PageIndex == x)
+                                    {
+                                        <li class="page-item bg-dark ">
+                                            <a class="page-link active text-white bg-dark" asp-action="Index" asp-route-pageNumber="@x">
+                                                @x
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item ">
+                                            <a class="page-link text-dark" asp-action="Index" asp-route-pageNumber="@x">
+                                                @x
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                                <li class="page-item @next ">
+                                    <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)">Next</a>
+                                </li>
+                            </ul>
+                        </nav> *@
                     </div>
+                    
+                    <form hidden id="page-form" asp-action="Index" method="get">
+                        <input id="page-index" name="pageNumber" />
+                    </form>
                 </div>
             </div>
         </div>
-    </div><!-- .animated -->
-</div><!-- .content -->
+    </div>
+</div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#pagination').jqPaginator({
+                totalPages: @Model.TotalPage,
+                visiblePages: 2,
+                currentPage: @Model.PageIndex,
+                prev: '<li class="page-item"><a class="page-link" href="javascript:;">‹</a></li>',
+                next: '<li class="page-item"><a class="page-link" href="javascript:;">›</a></li>',
+                page: '<li class="page-item"><a class="page-link" href="javascript:;">{{page}}</a></li>',
+                onPageChange: function (num) {
+                    if (this.currentPage != num) {
+                        $('#page-index').val(num),
+                            $('#page-form').submit()
+                    }
+                }
+            });
+        })
+    </script>
+
+}

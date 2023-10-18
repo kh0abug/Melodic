@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Melodic.Domain.Entities;
+using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Persistence;
 using Melodic.Web.ViewsModel;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,11 @@ public class ProductController : Controller
         _notyfService = notyfService;
     }
     // GET: ProductController
-    public ActionResult Index()
+    public ActionResult Index(int? pageNumber)
     {
-        IEnumerable<Speaker> speakList = _db.Speakers.Include(x => x.Brand);
-        return View(speakList);
+        int pageSize = 6;
+        List<Speaker> speakList = _db.Speakers.Include(x => x.Brand).ToList();
+        return View(PaginatedList<Speaker>.Paging(speakList, pageNumber ?? 1, pageSize));
     }
 
 

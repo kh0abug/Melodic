@@ -1,4 +1,4 @@
-﻿@model PaginatedList<Speaker>
+﻿@model PaginatedList<EVoucher>
 
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
@@ -16,7 +16,7 @@
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Managements</a></li>
-                            <li class="active">Product</li>
+                            <li class="active">EVoucher</li>
                         </ol>
                     </div>
                 </div>
@@ -28,12 +28,11 @@
 <div class="content">
     <div class="animated fadeIn">
         <div class="row">
-
             <div class="col-md-12">
-                <div class="card">
+                <div class="card ">
                     <div class="card-header" style="display:flex;justify-content:space-between">
                         <div>
-                            <strong class="card-title">Product</strong>
+                            <strong class="card-title">Brand</strong>
                         </div>
                         <div>
                             <a asp-action="CreateAndUpdate" class="btn btn-outline-dark">
@@ -42,31 +41,30 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Name</th>
-                                    <th>Price</th>
+                                    <th>Code</th>
+                                    <th>Percent</th>
                                     <th>Description</th>
-                                    <th>Brand</th>
-                                    <th>Image</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+
                                     <tr>
-                                        <td>@item.Name</td>
-                                        <td>@item.Price.ToString("c")</td>
-                                        <td>@item.Decription</td>
-                                        <td>@item.Brand.Name</td>
-                                        <td>
-                                            <img src="@item.Img">
-                                        </td>
+                                        <td>@item.Id</td>
+                                        <td>@item.VouncherName</td>
+                                        <td>@item.Code</td>
+                                        <td>@item.Percent.ToString("P")</td>
+                                        <td>@item.Description</td>
                                         <td style="width:20%;">
                                             <div style="display:flex;justify-content:space-evenly">
-                                                <a asp-action="CreateAndUpdate" asp-route-id="@item.Id" class="btn btn-success btn-sm ">
+                                                <a asp-action="CreateAndUpdate" asp-route-id="@item.Id" class="btn btn-success btn-sm">
                                                     <span class="ti-eraser text-white"> Edit</span>
                                                 </a>
                                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
@@ -88,16 +86,14 @@
                             @* <ul class="pagination datatable-pagination-list" id="pagination"></ul> *@
                             <ul class="pagination">
                                 <li class="page-item @previous ">
-                                    <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
+                                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
                                 </li>
                                 @for (int x = 1; x <= Model.TotalPage; x++)
                                 {
                                     @if (Model.PageIndex == x)
                                     {
                                         <li class="page-item bg-dark ">
-                                            <a class="page-link active text-white bg-dark"
-                                               asp-action="Index"
-                                               asp-route-pageNumber="@x">
+                                            <a class="page-link active text-white bg-dark" asp-action="Index" asp-route-pageNumber="@x">
                                                 @x
                                             </a>
                                         </li>
@@ -117,10 +113,11 @@
                             </ul>
                         </nav>
                     </div>
+                    @* <form method="post" hidden>
+
+                    </form> *@
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

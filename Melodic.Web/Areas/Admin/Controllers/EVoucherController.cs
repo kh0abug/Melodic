@@ -2,60 +2,53 @@
 using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Melodic.Web.Areas.Admin.Controllers;
-
 [Area("Admin")]
-public class BrandController : Controller
+public class EVoucherController : Controller
 {
     private readonly ApplicationDbContext _db;
     public INotyfService _notyfService { get; }
-    public BrandController(ApplicationDbContext db, INotyfService notyfService)
+    public EVoucherController(ApplicationDbContext db, INotyfService notyfService)
     {
         _db = db;
         _notyfService = notyfService;
     }
-    // GET: ProductController
-    public ActionResult Index(int? pageNumber)
+    public IActionResult Index(int? pageNumber)
     {
         int pageSize = 4;
-        IEnumerable<Brand> brandList = _db.Brands;
-        return View(PaginatedList<Brand>.Paging(brandList.ToList(),pageNumber ?? 1,pageSize));
+        IEnumerable<EVoucher> evoucherList = _db.EVouchers;
+        return View(PaginatedList<EVoucher>.Paging(evoucherList.ToList(), pageNumber ?? 1, pageSize));
     }
-
-    // GET: BrandController/Create
     public ActionResult CreateAndUpdate(int? id)
     {
         if (id == null || id == 0)
         {
-            Brand brand = new Brand();
-            return View(brand);
+            EVoucher voucher = new EVoucher();
+            return View(voucher);
         }
         else
         {
-            Brand brand = _db.Brands.FirstOrDefault(x => x.Id == id);
-            return View(brand);
+            EVoucher voucher = _db.EVouchers.FirstOrDefault(x => x.Id == id);
+            return View(voucher);
         }
     }
-
-    // POST: BrandController/Create
     [HttpPost]
-    public ActionResult CreateAndUpdate(Brand brand)
+    public ActionResult CreateAndUpdate(EVoucher voucher)
     {
         if (ModelState.IsValid)
         {
             //Create new
-            if (brand.Id == 0)
+            if (voucher.Id == 0)
             {
-                _db.Brands.Add(brand);
-                _notyfService.Success("Brand Added Successfully");
+                _db.EVouchers.Add(voucher);
+                _notyfService.Success("EVoucher Added Successfully");
             }
             else
             {
-                _db.Brands.Update(brand);
-                _notyfService.Success("Brand Updated Successfully");
+                _db.EVouchers.Update(voucher);
+                _notyfService.Success("EVoucher Updated Successfully");
             }
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -69,20 +62,20 @@ public class BrandController : Controller
         {
             return NotFound();
         }
-        Brand? brand = _db.Brands.FirstOrDefault(x => x.Id == id);
-        if (brand == null) { return NotFound(); }
-        return View(brand);
+        EVoucher? voucher = _db.EVouchers.FirstOrDefault(x => x.Id == id);
+        if (voucher == null) { return NotFound(); }
+        return View(voucher);
     }
 
     [HttpPost, ActionName("Delete")]
     public IActionResult DeleteBrand(int? id)
     {
-        Brand? brand = _db.Brands.FirstOrDefault(x => x.Id == id);
+        EVoucher? voucher = _db.EVouchers.FirstOrDefault(x => x.Id == id);
         if (id == null || id == 0)
         {
             return NotFound();
         }
-        _db.Brands.Remove(brand);
+        _db.EVouchers.Remove(voucher);
         _db.SaveChanges();
         _notyfService.Success("Deleted!");
         return RedirectToAction("Index");
