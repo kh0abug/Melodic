@@ -1,0 +1,17 @@
+﻿<script>
+    $(document).ready(function () {
+        $('#pagination').twbsPagination({
+            totalPages: @Model.TotalPage,
+            visiblePages: 1,
+            currentPage: @Model.PageIndex,
+            prev: '‹',
+            next: '›',
+            onPageChange: function (num) {
+                if (this.currentPage != num) {
+                    $('#page-index').val(num),
+                        $('#page-form').submit(),
+                    }
+            }
+        });
+    })
+</script>
