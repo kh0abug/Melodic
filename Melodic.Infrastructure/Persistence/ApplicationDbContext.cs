@@ -1,4 +1,4 @@
-﻿using Melodic.Application.Common.Interfaces;
+﻿using Melodic.Application.Interfaces;
 using Melodic.Domain.Entities;
 using Melodic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
