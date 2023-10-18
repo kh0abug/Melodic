@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Speaker>
+﻿@model PaginatedList<Speaker>
+
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -31,10 +32,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" style="display:flex;justify-content:space-between">
-                        <div >
+                        <div>
                             <strong class="card-title">Product</strong>
                         </div>
-                        <div >
+                        <div>
                             <a asp-action="CreateAndUpdate" class="btn btn-outline-dark">
                                 <i class="bi bi-plus-circle"></i>  Create New Brand
                             </a>
@@ -68,16 +69,53 @@
                                                 <a asp-action="CreateAndUpdate" asp-route-id="@item.Id" class="btn btn-success btn-sm ">
                                                     <span class="ti-eraser text-white"> Edit</span>
                                                 </a>
-                                                <a asp-action="Delete" asp-route-id="@item.Id"  class="btn btn-danger btn-sm">
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
                                                     <span class="ti-pencil-alt text-white"> Delete</span>
                                                 </a>
                                             </div>
-                                         
+
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
+                        @{
+                            var previous = !Model.HasPrevious ? "disabled" : "";
+                            var next = !Model.HasNext ? "disabled" : "";
+                        }
+                        <p>Page @Model.PageIndex / @Model.TotalPage</p>
+                        <nav aria-label="...">
+                            @* <ul class="pagination datatable-pagination-list" id="pagination"></ul> *@
+                            <ul class="pagination">
+                                <li class="page-item @previous ">
+                                    <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
+                                </li>
+                                @for (int x = 1; x <= Model.TotalPage; x++)
+                                {
+                                    @if (Model.PageIndex == x)
+                                    {
+                                        <li class="page-item bg-dark ">
+                                            <a class="page-link active text-white bg-dark"
+                                               asp-action="Index"
+                                               asp-route-pageNumber="@x">
+                                                @x
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item ">
+                                            <a class="page-link text-dark" asp-action="Index" asp-route-pageNumber="@x">
+                                                @x
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                                <li class="page-item @next ">
+                                    <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
