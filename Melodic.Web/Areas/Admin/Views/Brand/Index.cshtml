@@ -50,14 +50,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @{
-                                    int i = 1;
-                                }
                                 @foreach (var item in Model)
                                 {
+
                                     <tr>
                                         <td>
-                                            @i
+                                            @item.Id
                                         </td>
                                         <td>@item.Name</td>
                                         <td style="width:20%;">
@@ -71,7 +69,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    i++;
                                 }
                             </tbody>
                         </table>
@@ -79,30 +76,34 @@
                             var previous = !Model.HasPrevious ? "disabled" : "";
                             var next = !Model.HasNext ? "disabled" : "";
                         }
-                        <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @previous">
-                            Previous
-                        </a>
-                        <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @next">
-                            Next
-                        </a>
+                        <p>Page @Model.PageIndex / @Model.TotalPage</p>
                         <nav aria-label="...">
+                            @* <ul class="pagination datatable-pagination-list" id="pagination"></ul> *@
                             <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                <li class="page-item @previous ">
+                                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
                                 </li>
-                                @for(int x = 1; x <= Model.TotalPage; x++)
+                                @for (int x = 1; x <= Model.TotalPage; x++)
                                 {
-                                <li class="page-item">
-                                        <a class="page-link @(x==x ? "active" : "")" asp-action="Index" asp-route-pageNumber="@x">
-                                            @x
-                                        </a>
-                                </li>
+                                    @if (Model.PageIndex == x)
+                                    {
+                                        <li class="page-item bg-dark ">
+                                            <a class="page-link active text-white bg-dark" asp-action="Index" asp-route-pageNumber="@x">
+                                                @x
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item ">
+                                            <a class="page-link text-dark" asp-action="Index" asp-route-pageNumber="@x">
+                                                @x
+                                            </a>
+                                        </li>
+                                    }
                                 }
-                                @* <li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="#">2</a>
-                                </li> *@
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                <li class="page-item @next ">
+                                    <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)">Next</a>
                                 </li>
                             </ul>
                         </nav>
@@ -116,18 +117,26 @@
     </div>
 </div>
 
-<nav aria-label="...">
-    <ul class="pagination">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#pagination').jqPaginator({
+                totalPages: @Model.TotalPage,
+                visiblePages: 3,
+                currentPage: @Model.PageIndex,
+                prev: '
+                    < li class= "prev" > <a href="javascript:;" >‹< /a></li > ',
+                                    next: '
+            < li class= "next" > <a href="javascript:;" >›</a></li > ',
+                                    page: '
+            < li class= "page" > <a href="javascript:;" > {{ page }} < /a></li > ',
+                            onPageChange: function (num) {
+            if (this.currentPage != num) {
+                $('#page').val(num),
+                    $('#pageForm').submit()
+            }
+        }
+                        });
+                    })
+    </script>
+}
