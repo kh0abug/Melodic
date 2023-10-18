@@ -22,6 +22,9 @@ public class Speaker
     [Required]
     public string? Decription { get; set; }
 
+    [Required]
+    public int Quantity { get; set; }
+
     [ValidateNever]
     public string? Img { get; set; }
 }
