@@ -77,8 +77,8 @@
                             var next = !Model.HasNext ? "disabled" : "";
                         }
                         <p>Page @Model.PageIndex / @Model.TotalPage</p>
-                        <nav aria-label="...">
-                            @* <ul class="pagination datatable-pagination-list" id="pagination"></ul> *@
+                        <ul class="pagination" id="pagination"></ul>
+                        @*  <nav aria-label="...">
                             <ul class="pagination">
                                 <li class="page-item @previous ">
                                     <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
@@ -106,11 +106,12 @@
                                     <a class="page-link " asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)">Next</a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> *@
                     </div>
-                    @* <form method="post" hidden>
-
-                    </form> *@
+                    
+                    <form hidden id="page-form" asp-action="Index" method="get">
+                        <input id="page-index" name="pageNumber" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -122,21 +123,19 @@
         $(document).ready(function () {
             $('#pagination').jqPaginator({
                 totalPages: @Model.TotalPage,
-                visiblePages: 3,
+                visiblePages: 2,
                 currentPage: @Model.PageIndex,
-                prev: '
-                    < li class= "prev" > <a href="javascript:;" >‹< /a></li > ',
-                                    next: '
-            < li class= "next" > <a href="javascript:;" >›</a></li > ',
-                                    page: '
-            < li class= "page" > <a href="javascript:;" > {{ page }} < /a></li > ',
-                            onPageChange: function (num) {
-            if (this.currentPage != num) {
-                $('#page').val(num),
-                    $('#pageForm').submit()
-            }
-        }
-                        });
-                    })
+                prev: '<li class="page-item"><a class="page-link" href="javascript:;">‹</a></li>',
+                next: '<li class="page-item"><a class="page-link" href="javascript:;">›</a></li>',
+                page: '<li class="page-item"><a class="page-link" href="javascript:;">{{page}}</a></li>',
+                onPageChange: function (num) {
+                    if (this.currentPage != num) {
+                        $('#page-index').val(num),
+                            $('#page-form').submit()
+                    }
+                }
+            });
+        })
     </script>
+
 }
