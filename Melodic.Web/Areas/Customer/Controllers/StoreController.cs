@@ -63,7 +63,8 @@ public class StoreController : Controller
         if (name == null)
         {
             //return RedirectToAction("Store");
-            return RedirectToAction("StoreViewModel");
+            //return RedirectToAction("Store");
+            TempData["NotFoundMessage"] = "No Speaker Found.";
         }
         storeVM.Brands = await _brandRepository.GetAllBrand();
         storeVM.Speakers = await _storeRepository.GetSpeakerByName(name);
@@ -102,6 +103,7 @@ public class StoreController : Controller
     {
         storeVM.Speakers = await _storeRepository.SortSpeakerByNameDesc();
         storeVM.Brands = await _brandRepository.GetAllBrand();
+       
         if (storeVM.Speakers == null)
         {
             return RedirectToAction("Store");
