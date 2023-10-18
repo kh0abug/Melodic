@@ -53,7 +53,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @foreach (var item in Model.Items)
                                 {
 
                                     <tr>
@@ -78,17 +78,17 @@
                             </tbody>
                         </table>
                         @{
-                            var previous = !Model.HasPrevious ? "disabled" : "";
-                            var next = !Model.HasNext ? "disabled" : "";
+                            var previous = !Model.HasPreviousPage ? "disabled" : "";
+                            var next = !Model.HasNextPage ? "disabled" : "";
                         }
-                        <p>Page @Model.PageIndex / @Model.TotalPage</p>
+                        <p>Page @Model.PageIndex / @Model.TotalPages</p>
                         <nav aria-label="...">
                             @* <ul class="pagination datatable-pagination-list" id="pagination"></ul> *@
                             <ul class="pagination">
                                 <li class="page-item @previous ">
                                     <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)">Previous</a>
                                 </li>
-                                @for (int x = 1; x <= Model.TotalPage; x++)
+                                @for (int x = 1; x <= Model.TotalPages; x++)
                                 {
                                     @if (Model.PageIndex == x)
                                     {

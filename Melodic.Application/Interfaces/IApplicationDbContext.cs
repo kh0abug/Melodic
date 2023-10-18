@@ -1,4 +1,4 @@
-﻿namespace Melodic.Application.Common.Interfaces;
+﻿namespace Melodic.Application.Interfaces;
 public interface IApplicationDbContext
 {
 
