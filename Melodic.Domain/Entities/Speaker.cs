@@ -17,12 +17,14 @@ public class Speaker
     public Brand? Brand { get; set; }
 
     [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than 0")]
     public double Price { get; set; }
 
     [Required]
     public string? Decription { get; set; }
 
     [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than 0")]
     public int Quantity { get; set; }
 
     [ValidateNever]
