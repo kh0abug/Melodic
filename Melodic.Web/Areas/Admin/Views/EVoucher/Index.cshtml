@@ -32,7 +32,7 @@
                 <div class="card ">
                     <div class="card-header" style="display:flex;justify-content:space-between">
                         <div>
-                            <strong class="card-title">Brand</strong>
+                            <strong class="card-title">EVoucher</strong>
                         </div>
                         <div>
                             <a asp-action="CreateAndUpdate" class="btn btn-outline-dark">
@@ -77,10 +77,6 @@
                                 }
                             </tbody>
                         </table>
-                        @{
-                            var previous = !Model.HasPreviousPage ? "disabled" : "";
-                            var next = !Model.HasNextPage ? "disabled" : "";
-                        }
                         <p>Page @Model.PageIndex / @Model.TotalPages</p>
                         <nav aria-label="...">
                             <ul class="pagination " id="pagination"></ul>
