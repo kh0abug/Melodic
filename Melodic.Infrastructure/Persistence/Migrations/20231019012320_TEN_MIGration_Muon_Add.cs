@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Melodic.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class addIdentityBrandEvoucherAndSpeaker : Migration
+    public partial class TEN_MIGration_Muon_Add : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,6 +63,19 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Brands", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    IdUser = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdSpeaker = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => new { x.IdUser, x.IdSpeaker });
                 });
 
             migrationBuilder.CreateTable(
@@ -307,6 +320,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "EVouchers");

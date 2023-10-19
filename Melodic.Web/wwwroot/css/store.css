@@ -18,8 +18,10 @@
 }
 
 .price-input-form {
-    width: 90px;
+    width: 95px;
+    height: 37px;
     margin-bottom: 10px;
+    border-radius: 7px;
 }
 
 .brand-list {
@@ -42,9 +44,9 @@
 
 .price-sort {
     border-radius: 10px;
-    padding: 3px 16px;
+    padding: 5px 16px;
     background-color: #f04e27;
     color: white;
-    font-weight: bold;
+    font-weight: 700;
     border: none;
 }
