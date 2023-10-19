@@ -42,6 +42,13 @@ public static class ConfigureServices
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = $"/Identity/Account/Login";
+            options.LogoutPath = $"/Identity/Account/Logout";
+            options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+        });
+
         services.ConfigureApplicationCookie(o =>
         {
             o.ExpireTimeSpan = TimeSpan.FromDays(5);
@@ -52,13 +59,13 @@ public static class ConfigureServices
         services.AddAuthentication()
             .AddGoogle(googleOptions =>
         {
-            googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
+            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
         })
             .AddFacebook(facebookOptions =>
         {
-            facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
-            facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+            facebookOptions.AppId = configuration["Authentication:Facebook:AppId"]!;
+            facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"]!;
         });
 
 
