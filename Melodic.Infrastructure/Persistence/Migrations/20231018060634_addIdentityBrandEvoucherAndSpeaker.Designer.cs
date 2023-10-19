@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Melodic.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231017105247_AddPercentField")]
-    partial class AddPercentField
+    [Migration("20231018060634_addIdentityBrandEvoucherAndSpeaker")]
+    partial class addIdentityBrandEvoucherAndSpeaker
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,6 +136,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
