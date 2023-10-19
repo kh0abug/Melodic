@@ -61,6 +61,19 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                     <a asp-controller="Store" asp-action="SortSpeakerByPriceIsc"><i class="bi bi-sort-numeric-down icon-sort" style="font-size: 20px"></i></a>
                                 </button>
                             </div>
+
+                            @* sort rangek *@
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour">
+                                <div class="accordion-body">
+                                    <form asp-controller="Store" asp-action="SortByPriceMinToMax" method="get">
+                                        <div class="priceinput text-center">
+                                            <input type="number" name="minPrice" class="price-input-form" placeholder="Min Price" value="@ViewBag.MinPrice">&nbsp;&nbsp;&nbsp;
+                                            <input type="number" name="maxPrice" class="price-input-form" placeholder="Max Price" value="@ViewBag.MaxPrice">
+                                        </div>
+                                        <button class="price-sort" type="submit">Sort</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -94,7 +107,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                     </div>
 
                     <!-- Price -->
-                    <div class="accordion-item">
+               @*      <div class="accordion-item">
                         <h2 class="accordion-header" id="headingFour">
                             <button class="accordion-button text-dark bg-light"
                                     type="button"
@@ -113,11 +126,11 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                         <input type="number" name="minPrice" class="price-input-form" placeholder="Min Price" value="@ViewBag.MinPrice">&nbsp;&nbsp;&nbsp;
                                         <input type="number" name="maxPrice" class="price-input-form" placeholder="Max Price" value="@ViewBag.MaxPrice">
                                     </div>
-                                    <button type="submit">Sort</button>
+                                    <button class="price-sort" type="submit">Sort</button>
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
 
@@ -140,7 +153,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                 </div>
 
                                 <div class="">
-                                    <a href="#!" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-cart3"></i></a>
+                                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-cart3"></i></a>
                                     <a asp-controller="Store" asp-action="DetailSpeaker" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-info-circle"></i></a>
                                 </div>
                             </div>
