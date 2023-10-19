@@ -39,6 +39,22 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     b.ToTable("Brands");
                 });
 
+            modelBuilder.Entity("Melodic.Domain.Entities.Cart", b =>
+                {
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("IdSpeaker")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdUser", "IdSpeaker");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("Melodic.Domain.Entities.EVoucher", b =>
                 {
                     b.Property<int>("Id")

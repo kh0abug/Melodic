@@ -17,11 +17,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Speaker> Speakers { get; set; }
     public DbSet<Brand> Brands { get; set; }
     public DbSet<EVoucher> EVouchers { get; set; }
-
+    public DbSet<Cart> Carts { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
 
+        modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
+        modelBuilder.Entity<Cart>().HasKey(c => new { c.IdUser, c.IdSpeaker});
         modelBuilder.Entity<EVoucher>().HasData(
            new EVoucher()
            {
