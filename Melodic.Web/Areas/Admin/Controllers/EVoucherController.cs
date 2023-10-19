@@ -2,11 +2,14 @@
 using Melodic.Application.Pagination;
 using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
+using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Melodic.Web.Areas.Admin.Controllers;
 [Area("Admin")]
+[Authorize(Roles = ApplicationRole.Role_Admin)]
 public class EVoucherController : Controller
 {
     private readonly ApplicationDbContext _db;
