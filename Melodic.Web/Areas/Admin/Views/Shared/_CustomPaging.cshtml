@@ -1,17 +1,32 @@
 ﻿<script>
-    $(document).ready(function () {
-        $('#pagination').twbsPagination({
-            totalPages: @Model.TotalPage,
-            visiblePages: 1,
+    // $(document).ready(function () {
+    // $('#pagination').twbsPagination({
+    //     totalPages: @Model.TotalPages,
+    //     visiblePages: 3,
+    //     currentPage: @Model.PageIndex,
+    //     prev: '‹',
+    //     next: '›',
+    //     onPageClick: function (num) {
+    //         if (this.currentPage != num) {
+    //             $('#page-index').val(num),
+    //                 $('#page-form').submit()
+    //                 alert("ok")
+    //         }
+    //     }
+    // });
+    // })
+        $('#pagination').jqPaginator({
+            totalPages: @Model.TotalPages,
+            visiblePages: 3,
             currentPage: @Model.PageIndex,
-            prev: '‹',
-            next: '›',
+            prev: '<li class="page-item"><a class="page-link" href="javascript:;">‹</a></li>',
+            next: '<li class="page-item"><a class="page-link" href="javascript:;">›</a></li>',
+            page: '<li class="page-item"><a class="page-link" href="javascript:;">{{page}}</a></li>',
             onPageChange: function (num) {
                 if (this.currentPage != num) {
                     $('#page-index').val(num),
-                        $('#page-form').submit(),
-                    }
+                        $('#page-form').submit()
+                }
             }
         });
-    })
 </script>

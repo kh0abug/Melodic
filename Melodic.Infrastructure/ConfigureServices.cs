@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Validators;
-using Melodic.Application.Common.Interfaces;
 using Melodic.Application.Interfaces;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;

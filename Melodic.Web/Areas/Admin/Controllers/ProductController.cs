@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Melodic.Application.Pagination;
 using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Persistence;
@@ -22,11 +23,11 @@ public class ProductController : Controller
         _notyfService = notyfService;
     }
     // GET: ProductController
-    public ActionResult Index(int? pageNumber)
+    public async Task<ActionResult> IndexAsync(int? pageNumber)
     {
-        int pageSize = 6;
-        List<Speaker> speakList = _db.Speakers.Include(x => x.Brand).ToList();
-        return View(PaginatedList<Speaker>.Paging(speakList, pageNumber ?? 1, pageSize));
+        var paginatedList = await _db.Speakers.Include(x => x.Brand)
+            .PaginatedListAsync(pageNumber ?? 1, 4);
+        return View(paginatedList);
     }
 
 

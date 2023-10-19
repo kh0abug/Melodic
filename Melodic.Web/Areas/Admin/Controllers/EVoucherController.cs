@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Melodic.Application.Pagination;
 using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Persistence;
@@ -15,11 +16,10 @@ public class EVoucherController : Controller
         _db = db;
         _notyfService = notyfService;
     }
-    public IActionResult Index(int? pageNumber)
+    public async Task<IActionResult> IndexAsync(int? pageNumber)
     {
-        int pageSize = 4;
-        IEnumerable<EVoucher> evoucherList = _db.EVouchers;
-        return View(PaginatedList<EVoucher>.Paging(evoucherList.ToList(), pageNumber ?? 1, pageSize));
+        var paginatedList = await _db.EVouchers.PaginatedListAsync(pageNumber ?? 1, 4);
+        return View(paginatedList);
     }
     public ActionResult CreateAndUpdate(int? id)
     {
