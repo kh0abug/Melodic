@@ -1,9 +1,10 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Melodic.Application.Pagination;
+using Melodic.Application.ExtensionMethods;
 using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Melodic.Web.Areas.Admin.Controllers;
 [Area("Admin")]
@@ -16,12 +17,12 @@ public class EVoucherController : Controller
         _db = db;
         _notyfService = notyfService;
     }
-    public async Task<IActionResult> IndexAsync(int? pageNumber)
+    public async Task<IActionResult> Index(int? pageNumber)
     {
         var paginatedList = await _db.EVouchers.PaginatedListAsync(pageNumber ?? 1, 4);
         return View(paginatedList);
     }
-    public ActionResult CreateAndUpdate(int? id)
+    public async Task<IActionResult> CreateAndUpdate(int? id)
     {
         if (id == null || id == 0)
         {
@@ -30,19 +31,21 @@ public class EVoucherController : Controller
         }
         else
         {
-            EVoucher voucher = _db.EVouchers.FirstOrDefault(x => x.Id == id);
+            EVoucher voucher = await _db.EVouchers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
             return View(voucher);
         }
     }
     [HttpPost]
-    public ActionResult CreateAndUpdate(EVoucher voucher)
+    public async Task<IActionResult> CreateAndUpdate(EVoucher voucher)
     {
         if (ModelState.IsValid)
         {
             //Create new
             if (voucher.Id == 0)
             {
-                _db.EVouchers.Add(voucher);
+                await _db.EVouchers.AddAsync(voucher);
                 _notyfService.Success("EVoucher Added Successfully");
             }
             else
@@ -50,33 +53,22 @@ public class EVoucherController : Controller
                 _db.EVouchers.Update(voucher);
                 _notyfService.Success("EVoucher Updated Successfully");
             }
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
         return View();
     }
 
-    public IActionResult Delete(int? id)
+    [HttpPost]
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
-        EVoucher? voucher = _db.EVouchers.FirstOrDefault(x => x.Id == id);
-        if (voucher == null) { return NotFound(); }
-        return View(voucher);
-    }
-
-    [HttpPost, ActionName("Delete")]
-    public IActionResult DeleteBrand(int? id)
-    {
-        EVoucher? voucher = _db.EVouchers.FirstOrDefault(x => x.Id == id);
+        EVoucher? voucher = await _db.EVouchers.FirstOrDefaultAsync(x => x.Id == id);
         if (id == null || id == 0)
         {
             return NotFound();
         }
         _db.EVouchers.Remove(voucher);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         _notyfService.Success("Deleted!");
         return RedirectToAction("Index");
     }

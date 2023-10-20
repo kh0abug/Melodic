@@ -1,10 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Azure.Core;
-using Melodic.Application.Pagination;
+using Melodic.Application.ExtensionMethods;
 using Melodic.Domain.Entities;
 using Melodic.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Melodic.Web.Areas.Admin.Controllers;
 
@@ -24,9 +26,9 @@ public class BrandController : Controller
         var paginatedList = await _db.Brands.PaginatedListAsync(pageNumber ?? 1, 4);
         return View(paginatedList);
     }
-
+    
     // GET: BrandController/Create
-    public ActionResult CreateAndUpdate(int? id)
+    public async Task<IActionResult> CreateAndUpdate(int? id)
     {
         if (id == null || id == 0)
         {
@@ -35,14 +37,14 @@ public class BrandController : Controller
         }
         else
         {
-            Brand brand = _db.Brands.FirstOrDefault(x => x.Id == id);
+            Brand brand = await _db.Brands.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             return View(brand);
         }
     }
 
     // POST: BrandController/Create
     [HttpPost]
-    public ActionResult CreateAndUpdate(Brand brand)
+    public async Task<IActionResult> CreateAndUpdate(Brand brand)
     {
         if (ModelState.IsValid)
         {
@@ -57,33 +59,22 @@ public class BrandController : Controller
                 _db.Brands.Update(brand);
                 _notyfService.Success("Brand Updated Successfully");
             }
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
         return View();
     }
 
-    public IActionResult Delete(int? id)
+    [HttpPost]
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
-        Brand? brand = _db.Brands.FirstOrDefault(x => x.Id == id);
-        if (brand == null) { return NotFound(); }
-        return View(brand);
-    }
-
-    [HttpPost, ActionName("Delete")]
-    public IActionResult DeleteBrand(int? id)
-    {
-        Brand? brand = _db.Brands.FirstOrDefault(x => x.Id == id);
+        Brand? brand = await _db.Brands.FirstOrDefaultAsync(x => x.Id == id);
         if (id == null || id == 0)
         {
             return NotFound();
         }
         _db.Brands.Remove(brand);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         _notyfService.Success("Deleted!");
         return RedirectToAction("Index");
     }

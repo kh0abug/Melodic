@@ -1,5 +1,5 @@
 ﻿@model PaginatedList<Speaker>
-
+@using Melodic.Application.ExtensionMethods;
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -37,7 +37,7 @@
                         </div>
                         <div>
                             <a asp-action="CreateAndUpdate" class="btn btn-outline-dark">
-                                <i class="bi bi-plus-circle"></i>  Create New Brand
+                                <i class="bi bi-plus-circle"></i>  Create New Product
                             </a>
                         </div>
                     </div>
@@ -48,6 +48,7 @@
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Description</th>
+                                    <th>Quantity</th>
                                     <th>Brand</th>
                                     <th>Image</th>
                                     <th></th>
@@ -57,21 +58,24 @@
                                 @foreach (var item in Model.Items)
                                 {
                                     <tr>
-                                        <td>@item.Name</td>
+                                        <td>
+                                            @item.Name.Truncate(50)
+                                        </td>
                                         <td>@item.Price.ToString("c")</td>
-                                        <td>@item.Decription</td>
+                                        <td>@item.Decription.Truncate(50)</td>
+                                        <td>@item.Quantity</td>
                                         <td>@item.Brand.Name</td>
                                         <td style="width:15%">
                                             <img src="@item.Img">
                                         </td>
                                         <td style="width:20%;">
                                             <div style="display:flex;justify-content:space-evenly">
-                                                <a asp-action="CreateAndUpdate" asp-route-id="@item.Id" class="btn btn-success btn-sm ">
-                                                    <span class="ti-eraser text-white"> Edit</span>
+                                                <a asp-action="CreateAndUpdate" asp-route-id="@item.Id" class="btn btn-success btn-sm">
+                                                    <span class="ti-pencil-alt text-white t"> Edit</span>
                                                 </a>
-                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
-                                                    <span class="ti-pencil-alt text-white"> Delete</span>
-                                                </a>
+                                                <button value="@item.Id" class="delete-button btn btn-danger btn-sm">
+                                                    <span class="ti-eraser text-white"> Delete</span>
+                                                </button>
                                             </div>
 
                                         </td>
@@ -79,14 +83,14 @@
                                 }
                             </tbody>
                         </table>
-                        
+
                         <p>Page @Model.PageIndex / @Model.TotalPages</p>
                         <ul class="pagination" id="pagination"></ul>
 
                     </div>
 
-                    <form hidden id="page-form" asp-action="Index" method="get">
-                        <input id="page-index" name="pageNumber" />
+                    <form hidden id="page-delete" method="post" asp-action="Delete">
+                        <input id="current-id" name="id" />
                     </form>
                 </div>
             </div>
