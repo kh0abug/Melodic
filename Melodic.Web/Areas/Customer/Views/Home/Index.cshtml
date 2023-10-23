@@ -1,8 +1,47 @@
-﻿@{
+﻿@using Melodic.Web.ViewsModel;
+@model StoreViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">This is my home page</a>.</p>
-</div>
+
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+<!-- Demo styles -->
+<link rel="stylesheet" href="~/css/home.css" />
+
+<section class="section home" style="border: solid 2px black; margin-bottom: 10px;">
+    <!-- Swiper -->
+    <div class="home-content ">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                 <div class="swiper-slide">
+                        <img src="~/images/homepage/loahomepage1.webp" alt="speaker-img" class="home-img">
+                        @*    <h4 class="homeSubtitle">What U want obuy</h4>
+                    <h2 class="homeTitle">Melodic Sotre</h2> *@
+                    </div>
+                <div class="swiper-slide">
+                    <img src="~/images/homepage/loahomepage2.webp" alt="speaker-img" class="home-img">
+                    @*    <h4 class="homeSubtitle">What U want obuy</h4>
+                    <h2 class="homeTitle">Melodic Sotre</h2> *@
+                </div>
+
+
+
+            </div>
+            @*  <div class="swiper-button-next  swiper-navbtn"></div>
+            <div class="swiper-button-prev  swiper-navbtn"></div> *@
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script src="js/swiper_home.js"></script>
+</section>
+
+

@@ -25,9 +25,11 @@ public class HomeController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        storeVM.Speakers = await _storeRepository.GetAllSpeaker();
+        storeVM.Brands = await _brandRepository.GetAllBrand();
+        return View(storeVM);
     }
 
     public IActionResult Privacy()
