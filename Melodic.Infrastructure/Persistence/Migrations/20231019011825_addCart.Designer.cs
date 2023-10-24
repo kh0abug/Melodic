@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Melodic.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231018084828_update")]
-    partial class update
+    [Migration("20231019011825_addCart")]
+    partial class addCart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,22 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("Melodic.Domain.Entities.Cart", b =>
+                {
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("IdSpeaker")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdUser", "IdSpeaker");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.EVoucher", b =>

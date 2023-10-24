@@ -1,14 +1,11 @@
-﻿using FluentValidation.Validators;
-using Melodic.Application.Interfaces;
+﻿using Melodic.Application.Interfaces;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
-using Melodic.Infrastructure.Persistence.Repositories;
 using Melodic.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using StoreSWP.Repository;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -23,9 +20,6 @@ public static class ConfigureServices
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-        services.AddScoped<ISpeakerRepository, SpeakerRepository>();
-        services.AddScoped<IBrandRepository, BrandRepository>();
-
 
         services.AddTransient<IEmailSender, EmailSender>();
         services.Configure<AuthMessageSenderOption>(configuration.GetSection(AuthMessageSenderOption.AuthMessagesSender));

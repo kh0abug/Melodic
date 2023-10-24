@@ -1,10 +1,14 @@
-﻿using Melodic.Domain.Entities;
+﻿using Melodic.Application.Pagination;
+using Melodic.Application.Parameters;
+using Melodic.Domain.Entities;
 
 namespace Melodic.Web.ViewsModel;
 
 public class StoreViewModel
 {
-    public IEnumerable<Speaker>? Speakers { get; set; }
-    public IEnumerable<Brand>? Brands { get; set; }
+    public IReadOnlyCollection<Brand>? Brands { get; set; }
 
+    public PaginatedList<Speaker>? Speakers { get; set;}
+
+    public SpeakerRequestParameters? RequestParameters { get; set; }
 }
