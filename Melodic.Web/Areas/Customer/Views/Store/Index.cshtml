@@ -253,7 +253,7 @@
                                                 <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none  ellipsis-text" style="color: black  ">@speaker.Name</a>
                                             </h5>
                                             <p class="card-text ellipsis-text" style="height: 48px">@speaker.Decription</p>
-                                            <p class="card-price">Price: @speaker.Price Đ</p>
+                                            <p class="card-price">Price: @speaker.Price.ToString("c") Đ</p>
                                         </div>
 
                                         <div class="">
