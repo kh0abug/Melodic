@@ -52,7 +52,7 @@
                             <tbody>
                                 @foreach (var item in Model.Items)
                                 {
-
+                                    var idTemp = 0;
                                     <tr>
                                         <td>
                                             @item.Id
@@ -69,6 +69,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    
                                 }
                             </tbody>
                         </table>
@@ -80,6 +81,12 @@
                     <form hidden id="page-form" asp-action="Index" method="get">
                         <input id="page-index" name="pageNumber" />
                     </form>
+
+                    <form id="page-delete" method="post" asp-action="Delete">
+                        <input type="text" name="name" />
+                    </form>
+                    <input type="submit" form="myform" value="Update" />
+
                 </div>
             </div>
         </div>

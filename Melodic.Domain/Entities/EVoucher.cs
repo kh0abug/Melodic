@@ -16,6 +16,7 @@ namespace Melodic.Domain.Entities
         [Required]
         public string VouncherName { get; set; }
         [Required]
+        [Range(0, 100, ErrorMessage = "Please enter a value bigger than 0")]
         public double Percent { get; set; }
         [Required]
         public string Description { get; set; }
