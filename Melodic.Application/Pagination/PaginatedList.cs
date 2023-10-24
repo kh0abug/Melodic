@@ -5,9 +5,9 @@ namespace Melodic.Application.Pagination;
 public class PaginatedList<T>
 {
     public IReadOnlyCollection<T> Items { get; }
-    public int? PageIndex { get; }
-    public int? TotalPages { get; }
-    public int? TotalCount { get; }
+    public int PageIndex { get; }
+    public int TotalPages { get; }
+    public int TotalCount { get; }
 
     public PaginatedList(IReadOnlyCollection<T> items, int count, int pageIndex, int pageSize)
     {

@@ -5,7 +5,7 @@
 namespace Melodic.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class addCart_1 : Migration
+    public partial class addCart : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
