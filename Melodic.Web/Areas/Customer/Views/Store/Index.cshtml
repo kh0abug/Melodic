@@ -208,14 +208,14 @@
                             </div>
                         </div>
 
-                        <a asp-action="index" asp-controller="store" asp-route-searchterm="@Model.RequestParameters.SearchTerm" class="btn clear-btn">CLEAR ALL</a>
+                        <a asp-action="index" asp-controller="store" asp-route-searchterm="@Model.RequestParameters?.SearchTerm" class="btn clear-btn">CLEAR ALL</a>
                     </div>
                 </div>
             </div>
             <main class="col-lg-10">
-                <div class="row">
-                    @if (Model.Speakers != null)
-                    {
+                @if (Model.Speakers != null)
+                {
+                    <div class="row">
                         <nav class="navbar navbar-expand-sm bg-light mb-3">
                             <div class="container-fluid">
                                 <ul class="navbar-nav">
@@ -242,7 +242,7 @@
                             </div>
                         </nav>
 
-                        foreach (var speaker in Model.Speakers.Items)
+                        @foreach (var speaker in Model.Speakers.Items)
                         {
                             <div class="col-md-3">
                                 <div class="card mb-3">
@@ -263,11 +263,26 @@
                                     </div>
                                 </div>
                             </div>
+
                         }
-                         <ul class="pagination" id="pagination"></ul>
+
+                        <ul class="pagination" id="pagination"></ul>
                         <input hidden id="page-index" name="pageNumber" />
-                    }
-                </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="h-50 d-flex align-items-center justify-content-center">
+                        <div class="d-flex flex-column  align-items-center">
+                            <img src="~/images/notfound.png"  width="30%" >
+                            <h4 class="text-muted "> No products. Can you try turning off the condition filter and searching again?</h4>
+                            <h5 class="text-muted mt-lg-3 "> or</h5>
+                            <div class="w-25 mt-lg-4">
+                                <a asp-action="index" asp-controller="store" asp-route-searchterm="@Model.RequestParameters?.SearchTerm" class="btn clear-btn ">CLEAR FILTER</a>
+                            </div>
+                        </div>
+                    </div>
+                }
             </main>
         </div>
     </form>
@@ -278,9 +293,9 @@
     }
     <script>
         $('#pagination').jqPaginator({
-            totalPages: @Model.Speakers.TotalPages,
+            totalPages: @Model.Speakers?.TotalPages,
             visiblePages: 5,
-            currentPage: @Model.Speakers.PageIndex,
+            currentPage: @Model.Speakers?.PageIndex,
             prev: '<li class="page-item"><a class="page-link" href="javascript:;">‹</a></li>',
             next: '<li class="page-item"><a class="page-link" href="javascript:;">›</a></li>',
             page: '<li class="page-item"><a class="page-link" href="javascript:;">{{page}}</a></li>',
