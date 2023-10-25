@@ -1,4 +1,4 @@
-html {
+﻿html {
     font-size: 14px;
 }
 
@@ -17,13 +17,6 @@ body {
     margin-bottom: 60px;
 }
 
-.store-button:hover {
-    transform: scale(1.2);
-    background-color: whitesmoke;
-}
-
-.store-button {
-}
 
 .pagination > li > a {
     background-color: white;
@@ -51,6 +44,44 @@ body {
     }
 
 
+/*Navigation */
 
 
+.store-button {
+    font-family: 'Wendy One', sans-serif;
+    color: #FFA01B;
+    cursor: pointer;
+    position: relative;
+   font-size: 2.5vmin;
+      margin-left: 5px;
+}
+    
+    .store-button:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        bottom: -10px;
+        left: 1px;
+        right: 1px;
+        transform: scaleX(0);
+       
+        background: #f04e27;
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-out;
+    }
+
+    .store-button:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+     
+    }
+
+.active {
+    background-color: red;
+    color: wheat;
+}
+.search-container {
+margin-left: 17%;
+}
 

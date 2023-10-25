@@ -1,12 +1,13 @@
 ﻿.input-box {
-    position: relative;
+    position: fixed;
     height: 47px;
-    max-width: 370px;
+    max-width: 50%;
     width: 100%;
     background: #fff;
-    margin: 0 20px;
+   
+    
     border-radius: 8px;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
     .input-box i,
@@ -26,7 +27,7 @@
         height: 100%;
         width: 100%;
         outline: none;
-        font-size: 18px;
+        font-size: 2.5vmin;
         font-weight: 350;
         border: none;
         padding: 0 120px 0 55px;
