@@ -18,8 +18,10 @@
 }
 
 .price-input-form {
-    width: 90px;
+    width: 95px;
+    height: 37px;
     margin-bottom: 10px;
+    border-radius: 7px;
 }
 
 .brand-list {
@@ -48,6 +50,17 @@
     width: 100%;
     font-weight: normal;
     border: none;
+}
+
+.card-spkeaker {
+    box-shadow: -1px 5px 12px 0px rgba(0, 0, 0, 0.35);
+}
+.side-navbar{
+    position: fixed;
+}
+a{
+    text-decoration: none;
+}
 }
 .clear-btn {
     border-radius: 3px;
