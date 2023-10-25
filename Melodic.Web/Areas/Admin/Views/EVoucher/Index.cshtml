@@ -78,10 +78,7 @@
                             </tbody>
                         </table>
                         <p>Page @Model.PageIndex / @Model.TotalPages</p>
-                        <nav aria-label="...">
-                            <ul class="pagination " id="pagination"></ul>
-
-                        </nav>
+                        <ul class="pagination " id="pagination"></ul>
                     </div>
                     <form hidden id="page-delete" method="post" asp-action="Delete">
                         <input id="current-id" name="id" />
