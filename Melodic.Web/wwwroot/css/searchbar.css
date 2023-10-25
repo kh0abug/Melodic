@@ -1,13 +1,14 @@
 ﻿.input-box {
-    position: fixed;
+    position: relative;
     height: 47px;
-    max-width: 50%;
-    width: 100%;
+ width:100%;
     background: #fff;
    
-    
     border-radius: 8px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
     .input-box i,
