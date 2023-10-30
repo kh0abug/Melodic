@@ -1,9 +1,13 @@
-﻿using Melodic.Domain.Entities;
+﻿using AspNetCore;
+using Melodic.Domain.Entities;
+using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
 using Melodic.Web.ViewsModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace Melodic.Web.Areas.Customer.Controllers
 {
@@ -43,6 +47,20 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 .Where(speaker => speakerIds.Contains(speaker.Id))
                 .ToList();
 
+            double? TotalPrice = 0;
+
+            foreach (var speaker in cartViewModel.CartItems)
+            {
+                var speakers = cartViewModel.Speakers.FirstOrDefault(s => s.Id == speaker.IdSpeaker);
+                var Price = speaker.Quantity * speakers.Price;
+                TotalPrice += Price; // Cộng giá trị Price vào TotalPrice
+
+            }
+            double? Tax = TotalPrice * 0.08;
+            // Truyền giá trị TotalPrice vào ViewBag
+            ViewBag.TotalPrice = TotalPrice;
+            ViewBag.Tax = Tax;
+
             return View(cartViewModel);
         }
 
@@ -64,7 +82,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             return RedirectToAction("Cart"); // Chuyển hướng đến trang giỏ hàng sau khi xóa sản phẩm.
         }
 
-
+        [HttpPost]
         public IActionResult AddToCart(int id)
         {
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
@@ -98,16 +116,43 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
                     _dbContext.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu.
 
-                    return RedirectToAction("Cart"); // Sau khi thêm vào giỏ hàng, chuyển hướng đến trang giỏ hàng.
+
                 }
-                else
-                {
-                    // Xử lý khi sản phẩm không tồn tại.
-                    // Ví dụ: return NotFound();
-                }
+
+            }
+            return Json(new { success = false, message = "User not found" });
+        }
+        public IActionResult Voucher(string voucher)
+        {
+            var Voucher = _dbContext.EVouchers.FirstOrDefault(vou => vou.Code == voucher);
+            if (Voucher != null)
+            {
+                return View(Voucher);
+            }
+            string a = "Voucher is not available";
+            return View(a);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateQuantity(int itemId, int newQuantity)
+        {
+            ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+            var productToUpdate = _dbContext.Carts.FirstOrDefault(cart => cart.IdUser == currentUser.Id && cart.IdSpeaker == itemId);
+
+            if (productToUpdate == null)
+            {
+                return Json(new { success = false, message = "Product not found" });
             }
 
-            return RedirectToAction("Login"); // Chuyển hướng người dùng đến trang đăng nhập nếu họ chưa đăng nhập.
+            productToUpdate.Quantity = newQuantity;
+            _dbContext.SaveChanges();
+
+            return Json(new { success = true, message = "Quantity updated successfully" });
         }
+
+        public IActionResult ConFirmChange() { return RedirectToAction("Cart"); }
+
+
     }
+
 }
