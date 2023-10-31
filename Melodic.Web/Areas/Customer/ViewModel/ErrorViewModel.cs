@@ -1,4 +1,4 @@
-namespace Melodic.Web.Models;
+namespace Melodic.Web.Areas.Customer.ViewModel;
 
 public class ErrorViewModel
 {

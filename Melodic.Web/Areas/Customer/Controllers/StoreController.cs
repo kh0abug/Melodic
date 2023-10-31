@@ -1,13 +1,9 @@
-﻿using Melodic.Application.Pagination;
+﻿using Melodic.Application.ExtensionMethods;
 using Melodic.Application.Parameters;
-using Melodic.Domain.Entities;
 using Melodic.Infrastructure.Persistence;
-using Melodic.Web.ViewsModel;
+using Melodic.Web.Areas.Customer.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
-using System.Linq.Expressions;
-using System.Reflection.Metadata;
 
 namespace Melodic.Web.Areas.Customer.Controllers;
 
@@ -54,12 +50,12 @@ public class StoreController : Controller
         speakers = parameter.OrderBy?.ToLower() switch
         {
             "price_desc" => speakers.OrderByDescending(s => s.Price),
-            //"bestseller" => speakers.OrderByDescending(s => s.Price),
-            //"newest" => speakers.Reverse(),
+            "bestseller" => speakers.Join(_context.BillPro),
+            "newest" => speakers.OrderByDescending(s => s.Created),
             _ => speakers.OrderBy(s => s.Price),
         };
 
-        var result = await speakers.AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1 , parameter.PageSize);
+        var result = await speakers.AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize);
         if (!result.Items.Any())
         {
             result = null;

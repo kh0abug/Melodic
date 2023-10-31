@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Melodic.Domain.Common;
 
 namespace Melodic.Domain.Entities
 {
-     public class Bill
+    public class Bill : AuditableEntity
     {
         public string? BuildId { get; set; }
         public string? IdUser { get; set; }
