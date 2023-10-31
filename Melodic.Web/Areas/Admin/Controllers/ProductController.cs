@@ -4,7 +4,7 @@ using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
-using Melodic.Web.ViewsModel;
+using Melodic.Web.Areas.Admin.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

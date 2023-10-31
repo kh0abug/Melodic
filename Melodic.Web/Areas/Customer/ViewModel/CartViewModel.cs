@@ -1,7 +1,7 @@
 ﻿using Melodic.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Melodic.Web.ViewsModel
+namespace Melodic.Web.Areas.Customer.ViewModel
 {
     public class CartViewModel
     {

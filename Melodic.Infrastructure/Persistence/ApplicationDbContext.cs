@@ -18,6 +18,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Brand> Brands { get; set; }
     public DbSet<EVoucher> EVouchers { get; set; }
     public DbSet<Cart> Carts { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 

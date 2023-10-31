@@ -1,6 +1,7 @@
 ﻿using Melodic.Application.Interfaces;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
+using Melodic.Infrastructure.Persistence.Auditable;
 using Melodic.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -13,17 +14,21 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-
-        //services.AddScoped<AuditableEntitySaveChangesInterceptor>();
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<AuditableEntityInterceptor>();
+        services.AddDbContext<ApplicationDbContext>(
+            (sp, options) =>
+        {
             options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContextConnection"),
-                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
+            .AddInterceptors(sp.GetService<AuditableEntityInterceptor>());
+        });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddTransient<IEmailSender, EmailSender>();
         services.Configure<AuthMessageSenderOption>(configuration.GetSection(AuthMessageSenderOption.AuthMessagesSender));
-        //services.AddScoped<ApplicationDbContextInitialiser>();
+        services.AddScoped<ApplicationDbContextInitialiser>();
         services
             .AddIdentity<ApplicationUser, IdentityRole>(options =>
             {

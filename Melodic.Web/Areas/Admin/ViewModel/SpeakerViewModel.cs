@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Melodic.Web.ViewsModel
+namespace Melodic.Web.Areas.Admin.ViewModel
 {
     public class SpeakerViewModel
     {
