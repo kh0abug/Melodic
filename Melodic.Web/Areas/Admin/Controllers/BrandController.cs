@@ -2,7 +2,9 @@
 using Azure.Core;
 using Melodic.Application.ExtensionMethods;
 using Melodic.Domain.Entities;
+using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,7 @@ using System.Diagnostics;
 namespace Melodic.Web.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = ApplicationRole.Role_Admin)]
 public class BrandController : Controller
 {
     private readonly ApplicationDbContext _db;

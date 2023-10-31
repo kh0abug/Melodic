@@ -1,178 +1,89 @@
-﻿using Melodic.Application.Interfaces;
+﻿using Melodic.Application.Pagination;
+using Melodic.Application.Parameters;
 using Melodic.Domain.Entities;
 using Melodic.Infrastructure.Persistence;
 using Melodic.Web.ViewsModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
+using System.Data.Common;
+using System.Linq.Expressions;
+using System.Reflection.Metadata;
 
 namespace Melodic.Web.Areas.Customer.Controllers;
 
 [Area("Customer")]
 public class StoreController : Controller
 {
-    private StoreViewModel storeVM = new StoreViewModel();
-
     private readonly ApplicationDbContext _context;
 
-    //public StoreController(ApplicationDbContext context)
-    //{
-    //    _context = context;
-    //}
-    private readonly ISpeakerRepository _storeRepository;
-    private readonly IBrandRepository _brandRepository;
-
-    public StoreController(ISpeakerRepository storeRepository, IBrandRepository brandRepository, ApplicationDbContext context)
+    public StoreController(ApplicationDbContext context)
     {
-        _storeRepository = storeRepository;
-        _brandRepository = brandRepository;
         _context = context;
-
-
     }
-    private IEnumerable<Speaker> speakerList = new List<Speaker>();
-    private IEnumerable<Brand> brandList = new List<Brand>();
 
-
-
-
-
-    //show list
-    public async Task<IActionResult> Store()
+    public async Task<IActionResult> Index(SpeakerRequestParameters parameter)
     {
-        storeVM.Speakers = await _storeRepository.GetAllSpeaker();
-        storeVM.Brands = await _brandRepository.GetAllBrand();
+        ViewBag.SearchTerm = parameter.SearchTerm;
+        var speakers = _context.Speakers.AsQueryable();
+        var brands = _context.Brands.AsNoTracking().Take(10);
 
-        return View(storeVM);
+
+
+        if (!parameter.ValidPriceRange)
+        {
+            ModelState.AddModelError("maxprice", "Please fill in the appropriate price range.");
+        }
+        if (!ModelState.IsValid)
+        {
+            return View(new StoreViewModel
+            {
+                RequestParameters = parameter,
+                Brands = await brands.ToListAsync()
+            });
+        }
+        else
+        {
+            speakers = speakers.Where(s => s.Name!.Contains(parameter.SearchTerm!));
+            speakers = speakers.Where(s => s.Price >= parameter.MinPrice && s.Price <= parameter.MaxPrice);
+        }
+
+        if (parameter.BrandId != null)
+        {
+            speakers = speakers.Where(s => s.BrandId == parameter.BrandId);
+        }
+
+        speakers = parameter.OrderBy?.ToLower() switch
+        {
+            "price_desc" => speakers.OrderByDescending(s => s.Price),
+            //"bestseller" => speakers.OrderByDescending(s => s.Price),
+            //"newest" => speakers.Reverse(),
+            _ => speakers.OrderBy(s => s.Price),
+        };
+
+        var result = await speakers.AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1 , parameter.PageSize);
+        if (!result.Items.Any())
+        {
+            result = null;
+        }
+        return View(new StoreViewModel
+        {
+            Speakers = result,
+            RequestParameters = parameter,
+            Brands = await brands.ToListAsync()
+        });
     }
 
-    public async Task<IActionResult> DetailSpeaker(int id)
+    public async Task<IActionResult> Detail(int? id)
     {
         if (id == null && id == 0)
         {
             return NotFound();
         }
-        Speaker detailSpeaker = await _storeRepository.GetSpeakerById(id);
-        return View(detailSpeaker);
-    }
-
-    //search by name
-    public async Task<IActionResult> SearchByName(string name)
-    {
-
-        if (name == null)
-        {
-            //return RedirectToAction("Store");
-            return RedirectToAction("StoreViewModel");
-        }
-        storeVM.Brands = await _brandRepository.GetAllBrand();
-        storeVM.Speakers = await _storeRepository.GetSpeakerByName(name);
-
-
-        if (storeVM.Speakers == null || !storeVM.Speakers.Any())
-        {
-            TempData["NotFoundMessage"] = "No Speaker Found.";
-        }
-        ViewBag.Name = name;
-        return View("Store", storeVM);
-    }
-
-    //get brand left nhung dan gbi loi
-    public async Task<IActionResult> GetSpeakerByBrand(int id)
-    {
-        if (id == null && id == 0)
-        {
-            //return RedirectToAction("Store");
-            return RedirectToAction("Store");
-        }
-
-        storeVM.Speakers = await _storeRepository.GetSpeakerByBrand(id);
-        storeVM.Brands = await _brandRepository.GetAllBrand();
-        //return error mess
-        if (storeVM.Speakers == null || !storeVM.Speakers.Any())
-        {
-            TempData["NotFoundMessage"] = "No Speaker Found.";
-        }
-
-        return View("Store", storeVM);
-    }
-
-    //sort z-a
-    public async Task<IActionResult> SortSpeakerByNameDesc()
-    {
-        storeVM.Speakers = await _storeRepository.SortSpeakerByNameDesc();
-        storeVM.Brands = await _brandRepository.GetAllBrand();
-        if (storeVM.Speakers == null)
-        {
-            return RedirectToAction("Store");
-        }
-        return View("Store", storeVM);
-    }
-
-    //sort a-z
-    public async Task<IActionResult> SortSpeakerByNameIsc()
-    {
-        storeVM.Speakers = await _storeRepository.SortSpeakerByNameIcs();
-        storeVM.Brands = await _brandRepository.GetAllBrand();
-        if (storeVM.Speakers == null)
-        {
-            return RedirectToAction("Store");
-        }
-        return View("Store", storeVM);
-    }
-
-    //sort pice from min to max
-    public async Task<IActionResult> SortByPriceMinToMax(double minPrice, double maxPrice)
-    {
-
-
-        if (minPrice == null)
-        {
-            minPrice = 0;
-        }
-        if (maxPrice == null)
-        {
-            var price = _context.Speakers.Max(x => x.Price);
-            maxPrice = price;
-        }
-        storeVM.Brands = await _brandRepository.GetAllBrand();
-        storeVM.Speakers = await _storeRepository.SortByPriceMinToMax(minPrice, maxPrice);
-        if (storeVM.Speakers == null && !storeVM.Speakers.Any())
-        {
-            TempData["NotFoundInRange"] = "No Speaker Found In Range Price.";
-        }
-        ViewBag.MinPrice = minPrice;
-        ViewBag.MaxPrice = maxPrice;
-
-        return View("Store", storeVM);
-    }
-
-
-    //sort price isc
-    public async Task<IActionResult> SortSpeakerByPriceIsc()
-    {
-        storeVM.Brands = await _brandRepository.GetAllBrand();
-        storeVM.Speakers = await _storeRepository.SortSpeakerByPriceIcs();
-        if (storeVM.Speakers == null)
-        {
-            return RedirectToAction("Store");
-        }
-
-        //speakerList = listSpeakerIsc.ToList();
-        return View("Store", storeVM);
-    }
-
-    //sort price desc
-    public async Task<IActionResult> SortSpeakerByPriceDesc()
-    {
-
-
-        storeVM.Speakers = await _storeRepository.SortSpeakerByPriceDesc();
-        storeVM.Brands = await _brandRepository.GetAllBrand();
-        if (storeVM.Speakers == null)
-        {
-            return RedirectToAction("Store");
-        }
-        return View("Store", storeVM);
+        var speaker = await _context.Speakers
+            .AsNoTracking()
+            .Include(s => s.Brand)
+            .Where(s => s.Id == id).FirstAsync();
+        return View(speaker);
     }
 }
+

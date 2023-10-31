@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject UserManager<ApplicationUser> UserManager
+@{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
     {
         Layout = parentLayout.ToString();
@@ -8,18 +9,27 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
+<link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
 
-<h1>Manage your account</h1>
+<h1 class="text-center">Manage your account</h1>
 
 <div>
-    <h2>Change your account settings</h2>
+    @* <h4 class="text-center"><span>@UserManager.GetUserName(User)</span> profile</h4> *@
     <hr />
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 left-nav-profile">
             <partial name="_ManageNav" />
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    @RenderBody()
+                </div>
+               
+                
+            </div>
+            
         </div>
     </div>
 </div>

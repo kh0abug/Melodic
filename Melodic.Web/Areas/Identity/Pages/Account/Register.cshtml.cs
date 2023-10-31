@@ -26,6 +26,7 @@ namespace Melodic.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
@@ -34,10 +35,12 @@ namespace Melodic.Web.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
+            RoleManager<IdentityRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
@@ -103,6 +106,13 @@ namespace Melodic.Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            var existRole = await _roleManager.RoleExistsAsync(ApplicationRole.Role_Customer);
+            if (!existRole)
+            {
+                await _roleManager.CreateAsync(new IdentityRole(ApplicationRole.Role_Customer));
+                await _roleManager.CreateAsync(new IdentityRole(ApplicationRole.Role_Admin));
+            }
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -123,6 +133,7 @@ namespace Melodic.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    await _userManager.AddToRoleAsync(user, ApplicationRole.Role_Customer);
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
