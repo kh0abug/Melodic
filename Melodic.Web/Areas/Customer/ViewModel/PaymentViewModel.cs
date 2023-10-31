@@ -1,7 +1,7 @@
 ﻿using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 
-namespace Melodic.Web.ViewsModel
+namespace Melodic.Web.Areas.Customer.ViewModel
 {
     public class PaymentViewModel
     {

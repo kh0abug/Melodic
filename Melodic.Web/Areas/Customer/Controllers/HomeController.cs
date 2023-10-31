@@ -1,4 +1,4 @@
-﻿using Melodic.Web.Models;
+﻿using Melodic.Web.Areas.Customer.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

@@ -1,10 +1,12 @@
-﻿using Melodic.Application.Interfaces;
+﻿using Azure;
+using Melodic.Application.Interfaces;
 using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace Melodic.Infrastructure.Persistence;
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
@@ -23,16 +25,17 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
 
     public DbSet<Payment> Payment { get; set; }
-    public DbSet<Bill> Bills    { get; set; }
-    public DbSet<BillProduct> BillProducts { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
         modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
-        modelBuilder.Entity<Cart>().HasKey(c => new { c.IdUser, c.IdSpeaker});
-        modelBuilder.Entity<Bill>().HasKey(c => new { c.BuildId });
-        modelBuilder.Entity<BillProduct>().HasKey(c => new { c.SpeakerId,c.BillId});
+        modelBuilder.Entity<Cart>().HasKey(c => new { c.IdUser, c.IdSpeaker });
+        modelBuilder.Entity<Speaker>().HasMany(e => e.OrderDetails).WithOne(e => e.Speaker).HasForeignKey(e => e.SpeakerId);
+        modelBuilder.Entity<Order>().HasMany(e => e.OrderDetails).WithOne(e => e.Order).HasForeignKey(e => e.OrderId);
+        modelBuilder.Entity<OrderDetail>().HasKey(e => new { e.OrderId, e.SpeakerId });
         modelBuilder.Entity<EVoucher>().HasData(
            new EVoucher()
            {
@@ -74,7 +77,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                Description = "Discount for speaker",
                Percent = 0.25
            }
-        ) ;
+        );
 
 
         base.OnModelCreating(modelBuilder);

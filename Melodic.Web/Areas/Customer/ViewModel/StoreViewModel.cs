@@ -8,7 +8,7 @@ public class StoreViewModel
 {
     public IReadOnlyCollection<Brand>? Brands { get; set; }
 
-    public PaginatedList<Speaker>? Speakers { get; set; }
+    public PaginatedList<SpeakerViewModel>? Speakers { get; set; }
 
     public SpeakerRequestParameters? RequestParameters { get; set; }
 }
