@@ -36,7 +36,7 @@
                         </div>
                         <div>
                             <a asp-action="CreateAndUpdate" class="btn btn-outline-dark">
-                                <i class="bi bi-plus-circle"></i>  Create New Brand
+                                <i class="bi bi-plus-circle"></i>  Create New EVoucher
                             </a>
                         </div>
                     </div>
@@ -65,11 +65,11 @@
                                         <td style="width:20%;">
                                             <div style="display:flex;justify-content:space-evenly">
                                                 <a asp-action="CreateAndUpdate" asp-route-id="@item.Id" class="btn btn-success btn-sm">
-                                                    <span class="ti-eraser text-white"> Edit</span>
+                                                    <span class="ti-pencil-alt text-white t"> Edit</span>
                                                 </a>
-                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
-                                                    <span class="ti-pencil-alt text-white"> Delete</span>
-                                                </a>
+                                                <button value="@item.Id" class="delete-button btn btn-danger btn-sm">
+                                                    <span class="ti-eraser text-white"> Delete</span>
+                                                </button>
                                             </div>
 
                                         </td>
@@ -78,13 +78,10 @@
                             </tbody>
                         </table>
                         <p>Page @Model.PageIndex / @Model.TotalPages</p>
-                        <nav aria-label="...">
-                            <ul class="pagination " id="pagination"></ul>
-
-                        </nav>
+                        <ul class="pagination " id="pagination"></ul>
                     </div>
-                    <form hidden id="page-form" asp-action="Index" method="get">
-                        <input id="page-index" name="pageNumber" />
+                    <form hidden id="page-delete" method="post" asp-action="Delete">
+                        <input id="current-id" name="id" />
                     </form>
                 </div>
             </div>

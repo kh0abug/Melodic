@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Melodic.Application.Pagination;
 using Microsoft.EntityFrameworkCore;
 
-namespace Melodic.Application.Pagination;
+namespace Melodic.Application.ExtensionMethods;
 
 public static class PagingExtensions
 {
