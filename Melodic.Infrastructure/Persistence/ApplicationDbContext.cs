@@ -1,5 +1,6 @@
 ﻿using Melodic.Application.Interfaces;
 using Melodic.Domain.Entities;
+using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,11 +20,19 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<EVoucher> EVouchers { get; set; }
     public DbSet<Cart> Carts { get; set; }
 
+
+
+    public DbSet<Payment> Payment { get; set; }
+    public DbSet<Bill> Bills    { get; set; }
+    public DbSet<BillProduct> BillProducts { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
         modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
         modelBuilder.Entity<Cart>().HasKey(c => new { c.IdUser, c.IdSpeaker});
+        modelBuilder.Entity<Bill>().HasKey(c => new { c.BuildId });
+        modelBuilder.Entity<BillProduct>().HasKey(c => new { c.SpeakerId,c.BillId});
         modelBuilder.Entity<EVoucher>().HasData(
            new EVoucher()
            {

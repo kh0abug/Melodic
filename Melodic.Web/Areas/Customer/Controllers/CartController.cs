@@ -60,8 +60,19 @@ namespace Melodic.Web.Areas.Customer.Controllers
             // Truyền giá trị TotalPrice vào ViewBag
             ViewBag.TotalPrice = TotalPrice;
             ViewBag.Tax = Tax;
+            if (TempData.ContainsKey("Discount"))
+            {
+                double discount = Convert.ToDouble(TempData["Discount"]);
+                double? total = TotalPrice - discount + Tax; // Thực hiện tính toán tổng giá trị sau khi giảm giá
+                ViewBag.Total = total; // Truyền giá trị total vào ViewBag để sử dụng trong view.
+            }
+            else
+            {
+                ViewBag.Total = TotalPrice + Tax; // Gán giá trị mặc định nếu TempData["Discount"] không tồn tại.
+            }
 
             return View(cartViewModel);
+            
         }
 
         public IActionResult RemoveFromCart(int id)
@@ -122,15 +133,19 @@ namespace Melodic.Web.Areas.Customer.Controllers
             }
             return Json(new { success = false, message = "User not found" });
         }
-        public IActionResult Voucher(string voucher)
+        public IActionResult Voucher(string voucher, double? totalPrice)
         {
             var Voucher = _dbContext.EVouchers.FirstOrDefault(vou => vou.Code == voucher);
             if (Voucher != null)
             {
-                return View(Voucher);
+                double? discount = totalPrice * Voucher.Percent;
+
+                TempData["Discount"] = (discount).ToString();
+
+                return RedirectToAction("Cart");
             }
             string a = "Voucher is not available";
-            return View(a);
+            return RedirectToAction("");
         }
 
         [HttpPost]

@@ -9,7 +9,7 @@ public class ApplicationUsersConfiguration : IEntityTypeConfiguration<Applicatio
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> entity)
     {
-        entity.OwnsMany(u => u.Payments);
+        entity.OwnsMany(u => u.Payment);
        
     }
 }
