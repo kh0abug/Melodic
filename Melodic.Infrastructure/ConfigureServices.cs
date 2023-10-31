@@ -1,14 +1,11 @@
-﻿using FluentValidation.Validators;
-using Melodic.Application.Interfaces;
+﻿using Melodic.Application.Interfaces;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
-using Melodic.Infrastructure.Persistence.Repositories;
 using Melodic.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using StoreSWP.Repository;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -23,9 +20,6 @@ public static class ConfigureServices
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-        services.AddScoped<ISpeakerRepository, SpeakerRepository>();
-        services.AddScoped<IBrandRepository, BrandRepository>();
-
 
         services.AddTransient<IEmailSender, EmailSender>();
         services.Configure<AuthMessageSenderOption>(configuration.GetSection(AuthMessageSenderOption.AuthMessagesSender));
@@ -41,6 +35,13 @@ public static class ConfigureServices
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = $"/Identity/Account/Login";
+            options.LogoutPath = $"/Identity/Account/Logout";
+            options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+        });
+
         services.ConfigureApplicationCookie(o =>
         {
             o.ExpireTimeSpan = TimeSpan.FromDays(5);
@@ -51,13 +52,13 @@ public static class ConfigureServices
         services.AddAuthentication()
             .AddGoogle(googleOptions =>
         {
-            googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
+            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
         })
             .AddFacebook(facebookOptions =>
         {
-            facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
-            facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+            facebookOptions.AppId = configuration["Authentication:Facebook:AppId"]!;
+            facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"]!;
         });
 
 

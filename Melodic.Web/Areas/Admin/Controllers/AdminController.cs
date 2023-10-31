@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Melodic.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Melodic.Web.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = ApplicationRole.Role_Admin)]
 public class AdminController : Controller
 {
     // GET: AdminController
