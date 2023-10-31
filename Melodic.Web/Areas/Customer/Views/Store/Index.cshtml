@@ -1,6 +1,30 @@
 ﻿@using Melodic.Web.ViewsModel;
 @model StoreViewModel
+<script>
 
+    function AddToCart(id) {
+        $.ajax({
+            type: 'POST',
+            url: '/Customer/Cart/AddToCart',
+            data: {
+                id: id
+            },
+            success: function (response) {
+                if (response.success) {
+
+                } else {
+
+                }
+            }
+            ,
+            error: function () {
+                alert("An error occurred while adding the product to the cart.");
+            }
+        });
+    }
+
+
+</script>
 
 <link rel="stylesheet" href="~/css/Store.css" asp-append-version="true" />
 <section class="container mt-4">
@@ -257,7 +281,7 @@
                                         </div>
 
                                         <div class="">
-                                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-cart3"></i></a>
+                                            <a class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-cart3" onclick="AddToCart(@speaker.Id)"></i></a>
                                             <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-info-circle"></i></a>
                                         </div>
                                     </div>

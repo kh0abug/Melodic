@@ -10,5 +10,6 @@ namespace Melodic.Domain.Entities
     {
         public int SpeakerId { get; set; }
         public string BillId { get; set; }
+        public string Quantity { get; set; }
     }
 }
