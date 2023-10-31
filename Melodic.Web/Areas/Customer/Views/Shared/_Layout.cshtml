@@ -46,7 +46,7 @@
                     <div class="input-box search-container">
                         <form asp-controller="Store" asp-action="Index" method="get" class="input-box">
                         <i class="uil uil-search"></i>
-                        <input type="text" name="searchterm" type="search" placeholder="Search" value="@ViewBag.SearchTerm" aria-label="Search" placeholder="Search here..." />
+                            <input type="text" name="searchterm" type="search" placeholder="Search" value="@ViewBag.SearchTerm" aria-label="Search" placeholder="Search here..." required>
                         @* <button class="button" type="submit">Search</button> *@
                     </form>
                     </div>
