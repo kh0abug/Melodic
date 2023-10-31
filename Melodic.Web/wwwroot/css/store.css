@@ -5,7 +5,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.ellipsis-text-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Number of lines to display */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .card-body {
     display: flex;
     justify-content: space-between;
@@ -18,7 +24,7 @@
 }
 
 .price-input-form {
-    width: 95px;
+    width: 100%;
     height: 37px;
     margin-bottom: 10px;
     border-radius: 7px;
@@ -45,15 +51,20 @@
 .price-sort {
     border-radius: 3px;
     padding: 3px 16px;
-    background-color: #f04e27;
-    color: white;
+    background-color: white;
+    color: black;
     width: 100%;
     font-weight: normal;
-    border: none;
+    border: solid 2px #f04e27;
 }
 
+    .price-sort:hover {
+        background-color: #f04e27;
+        color: white;
+    }
 .card-spkeaker {
-    box-shadow: -1px 5px 12px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);
+    
 }
 .side-navbar{
     position: fixed;
@@ -61,15 +72,25 @@
 a{
     text-decoration: none;
 }
-}
+
 .clear-btn {
+    margin-top: 9px;
     border-radius: 3px;
     padding: 3px 16px;
-    background-color: #f04e27;
+    background-color: white;
+    color: black;
+    width: 100%;
+    font-weight: 700;
+    border: 2px solid red;
+}
+.clear-btn:hover {
+    border-radius: 3px;
+    padding: 3px 16px;
+    background-color: red;
     color: white;
     width: 100%;
-    font-weight: normal;
-    border: none;
+    font-weight: 700;
+    border: 2px solid red;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -109,4 +130,9 @@ a{
 
 .btn-white {
     background-color: white;
+}
+
+.card-body-speaker{
+   margin-bottom: 20px;
+    
 }

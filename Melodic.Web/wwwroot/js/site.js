@@ -4,22 +4,21 @@
 // Write your JavaScript code.
 
 $(document).ready(function () {
-    $('button.deactivate').on('click', function () {
+    $('button.delete-button').on('click', function () {
         Swal.fire({
-            title: 'Hủy kích hoạt',
-            text: "Bạn chắc chắn muốn hủy kích hoạt",
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
             icon: 'question',
             showDenyButton: true,
             allowOutsideClick: false,
-            confirmButtonText: 'Có',
-            denyButtonText: 'Không',
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
         }).then((result) => {
             if (result.isConfirmed) {
                 $('#current-id').val($(this).val())
-                $('#action').val('deactivate')
                 $('#page-delete').submit();
             } else if (result.isDenied) {
-                Swal.fire('Thay đổi không được lưu', '', 'info')
+                Swal.fire('Delete Fail', '', 'error')
             }
         });
     });

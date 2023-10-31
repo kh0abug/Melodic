@@ -8,10 +8,10 @@
     <form asp-action="Index" asp-controller="Store" method="get" id="filter-form">
         <input hidden name="searchterm" value="@Model.RequestParameters?.SearchTerm" />
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <div class="d-flex text-center">
                     <i class="bi bi-funnel col-lg-1"></i>
-                    <h5 class="col-lg-11">SEARCH FILTER</h5>
+                    <h5 class="col-lg-11 fw-800">SEARCH FILTER</h5>
                 </div>
                 <!-- Sidebar -->
                 <div class="collapse card d-lg-block mb-5" id="navbarSupportedContent">
@@ -19,7 +19,7 @@
                         <!-- brand -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button text-dark bg-light "
+                                <button class="accordion-button text-dark bg-light fw-bold"
                                         type="button"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseTwo"
@@ -64,7 +64,7 @@
                         <!-- sort type -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button text-dark bg-light"
+                                <button class="accordion-button text-dark bg-light fw-bold"
                                         type="button"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseThree"
@@ -78,18 +78,18 @@
                                 @* price range *@
                                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour">
                                     <div class="accordion-body">
-                                        <div class="d-block priceinput text-center">
-                                            <label asp-for="RequestParameters!.MinPrice">Min: </label>
+                                        <div class="d-flex justify-content-center priceinput text-center">
+                                            @* <label asp-for="RequestParameters!.MinPrice">Min: </label> *@
                                             <input asp-for="RequestParameters!.MinPrice" type="number" oninput="validity.valid||(value='');"
                                                    name="minprice" class="price-input-form " onfocus="this.select();" placeholder="Min Price">
                                             @*  <span asp-validation-for="RequestParameters!.MinPrice" class="text-danger"></span> *@
-
-                                            <label asp-for="RequestParameters!.MaxPrice">Max: </label>
-                                            <input asp-for="RequestParameters!.MaxPrice" type="number" oninput="validity.valid||(value='');"
-                                                   name="maxprice" class="price-input-form " onfocus="this.select();" placeholder="Max Price">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            @* <label asp-for="RequestParameters!.MaxPrice">Max: </label> *@
+                                            <input  asp-for="RequestParameters!.MaxPrice" type="number" oninput="validity.valid||(value='');"
+                                                   name="maxprice" class="price-input-form " onfocus="this.select();" placeholder="Max Price" >
                                             @*  <span asp-validation-for="RequestParameters!.MaxPrice" class="text-danger"></span> *@
                                         </div>
-                                        <button class="btn price-sort" type="submit">APPLY</button>
+                                        <button class="btn price-sort fw-bold" type="submit">APPLY</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button text-dark bg-light "
+                                <button class="accordion-button text-dark bg-light fw-bold"
                                         type="button"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseTwo"
@@ -166,9 +166,9 @@
                         </div>
 
                         <!-- voucher type -->
-                        <div class="accordion-item">
+                        <div class="accordion-item ">
                             <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button text-dark bg-light "
+                                <button class="accordion-button text-dark bg-light fw-bold"
                                         type="button"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseTwo"
@@ -212,7 +212,7 @@
                     </div>
                 </div>
             </div>
-            <main class="col-lg-10">
+            <main class="col-lg-9">
                 @if (Model.Speakers != null)
                 {
                     <div class="row">
@@ -244,13 +244,13 @@
 
                         @foreach (var speaker in Model.Speakers.Items)
                         {
-                            <div class="col-md-3">
-                                <div class="card mb-3">
-                                    <img src="@speaker.Img" class="card-img-top img-hover" alt="Product @speaker.Id" width="259px" height="261px">
+                            <div class="col-md-3 card-body-speaker">
+                                <div class="card card-spkeaker ">
+                                    <img src="@speaker.Img" class="card-img-top img-hover" alt="Product @speaker.Id" width="" height="230px">
                                     <div class="card-body">
                                         <div>
                                             <h5 class="card-title">
-                                                <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none  ellipsis-text" style="color: black  ">@speaker.Name</a>
+                                                <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black  ">@speaker.Name</a>
                                             </h5>
                                             <p class="card-text ellipsis-text" style="height: 48px">@speaker.Decription</p>
                                             <p class="card-price">Price: @speaker.Price.ToString("c") Đ</p>
@@ -263,9 +263,10 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                         }
-                        <div class="d-flex flex-column align-items-center">
+                       
+                        <div class="d-flex flex-column align-items-center mt-5">
                             <ul class="pagination" id="pagination"></ul>
                         </div>
                         <input hidden id="page-index" name="pageNumber" />
@@ -288,8 +289,10 @@
         </div>
     </form>
 </section>
+
 @section Scripts{
     @{
+        
         <partial name="_ValidationScriptsPartial" />
     }
     <script>

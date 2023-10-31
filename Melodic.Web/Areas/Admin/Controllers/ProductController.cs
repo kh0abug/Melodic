@@ -1,5 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using Melodic.Application.Pagination;
+using Melodic.Application.ExtensionMethods;
 using Melodic.Domain.Entities;
 using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Identity;
@@ -26,25 +26,27 @@ public class ProductController : Controller
         _notyfService = notyfService;
     }
     // GET: ProductController
-    public async Task<ActionResult> IndexAsync(int? pageNumber)
+    public async Task<ActionResult> Index(int? pageNumber)
     {
-        var paginatedList = await _db.Speakers.Include(x => x.Brand)
-            .PaginatedListAsync(pageNumber ?? 1, 4);
+        var paginatedList = await _db.Speakers
+                            .Include(x => x.Brand)
+                            .PaginatedListAsync(pageNumber ?? 1, 4);
         return View(paginatedList);
     }
 
-
     // GET: ProductController/Create
-    public ActionResult CreateAndUpdate(int? id)
+    public async Task<ActionResult> CreateAndUpdateAsync(int? id)
     {
 
         SpeakerViewModel speakerVM = new()
         {
-            BrandList = _db.Brands.Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }),
+            BrandList = _db.Brands
+            .AsNoTracking()
+            .Select(x => new SelectListItem
+             {
+                 Text = x.Name,
+                 Value = x.Id.ToString()
+             }),
             Speaker = new Speaker()
         };
         if (id == null || id == 0)
@@ -53,14 +55,16 @@ public class ProductController : Controller
         }
         else
         {
-            speakerVM.Speaker = _db.Speakers.FirstOrDefault(x => x.Id == id);
+            speakerVM.Speaker = await _db.Speakers
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(x => x.Id == id);
             return View(speakerVM);
         }
     }
 
     // POST: ProductController/Create
     [HttpPost]
-    public ActionResult CreateAndUpdate(SpeakerViewModel speakerVM, IFormFile? file)
+    public async Task<IActionResult> CreateAndUpdate(SpeakerViewModel speakerVM, IFormFile? file)
     {
         if (ModelState.IsValid)
         {
@@ -83,12 +87,11 @@ public class ProductController : Controller
                     file.CopyTo(fileStream);
                 }
                 speakerVM.Speaker.Img = @"\images\product\" + fileName;
-                //productVM.Product.ImgUrl = fileName;
             }
 
             if (speakerVM.Speaker.Id == 0)
             {
-                _db.Speakers.Add(speakerVM.Speaker);
+                await _db.Speakers.AddAsync(speakerVM.Speaker);
                 _notyfService.Success("Product Added Successfully");
             }
             else
@@ -97,42 +100,32 @@ public class ProductController : Controller
                 _notyfService.Success("Product Updated Successfully");
             }
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
         else
         {
-            speakerVM.BrandList = _db.Brands.Select(u => new SelectListItem
+            speakerVM.BrandList = _db.Brands
+            .AsNoTracking()
+            .Select(x => new SelectListItem
             {
-                Text = u.Name,
-                Value = u.Id.ToString()
+                Text = x.Name,
+                Value = x.Id.ToString()
             });
             return View();
         }
     }
 
-
-    public IActionResult Delete(int? id)
+    [HttpPost]
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
-        Speaker? speaker = _db.Speakers.FirstOrDefault(x => x.Id == id);
-        if (speaker == null) { return NotFound(); }
-        return View(speaker);
-    }
-
-    [HttpPost, ActionName("Delete")]
-    public IActionResult DeleteBrand(int? id)
-    {
-        Speaker? speaker = _db.Speakers.FirstOrDefault(x => x.Id == id);
+        Speaker? speaker = await _db.Speakers.FirstOrDefaultAsync(x => x.Id == id);
         if (id == null || id == 0)
         {
             return NotFound();
         }
         _db.Speakers.Remove(speaker);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         _notyfService.Success("Deleted!");
         return RedirectToAction("Index");
     }
