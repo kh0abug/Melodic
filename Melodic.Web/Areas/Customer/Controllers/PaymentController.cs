@@ -1,10 +1,9 @@
 ﻿using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
-using Melodic.Web.ViewsModel;
+using Melodic.Web.Areas.Customer.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Operations;
 
 namespace Melodic.Web.Areas.Customer.Controllers
 {
@@ -22,10 +21,10 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
         public IActionResult Payment()
         {
-            var PaymentViewModel = new PaymentViewModel();
+            var payement = new PaymentViewModel();
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
-            PaymentViewModel.Payments = currentUser.Payment;
-            if (PaymentViewModel.Payments.Any())
+            payement.Payments = currentUser.Payment;
+            if (payement.Payments.Any())
             {
                 return RedirectToAction("Bill", "Bill");
             }
