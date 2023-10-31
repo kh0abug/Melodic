@@ -27,12 +27,11 @@ public class StoreController : Controller
         var speakers = _context.Speakers.AsQueryable();
         var brands = _context.Brands.AsNoTracking().Take(10);
 
-
-
         if (!parameter.ValidPriceRange)
         {
             ModelState.AddModelError("maxprice", "Please fill in the appropriate price range.");
         }
+
         if (!ModelState.IsValid)
         {
             return View(new StoreViewModel
@@ -47,7 +46,7 @@ public class StoreController : Controller
             speakers = speakers.Where(s => s.Price >= parameter.MinPrice && s.Price <= parameter.MaxPrice);
         }
 
-        if (parameter.BrandId != null)
+        if (parameter.BrandId is not null)
         {
             speakers = speakers.Where(s => s.BrandId == parameter.BrandId);
         }
