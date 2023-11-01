@@ -99,3 +99,11 @@
 :root {
     --tran-0-3: 0.3s;
 }
+
+.home-des{
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
