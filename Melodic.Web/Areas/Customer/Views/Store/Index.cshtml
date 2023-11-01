@@ -103,15 +103,17 @@
                                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour">
                                     <div class="accordion-body">
                                         <div class="d-flex justify-content-center priceinput text-center">
-                                            @* <label asp-for="RequestParameters!.MinPrice">Min: </label> *@
+
+                                            @* input max *@
                                             <input asp-for="RequestParameters!.MinPrice" type="number" oninput="validity.valid||(value='');"
                                                    name="minprice" class="price-input-form " onfocus="this.select();" placeholder="Min Price">
-                                            @*  <span asp-validation-for="RequestParameters!.MinPrice" class="text-danger"></span> *@
+                                       
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            @* <label asp-for="RequestParameters!.MaxPrice">Max: </label> *@
+                                           
+                                            @* input min *@
                                             <input  asp-for="RequestParameters!.MaxPrice" type="number" oninput="validity.valid||(value='');"
                                                    name="maxprice" class="price-input-form " onfocus="this.select();" placeholder="Max Price" >
-                                            @*  <span asp-validation-for="RequestParameters!.MaxPrice" class="text-danger"></span> *@
+                                           
                                         </div>
                                         <button class="btn price-sort fw-bold" type="submit">APPLY</button>
                                     </div>
@@ -270,7 +272,7 @@
                         {
                             <div class="col-md-3 card-body-speaker">
                                 <div class="card card-spkeaker ">
-                                    <img src="@speaker.Img" class="card-img-top img-hover" alt="Product @speaker.Id" width="" height="230px">
+                                    <img src="@speaker.Img" class="card-img-top img-hover" alt="Product @speaker.Id" width="" height="190px">
                                     <div class="card-body">
                                         <div>
                                             <h5 class="card-title">
