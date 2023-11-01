@@ -25,6 +25,7 @@ public class StoreController : Controller
         var speakers = _context.Speakers.AsQueryable();
 
 
+
         var brands = _context.Brands.AsNoTracking().Take(10);
 
         if (!parameter.ValidPriceRange)
