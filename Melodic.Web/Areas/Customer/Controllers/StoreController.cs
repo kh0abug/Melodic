@@ -36,7 +36,7 @@ public class StoreController : Controller
         //        Quantity = b.Sum(sp => sp.Quantity)
         //    });
 
-        var billDetail = from bill in _context.OrderDetails
+        //var billDetail = from bill in _context.OrderDetails
                          /*group bill by bill.SpeakerId into speakerSold
                          select
                           new OrderDetail
