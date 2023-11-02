@@ -103,15 +103,17 @@
                                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour">
                                     <div class="accordion-body">
                                         <div class="d-flex justify-content-center priceinput text-center">
-                                            @* <label asp-for="RequestParameters!.MinPrice">Min: </label> *@
+
+                                            @* input max *@
                                             <input asp-for="RequestParameters!.MinPrice" type="number" oninput="validity.valid||(value='');"
                                                    name="minprice" class="price-input-form " onfocus="this.select();" placeholder="Min Price">
-                                            @*  <span asp-validation-for="RequestParameters!.MinPrice" class="text-danger"></span> *@
+
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            @* <label asp-for="RequestParameters!.MaxPrice">Max: </label> *@
-                                            <input  asp-for="RequestParameters!.MaxPrice" type="number" oninput="validity.valid||(value='');"
-                                                   name="maxprice" class="price-input-form " onfocus="this.select();" placeholder="Max Price" >
-                                            @*  <span asp-validation-for="RequestParameters!.MaxPrice" class="text-danger"></span> *@
+
+                                            @* input min *@
+                                            <input asp-for="RequestParameters!.MaxPrice" type="number" oninput="validity.valid||(value='');"
+                                                   name="maxprice" class="price-input-form " onfocus="this.select();" placeholder="Max Price">
+
                                         </div>
                                         <button class="btn price-sort fw-bold" type="submit">APPLY</button>
                                     </div>
@@ -119,118 +121,6 @@
                             </div>
                         </div>
                         <!--rating-->
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button text-dark bg-light fw-bold"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#panelsStayOpen-collapseTwo"
-                                        aria-expanded="true"
-                                        aria-controls="panelsStayOpen-collapseTwo"
-                                        style="font-size:18px;">
-
-                                    Rating
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
-                                <div class="accordion-body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ratestar" id="flexCheckDefault">
-                                        <div class="small-ratings">
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                        </div>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ratestar" id="flexCheckDefault">
-                                        <div class="small-ratings">
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill "></i>
-                                        </div>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ratestar" id="flexCheckDefault">
-                                        <div class="small-ratings">
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill "></i>
-                                            <i class="bi bi-star-fill "></i>
-                                        </div>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ratestar" id="flexCheckDefault">
-                                        <div class="small-ratings">
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                        </div>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ratestar" id="flexCheckDefault">
-                                        <div class="small-ratings">
-                                            <i class="bi bi-star-fill rating-color"></i>
-                                            <i class="bi bi-star-fill "></i>
-                                            <i class="bi bi-star-fill "></i>
-                                            <i class="bi bi-star-fill "></i>
-                                            <i class="bi bi-star-fill "></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- voucher type -->
-                        <div class="accordion-item ">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button text-dark bg-light fw-bold"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#panelsStayOpen-collapseTwo"
-                                        aria-expanded="true"
-                                        aria-controls="panelsStayOpen-collapseTwo"
-                                        style="font-size:18px;">
-
-                                    Service and Promotion
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
-                                <div class="accordion-body">
-                                    <div>
-                                        <!-- Checked radio -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="promotion" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                On sales
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="promotion" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Free Shipping
-                                            </label>
-                                        </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="promotion" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                On sale
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <a asp-action="index" asp-controller="store" asp-route-searchterm="@Model.RequestParameters?.SearchTerm" class="btn clear-btn">CLEAR ALL</a>
                     </div>
@@ -247,7 +137,7 @@
                                         <span class="btn pe-none">Sort by</span>
                                     </li>
                                     <li class="nav-item btn btn-light">
-                                        <button name="orderby" type="submit" value="" class="btn btn-light btn-white">Latest</button>
+                                        <button name="orderby" type="submit" value="latest" class="btn btn-light btn-white">Latest</button>
                                     </li>
                                     <li class="nav-item btn btn-light">
                                         <button name="orderby" type="submit" value="" class="btn btn-light btn-white">Top sales</button>
@@ -270,7 +160,7 @@
                         {
                             <div class="col-md-3 card-body-speaker">
                                 <div class="card card-spkeaker ">
-                                    <img src="@speaker.Img" class="card-img-top img-hover" alt="Product @speaker.Id" width="" height="230px">
+                                    <img src="@speaker.Img" class="card-img-top img-hover" alt="Product @speaker.Id" width="" height="190px">
                                     <div class="card-body">
                                         <div>
                                             <h5 class="card-title">
@@ -287,9 +177,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         }
-                       
+
                         <div class="d-flex flex-column align-items-center mt-5">
                             <ul class="pagination" id="pagination"></ul>
                         </div>
@@ -316,7 +206,7 @@
 
 @section Scripts{
     @{
-        
+
         <partial name="_ValidationScriptsPartial" />
     }
     <script>
