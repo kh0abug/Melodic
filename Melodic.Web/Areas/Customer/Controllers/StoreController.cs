@@ -22,7 +22,9 @@ public class StoreController : Controller
     {
         ViewBag.SearchTerm = parameter.SearchTerm;
 
+
         var speakers = _context.Speakers.AsQueryable();
+
 
         var brands = _context.Brands.AsNoTracking().Take(10);
 

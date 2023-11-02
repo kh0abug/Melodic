@@ -9,7 +9,7 @@ namespace Melodic.Domain.Entities;
 public class OrderDetail
 {
     public int SpeakerId { get; set; }
-    public int OrderId { get; set; }
+    public string OrderId{ get; set; }
     public int Quantity { get; set; }
 
     public Order Order { get; set; } = null!;
