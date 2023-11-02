@@ -94,8 +94,10 @@ public class StoreController : Controller
             .Include(s => s.Brand)
             .Where(s => s.Id == id).FirstAsync();
 
-        var brands = await _context.Speakers.Include(s => s.Brand).Where(s => s.BrandId == speaker.BrandId).Take(4).ToListAsync();
-        ViewBag.Brands = brands;
+        //var brands = await _context.Speakers.Include(s => s.Brand).Where(s => s.BrandId == speaker.BrandId).Take(4).ToListAsync();
+        //ViewBag.Brands = brands;
+
+        ViewBag.Brands = _context.Speakers.Include(s => s.Brand).Where(s => s.BrandId == speaker.BrandId).OrderBy(x => Guid.NewGuid()).Take(4).ToList();
         return View(speaker);
     }
 }
