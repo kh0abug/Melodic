@@ -34,22 +34,25 @@
                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Management</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark store-button" asp-area="" asp-controller="Store" asp-action="Index">Store</a>
+                        </li>
                     </ul>
 
-                    
-                    
+
+
                     @* testk *@
-                 
-                 
+
+
                     @* testk *@
                     <div class="input-box search-container">
                         <form asp-controller="Store" asp-action="Index" method="get" class="input-box">
-                        <i class="uil uil-search"></i>
+                            <i class="uil uil-search"></i>
                             <input type="text" name="searchterm" type="search" placeholder="Search" value="@ViewBag.SearchTerm" aria-label="Search" placeholder="Search here..." required>
-                       
-                    </form>
+
+                        </form>
                     </div>
-                
+
                     <partial name="/Areas/Identity/Pages/Shared/_LoginPartial.cshtml" />
                 </div>
             </div>
@@ -64,7 +67,7 @@
 
     <partial name="_footer.cshtml" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
