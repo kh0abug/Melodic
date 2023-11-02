@@ -30,8 +30,8 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.IsInRole(ApplicationRole.Role_Admin))
                         {
-                            <li class="nav-item store-button">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Management</a>
+                            <li class="nav-item ">
+                                <a class="nav-link text-dark store-button" asp-area="Admin" asp-controller="Admin" asp-action="Index">Management</a>
                             </li>
                         }
                         <li class="nav-item">

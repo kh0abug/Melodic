@@ -93,6 +93,9 @@ public class StoreController : Controller
             .AsNoTracking()
             .Include(s => s.Brand)
             .Where(s => s.Id == id).FirstAsync();
+
+        var brands = await _context.Speakers.Include(s => s.Brand).Where(s => s.BrandId == speaker.BrandId).Take(4).ToListAsync();
+        ViewBag.Brands = brands;
         return View(speaker);
     }
 }

@@ -48,12 +48,13 @@ body {
 
 
 .store-button {
-    font-family: 'Wendy One', sans-serif;
+    font-family: 'Cascadia Mono';
     color: #FFA01B;
     cursor: pointer;
     position: relative;
-   font-size: 2.5vmin;
+   font-size: 3.1vmin;
       margin-left: 5px;
+      font-weight: bold;
 }
     
     .store-button:after {

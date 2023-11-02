@@ -1,4 +1,8 @@
-﻿.ellipsis-text {
+﻿
+section{
+    font-family: Bahnschrift;
+}
+.ellipsis-text {
     display: -webkit-box;
     -webkit-line-clamp: 2; /* Number of lines to display */
     -webkit-box-orient: vertical;
@@ -47,7 +51,18 @@
 .img-hover {
     border-bottom: solid 2px orange;
 }
-
+.sort-by {
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+    width: 100%;
+    font-weight: normal;
+    border: solid 2px #f04e27;
+}
+    .sort-by:hover {
+        background-color: #f04e27;
+        color: white;
+    }
 .price-sort {
     border-radius: 3px;
     padding: 3px 16px;
@@ -137,5 +152,40 @@ a{
     
 }
 .card-spkeaker{
+   
+}
+
+/*<!-- Breadcrumb -->*/
+.b-crumb-contaier {
+    padding: 11px 0px;
+}
+
+.bg-b--crumb {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.b-crumb-item {
+    color: black;
+    font-family: 'Malgun Gothic';
+}
+
+.detail-icon {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.is-active {
+    color: #f04e27;
+    font-weight: 700;
+}
+
+a:hover {
+    color: #f04e27;
+}
+
+
+
+/*sort by*/
+.btn-sort-by {
    
 }
