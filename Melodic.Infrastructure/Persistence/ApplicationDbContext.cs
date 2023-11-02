@@ -79,6 +79,39 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
            }
         );
 
+        modelBuilder.Entity<Brand>().HasData(new Brand()
+        {
+            Id = 1,
+            Name = "JBL"
+        },
+        new Brand()
+        {
+            Id = 2,
+            Name = "Logitech"
+        }, 
+        new Brand()
+        {
+            Id = 3,
+            Name = "Sony"
+        }, 
+        new Brand()
+        {
+            Id = 4,
+            Name = "Nanomax"
+        }
+        );
+
+        modelBuilder.Entity<Speaker>().HasData(new Speaker()
+        {
+            Id = 1,
+            Name = "Sony SRS-XB13",
+            BrandId = 3,
+            Price = 950000,
+            Decription = "Portable Bluetooth speaker with light show",
+            UnitInStock = 10,
+            Img = "https://cdn.tgdd.vn/Products/Images/2162/249767/sony-srs-xb13-150323-031134-600x600.jpg"
+        });
+
 
         base.OnModelCreating(modelBuilder);
     }
