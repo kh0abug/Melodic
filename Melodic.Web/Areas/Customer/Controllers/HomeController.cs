@@ -12,7 +12,8 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
-    private HomeViewModel homeViewModel = new HomeViewModel();
+    HomeViewModel homeViewModel = new HomeViewModel();
+
     public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
         _logger = logger;
@@ -21,7 +22,11 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        homeViewModel.Speakers = _context.Speakers.Include(s => s.Brand).Take(4).OrderByDescending(s => s.Id).ToList();
+       
+    homeViewModel.Speakers = _context.Speakers.Include(s => s.Brand).Take(4).OrderByDescending(s => s.Id).ToList();
+
+        ViewBag.Speakers = _context.Speakers.Include(s => s.Brand).OrderBy(x => Guid.NewGuid()).Take(4).ToList();
+
         return View(homeViewModel);
     }
 

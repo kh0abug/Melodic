@@ -1,0 +1,38 @@
+﻿.detail-name {
+    font-size: 40px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+}
+.b-crumb-contaier{
+    padding: 11px 0px;
+}
+.bg-b--crumb {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+.b-crumb-item{
+    color:black;
+   font-family: 'Malgun Gothic';
+}
+
+.detail-icon {
+    font-size: 21px;
+    font-weight: bold;
+}
+.is-active {
+    color: #f04e27;
+    font-weight: 700;
+}
+a:hover {
+    color: #f04e27;
+}
+.buy-btn {
+    background-color: white;
+    color: black;
+    width: 100%;
+    font-weight: bolder;
+    border: solid 2px #f04e27;
+}
+
+    .buy-btn:hover {
+        background-color: #f04e27;
+        color: white;
+    }
