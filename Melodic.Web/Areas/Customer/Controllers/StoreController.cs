@@ -24,13 +24,24 @@ public class StoreController : Controller
 
         var speakers = _context.Speakers.AsQueryable();
 
-
-
         var brands = _context.Brands.AsNoTracking().Take(10);
+
+
 
         if (!parameter.ValidPriceRange)
         {
             ModelState.AddModelError("maxprice", "Please fill in the appropriate price range.");
+        }
+
+        if (string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            return View(new StoreViewModel
+            {
+                Speakers = await speakers.AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize),
+
+                RequestParameters = parameter,
+                Brands = await brands.ToListAsync()
+            }); ;
         }
 
         if (!ModelState.IsValid)
@@ -55,7 +66,7 @@ public class StoreController : Controller
         speakers = parameter.OrderBy?.ToLower() switch
         {
             "price_desc" => speakers.OrderByDescending(s => s.Price),
-            "newest" => speakers.OrderByDescending(s => s.Created),
+            "latest" => speakers.OrderByDescending(s => s.Created),
             _ => speakers.OrderBy(s => s.Price),
         };
 
