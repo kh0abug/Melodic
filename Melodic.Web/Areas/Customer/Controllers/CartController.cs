@@ -1,7 +1,9 @@
 ﻿using Melodic.Domain.Entities;
+using Melodic.Domain.ValueObjects;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
 using Melodic.Web.Areas.Customer.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +14,18 @@ namespace Melodic.Web.Areas.Customer.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _dbContext;
-
+        private CartViewModel cartViewModel;
         public CartController(UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _dbContext = dbContext;
+            cartViewModel = new CartViewModel();
         }
 
         public IActionResult Cart()
         {
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
-            var cartViewModel = new CartViewModel();
+            
 
             if (currentUser != null)
             {
@@ -53,21 +56,30 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
             }
             double? Tax = TotalPrice * 0.08;
+            cartViewModel.Tax = Tax;
             // Truyền giá trị TotalPrice vào ViewBag
-            ViewBag.TotalPrice = TotalPrice;
-            ViewBag.Tax = Tax;
+            cartViewModel.TotalPrice = TotalPrice;
             if (TempData.ContainsKey("Discount"))
             {
-                double discount = Convert.ToDouble(TempData["Discount"]);
-                double? total = TotalPrice - discount + Tax; // Thực hiện tính toán tổng giá trị sau khi giảm giá
-                ViewBag.Total = total; // Truyền giá trị total vào ViewBag để sử dụng trong view.
-            }
-            else
-            {
-                ViewBag.Total = TotalPrice + Tax; // Gán giá trị mặc định nếu TempData["Discount"] không tồn tại.
+                double? discount = Convert.ToDouble(TempData["Discount"]);
+                double? total = TotalPrice + Tax - discount;
+                cartViewModel.Total = total;
+                cartViewModel.Discount = discount;
             }
 
-            return View(cartViewModel);
+            else
+            {
+                double? total = TotalPrice + Tax;
+                cartViewModel.Total = total;
+
+            }
+           
+
+            if (currentUser.Payment.Count != 0)
+            {
+                ViewBag.payment = 1;
+            }
+                return View(cartViewModel);
             
         }
 
@@ -131,17 +143,16 @@ namespace Melodic.Web.Areas.Customer.Controllers
         }
         public IActionResult Voucher(string voucher, double? totalPrice)
         {
-            var Voucher = _dbContext.EVouchers.FirstOrDefault(vou => vou.Code == voucher);
+            var Voucher = _dbContext.EVouchers.FirstOrDefault(vou => vou.Code.Equals(voucher));
             if (Voucher != null)
             {
                 double? discount = totalPrice * Voucher.Percent;
-
-                TempData["Discount"] = (discount).ToString();
+                TempData["Discount"] = discount.ToString();
 
                 return RedirectToAction("Cart");
             }
             string a = "Voucher is not available";
-            return RedirectToAction("");
+            return RedirectToAction("Cart");
         }
 
         [HttpPost]
