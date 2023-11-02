@@ -26,11 +26,11 @@ namespace Melodic.Web.Areas.Customer.Controllers
             payement.Payments = currentUser.Payment;
             if (payement.Payments.Any())
             {
-                return RedirectToAction("Bill", "Bill");
+                return RedirectToAction("CheckOut", "Order");
             }
             return View();
         }
-
+        
         [HttpPost]
         public IActionResult AddPayment(string? fullname, string? cardnumber, string? exdate, string? cvv)
         {
@@ -55,7 +55,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 {
                     
                     _dbContext.SaveChanges();
-                    return RedirectToAction("CheckOut","Bill");
+                    return RedirectToAction("Cart","Cart");
                 }
                 else
                 {
