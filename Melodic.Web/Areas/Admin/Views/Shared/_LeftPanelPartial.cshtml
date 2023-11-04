@@ -8,10 +8,11 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Managements</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-arrow-circle-o-right"></i><a href="ui-buttons.html">Customers</a></li>
+                        <li><i class="fa fa-arrow-circle-o-right"></i><a asp-controller="User" asp-action="Index">Users</a></li>
                         <li><i class="fa fa-arrow-circle-o-right"></i><a asp-controller="Product" asp-action="Index">Products</a></li>
                         <li><i class="fa fa-arrow-circle-o-right"></i><a asp-controller="Brand" asp-action="Index">Brands</a></li>
                         <li><i class="fa fa-arrow-circle-o-right"></i><a asp-controller="EVoucher" asp-action="Index">Vounchers</a></li>
+                        <li><i class="fa fa-arrow-circle-o-right"></i><a asp-controller="Order" asp-action="Index">Orders</a></li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
