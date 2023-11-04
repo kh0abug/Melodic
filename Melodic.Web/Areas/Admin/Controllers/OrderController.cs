@@ -6,9 +6,11 @@ using Melodic.Web.Areas.Admin.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Melodic.Web.Helper;
+using System.Text;
+using Melodic.Application.Pagination;
+using Melodic.Application.ExtensionMethods;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Melodic.Web.Areas.Admin.Controllers
 {
@@ -26,132 +28,9 @@ namespace Melodic.Web.Areas.Admin.Controllers
             _context = db;
             _notyfService = notyfService;
         }
-        public IActionResult Index(DateTime fromDate, DateTime toDate, string SearchString = "", string Status = "")
-        {
-            List<Order>? orders;
-            if (Status == "" || Status == null)
-            {
-                if (SearchString != "" && SearchString != null)
-                {
-                    if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId != 0 && o.Created.Date >= fromDate && o.Created.Date <= toDate && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                    else
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId != 0 && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
 
-                    }
-                }
-            }
-            if (Status == "Delivering" && Status != null)
-            {
-                if (SearchString != "" && SearchString != null)
-                {
-                    if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 1 && o.Created.Date >= fromDate && o.Created.Date <= toDate && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                    else
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 1 && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                }
-                else
-                {
-                    orders = _context.Orders.Where(o => o.StatusId == 1).ToList();
-                    return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                }
-            }
-            if (Status == "Cancel" && Status != null)
-            {
-                if (SearchString != "" && SearchString != null)
-                {
-                    if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 2 && o.Created.Date >= fromDate && o.Created.Date <= toDate && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                    else
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 2 && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                }
-                else
-                {
-                    orders = _context.Orders.Where(o => o.StatusId == 2).ToList();
-                    return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                }
-            }
-            if (Status == "Transaction failed" && Status != null)
-            {
-                if (SearchString != "" && SearchString != null)
-                {
-                    if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 3 && o.Created.Date >= fromDate && o.Created.Date <= toDate && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                    else
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 3 && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                }
-                else
-                {
-                    orders = _context.Orders.Where(o => o.StatusId == 3).ToList();
-                    return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                }
-            }
-            if (Status == "Delivered" && Status != null)
-            {
-                if (SearchString != "" && SearchString != null)
-                {
-                    if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 4 && o.Created.Date >= fromDate && o.Created.Date <= toDate && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                    else
-                    {
-                        orders = _context.Orders.Where(o => o.StatusId == 4 && (o.Code.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString))).OrderByDescending(o => o.Created).ToList();
-                        return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                    }
-                }
-                else
-                {
-                    orders = _context.Orders.Where(o => o.StatusId == 4).ToList();
-                    return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(orders, _context.OrderDetails.Include(o => o.Order).Include(o => o.Speaker).ToList()));
-                }
-            }
 
-            if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
-            {
-                return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(_context.Orders.Include(i => i.Speaker)
-                            .Include(i => i.OrderDetails).Where(i => i.StatusId != 0 && i.Created.Date >= fromDate && i.Created.Date <= toDate).OrderByDescending(i => i.Created).ToList()
-                            , _context.OrderDetails.Include(i => i.Speaker).ToList()));
-            }
-            else if (fromDate.ToString("dd/MM/yyyy") == "01/01/0001" && toDate.ToString("dd/MM/yyyy") == "01/01/0001")
-            {
-                return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(_context.Orders.Include(i => i.Speaker).Include(i => i.OrderDetails).Where(i => i.StatusId != 0).OrderByDescending(i => i.Created).ToList(), _context.OrderDetails.Include(i => i.Speaker).ToList()));
-            }
-
-            return View(Tuple.Create<IEnumerable<Order>, IEnumerable<OrderDetail>>(_context.Orders.Include(i => i.Speaker).Include(i => i.OrderDetails).Where(i => i.StatusId != 0).OrderByDescending(i => i.Created).ToList(), _context.OrderDetails.Include(i => i.Order).Include(i => i.Speaker).ToList()));
-        }
-
-        // GET: Admin/Order/Create
-        private async Task<List<string>> GetUserRoles(ApplicationUser user)
-        {
-            return new List<string>(await _userManager.GetRolesAsync(user));
-        }
-
-        private async Task<List<UserViewModel>> GetUser()
+        private Task<List<UserViewModel>> GetUser()
         {
             var users = _userManager.Users.ToList();
             var userViewModel = new List<UserViewModel>();
@@ -161,104 +40,116 @@ namespace Melodic.Web.Areas.Admin.Controllers
                 thisViewModel.UserId = user.Id;
                 thisViewModel.Email = user.Email;
                 thisViewModel.PhoneNumber = user.PhoneNumber;
-                thisViewModel.Roles = await GetUserRoles(user);
                 userViewModel.Add(thisViewModel);
             }
-            return userViewModel;
+            return Task.FromResult(userViewModel);
         }
-        public async Task<IActionResult> Create(int id = 0)
-        {
-           
-            ViewData["SpeakerId"] = new SelectList(_context.Speakers, "Id", "Id");
-            ViewData["UserEmail"] = new SelectList(await GetUser(), "Email", "Email");
-            //ViewData["UserId"] = new SelectList(userViewModel, "UserId", "UserId");
 
-            if (id == 0)
-                return View(new Order());
+        //GET : Admin/Order/Index
+        public async Task<IActionResult> Index(int? pageNumber, DateTime fromDate, DateTime toDate, string SearchString = "")
+        {
+            //List<Order> orders;
+            PaginatedList<Order> paginatedList;
+
+            if (SearchString != "" && SearchString != null)
+            {
+                if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                {
+                    paginatedList = await _context.Orders.Where(o => o.Created.Date >= fromDate && o.Created.Date <= toDate && (o.Id.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString) || o.FullName.Contains(SearchString))).OrderByDescending(o => o.Created).PaginatedListAsync(pageNumber ?? 1, 4);
+                    return View(paginatedList);
+                }
+                else
+                {
+                    paginatedList = await _context.Orders.Where(o => o.Id.Contains(SearchString) || o.PhoneNumber.Contains(SearchString) || o.Address.Contains(SearchString) || o.FullName.Contains(SearchString)).PaginatedListAsync(pageNumber ?? 1, 4);
+                    return View(paginatedList);
+
+                }
+            }
+
+            if (fromDate.ToString("dd/MM/yyyy") != "01/01/0001" && toDate.ToString("dd/MM/yyyy") != "01/01/0001")
+            {
+                paginatedList = await _context.Orders.Where(i => i.Created.Date >= fromDate && i.Created.Date <= toDate).OrderByDescending(i => i.Created).PaginatedListAsync(pageNumber ?? 1, 4);
+                return View(paginatedList);
+
+            }
+            else if (fromDate.ToString("dd/MM/yyyy") == "01/01/0001" && toDate.ToString("dd/MM/yyyy") == "01/01/0001")
+            {
+                paginatedList = await _context.Orders.OrderByDescending(i => i.Created).PaginatedListAsync(pageNumber ?? 1, 4);
+                return View(paginatedList);
+
+            }
+            paginatedList = await _context.Orders.OrderByDescending(i => i.Created).PaginatedListAsync(pageNumber ?? 1, 4);
+            return View(paginatedList);
+
+        }
+
+        // GET: Admin/Order/Edit/5
+        public async Task<IActionResult> Edit(string? id)
+        {
+            OrderViewModel orderVM = new()
+            {
+                Order = new Order()
+            };
+
+            if (id == null)
+                return NotFound();
 
             else
             {
-                var orders = await _context.Orders.FindAsync(id);
-                if (orders == null)
+                orderVM.Order = await _context.Orders
+                               .AsNoTracking()
+                               .FirstOrDefaultAsync(x => x.Id == id);
+                if (orderVM.Order == null)
                 {
                     return NotFound();
                 }
-                return View(orders);
+
+                foreach (var item in await GetUser())
+                {
+                    if (item.UserId == orderVM.Order.UserId)
+                    {
+                        ViewData["User"] = item.Email;
+                        break;
+                    }
+                }
+                return View(orderVM);
             }
         }
-
-        // POST: Admin/Order/Create
+        // POST: Admin/Order/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id, [Bind("Id,Code,Created,Address,PhoneNumber,Total,Status,Email,Fullname,StatusId,SpeakerId,Payment")] Order order)
+        public async Task<IActionResult> Edit(OrderViewModel OrderVM)
         {
             if (ModelState.IsValid)
             {
-                //Insert
-                if (id == 0)
+                if (OrderVM.Order.Id == null)
                 {
-                    _context.Add(order);
-                    ViewData["SpeakerId"] = new SelectList(_context.Speakers, "Id", "Id", order.SpeakerId);
-                    ViewData["UserEmail"] = new SelectList(await GetUser(), "Email", "Email", order.UserId);
-                    ViewData["UserId"] = new SelectList(await GetUser(), "Id", "Id", order.UserId);
-
-                    await _context.SaveChangesAsync();
+                    return NotFound();
+                }
+                else
+                {
+                    _context.Orders.Update(OrderVM.Order);
+                    _notyfService.Success("Order Update Successfully");
                 }
 
-                ViewData["SpeakerId"] = new SelectList(_context.Speakers, "Id", "Id", order.SpeakerId);
-                ViewData["UserId"] = new SelectList(await GetUser(), "Id", "Id", order.UserId);
-                return Json(new { isValid = true, html = Helper.Helper.RenderRazorViewToString(this, "_ViewPartial", _context.Orders.ToList()) });
-                //return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            return Json(new { isValid = false, html = Helper.Helper.RenderRazorViewToString(this, "Create", order) });
+            return View();
         }
+        // POST: Admin/Order/Edit/5
 
-        // GET: Admin/Order/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(string? id)
         {
+            Order? order = await _context.Orders.Include(x => x.OrderDetails).FirstOrDefaultAsync(x => x.Id == id);
             if (id == null)
             {
                 return NotFound();
             }
-
-            var order = await _context.Orders
-                .Include(i => i.OrderDetails)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
-        [Helper.Helper.NoDirectAccess]
-        // GET: Admin/Invoices/Edit/5
-        public async Task<IActionResult> Edit(int id = 0)
-        {
-            ViewData["SpeakerId"] = new SelectList(_context.Speakers, "Id", "Id");
-            ViewData["UserId"] = new SelectList(await GetUser(), "Id", "Id");
-
-
-            ViewBag.Status = new List<SelectListItem>
-            {
-            new SelectListItem { Text = "Đang giao hàng", Value = "1" },
-            new SelectListItem { Text = "Hủy đơn", Value = "2" },
-            new SelectListItem { Text = "Đã giao", Value = "4" }
-            };
-
-            if (id == 0)
-                return View(new Order());
-
-            else
-            {
-                var orders = await _context.Orders.FindAsync(id);
-                if (orders == null)
-                {
-                    return NotFound();
-                }
-
-                return View(orders);
-            }
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+            _notyfService.Success("Deleted!");
+            return RedirectToAction("Index");
         }
     }
 }

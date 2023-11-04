@@ -1,4 +1,5 @@
 ﻿using Melodic.Infrastructure.Identity;
+using Melodic.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,19 @@ namespace Melodic.Web.Areas.Admin.Controllers;
 [Authorize(Roles = ApplicationRole.Role_Admin)]
 public class AdminController : Controller
 {
-    // GET: AdminController
-    public ActionResult Index()
+    private readonly ApplicationDbContext _context;
+    public AdminController(ApplicationDbContext context)
     {
+        _context = context;
+    }
+
+    // GET: AdminController
+    public IActionResult Index()
+    {
+        ViewBag.CountStock = _context.Speakers.Sum(p => p.UnitInStock).ToString("##,#0");
+        ViewBag.CountProduct = (from ok in _context.Speakers select ok.Id).Count().ToString("##,#0");
+        ViewBag.Revenue = _context.Orders.Sum(inv => inv.TotalPrice).Value.ToString();
+        ViewBag.Sold = _context.OrderDetails.Sum(inv => inv.Quantity).ToString("##,#0");
         return View();
     }
 

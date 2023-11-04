@@ -1,117 +1,106 @@
-﻿@model Melodic.Domain.Entities.Order
+﻿@model OrderViewModel
 
 @{
-    ViewData["Title"] = "Edit";}
-
+    ViewData["Title"] = "Edit";
+}
 
 <div class="col-lg-12">
     <div class="card">
         <div class="card-body card-block">
             <form method="post" class="form-horizontal">
-                <input asp-for="Id" hidden />
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label asp-for="Code" class=" form-control-label">Code</label>
+                        <label asp-for="@Model.Order.Id" class=" form-control-label">Id</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input asp-for="Code" class="form-control">
-                        <span asp-validation-for="Code" class="text-danger"></span>
+                        <input asp-for="@Model.Order.Id" readonly class="form-control">
                     </div>
                 </div>
-                @* <div class="row form-group">
-                <div class="col col-md-3">
-                <label asp-for="UserId" class=" form-control-label">User ID</label>
-                </div>
-                <div class="col-12 col-md-9">
-                <select asp-for="UserId" asp-items="ViewBag.UserId" class="form-control">
-                <option disabled selected>--Select User--</option>
-                </select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-                </div>
-                </div> *@
-                <div class="row form-group">
-                    <div class="col col-md-3">
-                        <label asp-for="Created" class="form-control-label">Create date</label>
-                    </div>
-                    <div class="col-12 col-md-9">
-                        <input asp-for="Created" class="form-control">
-                        <span asp-validation-for="Created" class="text-danger"></span>
-                    </div>
-                </div>
+                <input asp-for="@Model.Order.UserId" hidden/>
+                <input asp-for="@Model.Order.Created" hidden />
+
 
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label asp-for="Address" class=" form-control-label">Address</label>
+                        <label class=" form-control-label">User</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input asp-for="Address" class="form-control">
-                        <span asp-validation-for="Address" class="text-danger"></span>
+                        <input value="@ViewBag.User" readonly class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label asp-for="PhoneNumber" class=" form-control-label">Phone</label>
+                        <label asp-for="@Model.Order.FullName" class=" form-control-label">Name</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input asp-for="PhoneNumber" class="form-control">
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        <input asp-for="@Model.Order.FullName" class="form-control">
+                        <span asp-validation-for="@Model.Order.FullName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label asp-for="Total" class=" form-control-label">Total</label>
+                        <label asp-for="@Model.Order.Address" class=" form-control-label">Address</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input asp-for="Total" class="form-control">
-                        <span asp-validation-for="Total" class="text-danger"></span>
+                        <input asp-for="@Model.Order.Address" class="form-control">
+                        <span asp-validation-for="@Model.Order.Address" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label asp-for="Email" class=" form-control-label">Email</label>
-                    </div>
-
-                    <div class="col-12 col-md-9">
-                        <select asp-for="Email" asp-items="ViewBag.UserEmail" class="form-control">
-                            <option disabled selected>--Select User--</option>
-                        </select>
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <span asp-validation-for="Email" class="text-danger"></span>
-
-                </div>
-                <div class="row form-group">
-                    <div class="col col-md-3">
-                        <label asp-for="FullName" class=" form-control-label">FullName</label>
+                        <label asp-for="@Model.Order.PhoneNumber" class=" form-control-label">Phone</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <input asp-for="FullName" class="form-control">
-                        <span asp-validation-for="FullName" class="text-danger"></span>
+                        <input asp-for="@Model.Order.PhoneNumber" class="form-control">
+                        <span asp-validation-for="@Model.Order.PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3">
-                        <label asp-for="Speaker.Brand" class=" form-control-label">Status</label>
+                        <label asp-for="@Model.Order.Tax" class=" form-control-label">Tax</label>
                     </div>
                     <div class="col-12 col-md-9">
-                        <fieldset class="form-group">
-                            <select asp-for="StatusId" class="form-control">
-                                <option value="">All</option>
-                                <option value="1">Delivering</option>
-                                <option value="2">Delivered</option>
-                                <option value="3">Cancel</option>
-                            </select>
-                        </fieldset>
-                        <span asp-validation-for="StatusId" class="text-danger"></span>
+                        <input asp-for="@Model.Order.Tax" readonly class="form-control">
                     </div>
                 </div>
-
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="@Model.Order.Total" class=" form-control-label">Total</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="@Model.Order.Total" readonly class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="@Model.Order.TotalPrice" class=" form-control-label">TotalPrice</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="@Model.Order.TotalPrice" readonly class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="@Model.Order.Discount" class=" form-control-label">Discount</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="@Model.Order.Discount" readonly class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label asp-for="@Model.Order.Payment" class=" form-control-label">Payment</label>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <input asp-for="@Model.Order.Payment" readonly class="form-control">
+                    </div>
+                </div>
                 <div class="card-footer d-flex justify-content-center">
                     <div class="col-6 col-md-3 py-3 mx-auto">
 
 
                         <button class="btn btn-outline-light form-control rounded-4 shadow " type="submit">
-                            Add
+                            Update
                         </button>
                     </div>
                     <div class="col-6 col-md-3 py-3 mx-auto">
@@ -125,9 +114,6 @@
 
     </div>
 </div>
-
-
-
 
 @section Scripts{
     @{
