@@ -65,7 +65,7 @@
                         <label asp-for="Speaker.Img" class=" form-control-label">Image</label>
                     </div>
                     <div class="col-12 col-md-6">
-                        <input type="file" name="file" class="form-control-file border-3" autocomplete="off">
+                        <input type="file" name="file" class="form-control-file border-3" autocomplete="off" accept="image/*">
                     </div>
                     @if (Model.Speaker.Id != 0)
                     {
