@@ -37,6 +37,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                     b.ToTable("Brands", (string)null);
 =======
                     b.ToTable("Brands");
@@ -63,6 +64,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Name = "Nanomax"
                         });
 >>>>>>> 0f1a34bc0d8fc774ac0261bea9a03bc376d864c3
+=======
+                    b.ToTable("Brands");
+>>>>>>> master
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.Cart", b =>
@@ -263,6 +267,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     b.HasIndex("BrandId");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                     b.ToTable("Speakers", (string)null);
 =======
                     b.ToTable("Speakers");
@@ -280,6 +285,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             UnitInStock = 10
                         });
 >>>>>>> 0f1a34bc0d8fc774ac0261bea9a03bc376d864c3
+=======
+                    b.ToTable("Speakers");
+>>>>>>> master
                 });
 
             modelBuilder.Entity("Melodic.Infrastructure.Identity.ApplicationUser", b =>
