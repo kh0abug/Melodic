@@ -36,7 +36,33 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
                     b.ToTable("Brands", (string)null);
+=======
+                    b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "JBL"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Logitech"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Sony"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Nanomax"
+                        });
+>>>>>>> 0f1a34bc0d8fc774ac0261bea9a03bc376d864c3
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.Cart", b =>
@@ -236,7 +262,24 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("BrandId");
 
+<<<<<<< HEAD
                     b.ToTable("Speakers", (string)null);
+=======
+                    b.ToTable("Speakers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BrandId = 3,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Decription = "Portable Bluetooth speaker with light show",
+                            Img = "https://cdn.tgdd.vn/Products/Images/2162/249767/sony-srs-xb13-150323-031134-600x600.jpg",
+                            Name = "Sony SRS-XB13",
+                            Price = 950000.0,
+                            UnitInStock = 10
+                        });
+>>>>>>> 0f1a34bc0d8fc774ac0261bea9a03bc376d864c3
                 });
 
             modelBuilder.Entity("Melodic.Infrastructure.Identity.ApplicationUser", b =>

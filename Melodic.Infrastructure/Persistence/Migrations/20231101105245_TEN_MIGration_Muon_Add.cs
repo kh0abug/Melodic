@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Melodic.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class mi1 : Migration
+    public partial class TEN_MIGration_Muon_Add : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -259,7 +259,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     Decription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UnitInStock = table.Column<int>(type: "int", nullable: false),
                     Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2",  nullable: true, defaultValueSql: "GETDATE()"),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -301,6 +301,17 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Brands",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "JBL" },
+                    { 2, "Logitech" },
+                    { 3, "Sony" },
+                    { 4, "Nanomax" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "EVouchers",
                 columns: new[] { "Id", "Code", "Description", "Percent", "VouncherName" },
                 values: new object[,]
@@ -311,6 +322,11 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     { 4, "EVOUNCHERKM20%", "Discount for speaker", 0.20000000000000001, "KM20%" },
                     { 5, "EVOUNCHERKM25%", "Discount for speaker", 0.25, "KM25%" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Speakers",
+                columns: new[] { "Id", "BrandId", "Created", "CreatedBy", "Decription", "Img", "LastModified", "LastModifiedBy", "Name", "Price", "UnitInStock" },
+                values: new object[] { 1, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Portable Bluetooth speaker with light show", "https://cdn.tgdd.vn/Products/Images/2162/249767/sony-srs-xb13-150323-031134-600x600.jpg", null, null, "Sony SRS-XB13", 950000.0, 10 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
