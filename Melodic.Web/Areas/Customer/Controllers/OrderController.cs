@@ -101,7 +101,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
             return RedirectToAction("Index");
         }
-     public  string GenerateRandomString()
+     public string GenerateRandomString()
         {
             int length = 16;
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

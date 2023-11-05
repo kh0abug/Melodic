@@ -151,7 +151,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
                 return RedirectToAction("Cart");
             }
-            string a = "Voucher is not available";
+            //string a = "Voucher is not available";
             return RedirectToAction("Cart");
         }
 

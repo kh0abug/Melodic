@@ -10,6 +10,8 @@
   <ItemGroup>
 
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+
+    <PackageReference Include="Chart.js" Version="3.7.1" />
  
 
      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.22" />

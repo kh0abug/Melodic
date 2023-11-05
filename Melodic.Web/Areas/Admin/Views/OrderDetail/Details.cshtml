@@ -1,0 +1,133 @@
+﻿@model OrderDetailViewModel
+
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Managements</a></li>
+                            <li><a asp-area="Admin" asp-action="Index" asp-controller="Order">Orders</a></li>
+                            <li class="active">Order details</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="display:flex;justify-content:space-between">
+                        <div>
+                            <strong class="card-title">Order Details</strong>
+                        </div>
+                        <div>
+                            <a asp-action="Index" asp-controller="Order" class="btn btn-outline-warning rounded-4 shadow">
+                                <i class="bi bi-plus-circle"></i>  Return to orders
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="invoice-box">
+                            <table cellpadding="0" cellspacing="0">
+                                <tr class="top">
+                                    <td colspan="2">
+                                        <table>
+                                            <tr>
+                                                <td class="title">
+                                                    <img src="~/images/logo.png"
+                                                         style="width: 100%; max-width: 300px" />
+                                                </td>
+
+                                                <td>
+                                                    Invoice #: @Model.Order.Id<br />
+                                                    Created: @Model.Order.Created<br />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr class="information">
+                                    <td colspan="2">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    Lô B1-57<br />
+                                                    Khu Đô thị mới An Phú Thịnh<br />
+                                                    P. Nhơn Bình, TP. Quy Nhơn, T. Bình Định
+                                                </td>
+
+                                                <td>
+                                                    @Model.Order.FullName<br />
+                                                    @Model.Order.Address<br />
+                                                    @Model.Order.PhoneNumber<br />
+                                                    @ViewBag.User
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr class="heading">
+                                    <td>Payment Method</td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+                                <tr class="item">
+                                    <td>@Model.Order.Payment</td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+
+
+                                <tr class="heading">
+                                    <td>Item</td>
+                                    <td>Quantity</td>
+                                    <td>Price</td>
+                                </tr>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model.OrderDetails)
+                                    {
+                                        <tr class="item">
+                                            <td>@item.Speaker.Name.Truncate(30).ToUpper()</td>
+                                            <td>@item.Quantity</td>
+                                            <td>@item.Speaker.Price.ToString("c")</td>
+
+                                        </tr>
+                                    }
+                                }
+                                <tr class="total">
+                                    <td></td>
+
+                                    <td>
+                                        Total: @ViewBag.getTotal.ToString("c")
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
