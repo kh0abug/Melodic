@@ -35,7 +35,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             List<Speaker> Speakers = _dbContext.Speakers
                .Where(speaker => speakerIds.Contains(speaker.Id))
                .ToList();
-
+           
             ViewBag.phonenumber=phonenumber; 
             ViewBag.payment=payment; 
             ViewBag.address=address;
@@ -61,12 +61,29 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 TotalPrice = totalPrice,
             };
             _dbContext.Orders.Add(order);
-            foreach (var speaker in Speakers) {
-                var orderdetail = new OrderDetail
+            foreach (var speaker in Speakers)
+            {
+                var speakerId = speaker.Id;
+
+                // Lọc danh sách cartItems cho speaker cụ thể
+                var itemsForSpeaker = cartItems.Where(item => item.IdSpeaker == speakerId).ToList();
+
+                // Tạo các đối tượng OrderDetail cho mỗi item và thêm chúng vào DBSet
+                foreach (var item in itemsForSpeaker)
                 {
-                    OrderId=id,
-                    SpeakerId=speaker.Id,
-                };
+                    var orderdetail = new OrderDetail
+                    {
+                        OrderId = id,
+                        SpeakerId = speakerId,
+                        Quantity = (int)item.Quantity,
+                    };
+
+                    _dbContext.OrderDetails.Add(orderdetail);
+                }
+            }
+            foreach (var cartItem in cartItems)
+            {
+                _dbContext.Carts.Remove(cartItem);
             }
             _dbContext.SaveChanges();
             return View();
