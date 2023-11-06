@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Melodic.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231031033132_addAuditable")]
-    partial class addAuditable
+    [Migration("20231101101129_mi1")]
+    partial class mi1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,6 +128,73 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Melodic.Domain.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Discount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Payment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Tax")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Total")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Melodic.Domain.Entities.OrderDetail", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpeakerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "SpeakerId");
+
+                    b.HasIndex("SpeakerId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("Melodic.Domain.Entities.Speaker", b =>
                 {
                     b.Property<int>("Id")
@@ -165,7 +232,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("UnitInStock")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -373,6 +440,25 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Melodic.Domain.Entities.OrderDetail", b =>
+                {
+                    b.HasOne("Melodic.Domain.Entities.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Melodic.Domain.Entities.Speaker", "Speaker")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("SpeakerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Speaker");
+                });
+
             modelBuilder.Entity("Melodic.Domain.Entities.Speaker", b =>
                 {
                     b.HasOne("Melodic.Domain.Entities.Brand", "Brand")
@@ -386,7 +472,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Melodic.Infrastructure.Identity.ApplicationUser", b =>
                 {
-                    b.OwnsMany("Melodic.Domain.ValueObjects.Payment", "Payments", b1 =>
+                    b.OwnsMany("Melodic.Domain.ValueObjects.Payment", "Payment", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -397,14 +483,17 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                             SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
 
-                            b1.Property<int?>("CVV")
-                                .HasColumnType("int");
+                            b1.Property<string>("CVV")
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("CardNumber")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<DateTime?>("ExpiryDate")
-                                .HasColumnType("datetime2");
+                            b1.Property<string>("ExpiryDate")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FullName")
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("ApplicationUserId", "Id");
 
@@ -414,7 +503,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                                 .HasForeignKey("ApplicationUserId");
                         });
 
-                    b.Navigation("Payments");
+                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -466,6 +555,16 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Melodic.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("Melodic.Domain.Entities.Speaker", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }
