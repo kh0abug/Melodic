@@ -59,7 +59,18 @@
             color: #dc4c64 !important;
         }
 </style>
+<div class="bg-b--crumb">
+    <div class="container b-crumb-contaier">
+        <nav class="d-flex">
+            <h6 class="mb-0">
+                <a class="b-crumb-item" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door detail-icon"></i>&nbsp; Home</a>
+                <span class="text-black-50 mx-2 fw-bolder">/</span>
+                <a class="b-crumb-item is-active" asp-area="Customer" asp-controller="Cart" asp-action="Cart"><i class="bi bi-shop detail-icon"></i>&nbsp; Cart</a>
 
+            </h6>
+        </nav>
+    </div>
+</div>
 <!-- cart + summary -->
 <section class="bg-light my-5">
     <div class="container">

@@ -4,15 +4,28 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    string name = "";
+    if (UserManager.GetUserName(User) != null){
+        string email = UserManager.GetUserName(User);
+
+        name = email.Substring(0, email.IndexOf("@"));
+    }
+  
+
+    }
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a id="manage" class="nav-link store-button text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserName(User)!</a>
+            <a class="nav-link text-dark store-button" asp-area="Customer" asp-controller="Cart" asp-action="Cart"> Cart</a>
+        </li>
+        <li class="nav-item">
+            <a id="manage" class="nav-link store-button text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@name</a>
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark store-button">Logout</button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark store-button"> Logout</button>
             </form>
         </li>
     }

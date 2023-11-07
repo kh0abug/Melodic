@@ -35,7 +35,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             List<Speaker> Speakers = _dbContext.Speakers
                .Where(speaker => speakerIds.Contains(speaker.Id))
                .ToList();
-
+           
             ViewBag.phonenumber=phonenumber; 
             ViewBag.payment=payment; 
             ViewBag.address=address;
@@ -61,12 +61,11 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 TotalPrice = totalPrice,
             };
             _dbContext.Orders.Add(order);
-            foreach (var speaker in Speakers)
-            {
+            foreach (var speaker in Speakers) {
                 var orderdetail = new OrderDetail
                 {
-                    OrderId = id,
-                    SpeakerId = speaker.Id,
+                    OrderId=id,
+                    SpeakerId=speaker.Id,
                 };
             }
             _dbContext.SaveChanges();
@@ -124,5 +123,13 @@ namespace Melodic.Web.Areas.Customer.Controllers
             }
             return GenerateRandomString();
         }
+
+
+        public IActionResult Transistor(){
+            return View();
+        }
+
+
     }
+
 }

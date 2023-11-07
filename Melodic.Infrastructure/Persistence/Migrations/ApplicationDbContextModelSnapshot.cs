@@ -64,6 +64,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                         });
 
                     b.ToTable("Brands");
+>>>>>>> master
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.Cart", b =>

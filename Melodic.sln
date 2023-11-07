@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Melodic.Application", "Melo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Melodic.Domain", "Melodic.Domain\Melodic.Domain.csproj", "{1B90ED13-F253-4130-8FB2-55AF5F114706}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Melodic.Infrastructure", "Melodic.Infrastructure\Melodic.Infrastructure.csproj", "{94F0E4EB-FA18-4ADE-96D9-69E83A97AA5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Melodic.Infrastructure", "Melodic.Infrastructure\Melodic.Infrastructure.csproj", "{94F0E4EB-FA18-4ADE-96D9-69E83A97AA5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -81,6 +81,9 @@ section{
     box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);
     
 }
+.card-price {
+   color: #f04e27;
+}
 .side-navbar{
     position: fixed;
 }
@@ -181,6 +184,7 @@ a{
 
 a:hover {
     color: #f04e27;
+    font-weight: 700;
 }
 
 

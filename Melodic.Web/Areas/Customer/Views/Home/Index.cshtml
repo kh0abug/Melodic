@@ -51,16 +51,16 @@
 
                     <div class="card my-2 shadow-0" style="min-height: 565px; box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);">
                         <a href="#" class="">
-                            <div class="mask" style="height: 50px;">
+                            <div class="mask" style="height: 25px;">
                                 <div class="d-flex justify-content-start align-items-start h-100 m-2">
                                     <h6><span class="badge bg-danger pt-1">New</span></h6>
                                 </div>
                             </div>
-                            <img src="@speaker.Img" class="card-img-top rounded-2"/>
+                            <img src="@speaker.Img" class="card-img-top rounded-2" style="min-height: 304px;"/>
                         </a>
                         <div class="card-body p-0 pt-3">
                             <a style="width: 100%" class="btn buy-btn"><i class="bi bi-cart3 fw-bold" onclick="AddToCart(@speaker.Id)">&nbsp; Add To Card</i></a>
-                            <br>
+                          
                             <h5 class="card-title">
                                 <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black; margin-left: 15px;  ">@speaker.Name</a>
                             </h5>
@@ -99,7 +99,7 @@
                     <div class="card my-2 shadow-0" style="min-height: 565px;  box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);">
                         <a href="#" class="">
                            
-                            <img src="@speakerrand.Img" style="min-height: 259px;" class="card-img-top rounded-2" />
+                            <img src="@speakerrand.Img" style="min-height: 304px;" class="card-img-top rounded-2" />
                         </a>
                         <div class="card-body p-0 pt-3">
                             <a style="width: 100%" class="btn buy-btn"><i class="bi bi-cart3 fw-bold" onclick="AddToCart(@speakerrand.Id)">&nbsp; Add To Card</i></a>                        

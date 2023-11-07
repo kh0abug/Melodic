@@ -181,7 +181,7 @@
                                                 <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black  ">@speaker.Name</a>
                                             </h5>
                                             <p class="card-text ellipsis-text" style="height: 48px">@speaker.Decription</p>
-                                            <p class="card-price">Price: @speaker.Price.ToString("c") Đ</p>
+                                            <p class=""><span class="fw-lighter">Price: </span><span class="card-price">@speaker.Price.ToString("##,#VND")</span></p>
                                         </div>
 
                                         <div class="">
