@@ -68,7 +68,6 @@ namespace Melodic.Web.Areas.Customer.Controllers
                     OrderId = id,
                     SpeakerId = speaker.Id,
                 };
-                _dbContext.SaveChanges();
             }
             _dbContext.SaveChanges();
             return View();
