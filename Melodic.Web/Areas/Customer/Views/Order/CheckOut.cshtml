@@ -1,0 +1,143 @@
+﻿@using Melodic.Web.Areas.Customer.ViewModel;
+@model CartViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+
+</style>
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 mb-4">
+               
+                
+               
+                    <!-- Checkout -->
+                    <div class="card shadow-0 border">
+                        <div class="p-4">
+                            <h5 class="card-title mb-3">Guest checkout</h5>
+                        <form asp-controller="Order" asp-action="Bill">
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <p class="mb-0">Full name</p>
+                                    <div class="form-outline">
+                                        <input type="text" id="typeText" name="fullname" placeholder="Type here" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <p class="mb-0">PhoneNumber</p>
+                                    <div class="form-outline">
+                                        <input type="text" id="typeText" name="phonenumber" placeholder="Type here" class="form-control" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <hr class="my-4" />
+                            <div class="mb-3">
+                                <p class="mb-0">Payment Method</p>
+                                <select name="payment" class="form-select">
+                                    <option>Visa</option>
+
+                                </select>
+                            </div>
+
+
+                            <input type="hidden" name="totalPrice" id="totalPrice" value="@ViewBag.TotalPrice" />
+                            <input type="hidden" name="discount" id="discount" value="@ViewBag.Discount" />
+                            <input type="hidden" name="tax" id="tax" value="@ViewBag.Tax" />
+                            <input type="hidden" name="total" id="total" value="@ViewBag.Total" />
+                            <input type="hidden" name="speakers" id="speakers" value="@ViewBag.Speakers" />
+
+                            <div class="mb-3">
+                                <p class="mb-0">Address</p>
+                                <div class="form-outline">
+                                    <textarea name="address" class="form-control" id="textAreaExample1" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="float-end">
+                               
+                                <button class="btn btn-success shadow-0 border">Continue</button>
+                              
+                </form>
+                        <button asp-controller="Cart" asp-action="Cart" type="submit" class="btn btn-light border">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Checkout -->
+                
+            </div>
+            
+            <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
+                <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
+                    <h6 class="mb-3">Summary</h6>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Total price:</p>
+                        <p class="mb-2">@ViewBag.TotalPrice</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Discount:</p>
+                        <p class="mb-2 text-danger">- @ViewBag.Discount</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Tax:</p>
+                        <p class="mb-2">+ @ViewBag.Tax</p>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Total:</p>
+                        <p class="mb-2 fw-bold">@ViewBag.Total</p>
+                    </div>
+
+
+                    <hr />
+                    <h6 class="text-dark my-4">Items in cart</h6>
+                    @foreach (var speaker in ViewBag.Speakers)
+                    {
+                        var cartItem = (ViewBag.cartitem as List<Melodic.Domain.Entities.Cart>).FirstOrDefault(item => item.IdSpeaker == speaker.Id);
+                        if (cartItem != null)
+                        {
+                            var totalPriceForSpeaker = speaker.Price * cartItem.Quantity;
+
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="me-3 position-relative">
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary">
+                                   
+
+                                    </span>
+                                    <img src="@speaker.Img" style="height: 96px; width: 96px;" class="img-sm rounded border" />
+                                </div>
+                                <div class="">
+                                   
+                                <p class="nav-link">
+                                    @speaker.Name
+                                </p> 
+                                <p class="nav-link">
+                                    Quantity : @cartItem.Quantity
+                                </p>
+                                    <div class="price text-muted">Total: $@totalPriceForSpeaker</div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
