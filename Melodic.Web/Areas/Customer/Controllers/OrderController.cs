@@ -61,12 +61,14 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 TotalPrice = totalPrice,
             };
             _dbContext.Orders.Add(order);
-            foreach (var speaker in Speakers) {
+            foreach (var speaker in Speakers)
+            {
                 var orderdetail = new OrderDetail
                 {
-                    OrderId=id,
-                    SpeakerId=speaker.Id,
+                    OrderId = id,
+                    SpeakerId = speaker.Id,
                 };
+                _dbContext.SaveChanges();
             }
             _dbContext.SaveChanges();
             return View();
