@@ -48,13 +48,13 @@ body {
 
 
 .store-button {
-    font-family: 'Cascadia Mono';
+    font-family: 'Bahnschrift';
     color: #FFA01B;
     cursor: pointer;
     position: relative;
-   font-size: 3.1vmin;
-      margin-left: 5px;
-      font-weight: bold;
+    font-size: 3.1vmin;
+    margin-left: 5px;
+    font-weight: lighter;
 }
     
     .store-button:after {

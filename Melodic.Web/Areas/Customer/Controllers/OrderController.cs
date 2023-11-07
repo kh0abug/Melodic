@@ -140,5 +140,13 @@ namespace Melodic.Web.Areas.Customer.Controllers
             }
             return GenerateRandomString();
         }
+
+
+        public IActionResult Transistor(){
+            return View();
+        }
+
+
     }
+
 }
