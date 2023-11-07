@@ -4,12 +4,15 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-    @{
+@{
+    string name = "";
+    if (UserManager.GetUserName(User) != null){
+        string email = UserManager.GetUserName(User);
 
-    string email = UserManager.GetUserName(User);
-    int atIndex = email.IndexOf("@");
-    string name = email.Substring(0, atIndex);
-    
+        name = email.Substring(0, email.IndexOf("@"));
+    }
+  
+
     }
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
