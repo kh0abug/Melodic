@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Melodic.Application.ExtensionMethods;
+using Melodic.Domain.Entities;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
 using Melodic.Web.Areas.Admin.ViewModel;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace Melodic.Web.Areas.Admin.Controllers
 {
@@ -42,6 +44,30 @@ namespace Melodic.Web.Areas.Admin.Controllers
                 userViewModel.Add(thisViewModel);
             }
             return View(userViewModel);
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+
+                IdentityResult result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    _notyfService.Success("Deleted!");
+                    return RedirectToAction("index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+            }
+            return View("Index", _userManager.Users);
         }
     }
 }
