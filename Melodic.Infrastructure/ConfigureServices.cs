@@ -59,12 +59,12 @@ public static class ConfigureServices
         {
             googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
             googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
-        })
-            .AddFacebook(facebookOptions =>
-        {
-            facebookOptions.AppId = configuration["Authentication:Facebook:AppId"]!;
-            facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"]!;
         });
+        //    .AddFacebook(facebookOptions =>
+        //{
+        //    facebookOptions.AppId = configuration["Authentication:Facebook:AppId"]!;
+        //    facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"]!;
+        //});
 
 
         //services.AddTransient<IDateTime, DateTimeService>();

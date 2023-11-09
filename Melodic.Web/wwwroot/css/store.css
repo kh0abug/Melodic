@@ -193,3 +193,24 @@ a:hover {
 .btn-sort-by {
    
 }
+/* notification*/
+.notification {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    z-index: 9999;
+}
+
+.success {
+    background-color: #28a745;
+}
+
+.error {
+    background-color: #dc3545;
+}
