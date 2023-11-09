@@ -9,6 +9,14 @@
 <style>
 
 </style>
+<script>
+    document.getElementById("paymentSelect").addEventListener("change", function () {
+        var selectedOption = this.value;
+        if (selectedOption === "addPayment") {
+            window.location.href = '@Url.Action("AddPayment", "Payment")'; // Chuyển hướng đến trang AddPayment
+        }
+    });
+</script>
 <section class="bg-light py-5">
     <div class="container">
         <div class="row">
@@ -44,9 +52,13 @@
                             <hr class="my-4" />
                             <div class="mb-3">
                                 <p class="mb-0">Payment Method</p>
-                                <select name="payment" class="form-select">
-                                    <option>Visa</option>
+                                <select name="payment" class="form-select" id="paymentSelect">
+                                    @foreach (var item in ViewBag.payment)
+                                    {
+                                        <option>@item.CardNumber</option>
+                                    }
 
+                                    <option value="addPayment">Add new Payment</option>
                                 </select>
                             </div>
                             

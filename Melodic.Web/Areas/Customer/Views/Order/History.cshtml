@@ -1,0 +1,28 @@
+﻿@page
+
+@{
+}
+<h1>Transistor</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">OrderId</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Total</th>
+            <th scope="col">Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Order )
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.FullName</td>
+                <td>@item.Total</td>
+                <td><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" >Detail</a></td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -94,7 +94,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
         {
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
 
-            var payments = currentUser.Payment.Select(u => u.CardNumber).ToList();
+            List<Payment> payments = currentUser.Payment.ToList();
             List<Cart> cartItems = _dbContext.Carts
                     .Where(cart => cart.IdUser == currentUser.Id)
                     .ToList();
@@ -142,11 +142,36 @@ namespace Melodic.Web.Areas.Customer.Controllers
         }
 
 
-        public IActionResult Transistor(){
-            return View();
+        public IActionResult History(){
+            ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+          List<Order> Order = _dbContext.Orders.Where(u => u.UserId == currentUser.Id).ToList()  ;
+            ViewBag.Order = Order ;
+            return View("History");
         }
 
+        public IActionResult OrderDetail(string id)
 
+        {
+            ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+            List<OrderDetail> cartItems = _dbContext.OrderDetails.Where(u => u.OrderId.Equals(id)).ToList() ;
+                   
+            var Ids = cartItems.Select(cartItem => cartItem.SpeakerId).ToList();
+            List<Speaker> Speakers = _dbContext.Speakers
+               .Where(speaker => Ids.Contains(speaker.Id))
+               .ToList();
+            var order = _dbContext.Orders.FirstOrDefault(o => o.Id == id) as Order;
+            ViewBag.id= order.Id;
+            ViewBag.total = order.Total;
+            ViewBag.fullname = order.FullName;
+            ViewBag.address = order.Address;
+            ViewBag.phonenumber = order.PhoneNumber;
+            ViewBag.totalprice = order.TotalPrice;
+            ViewBag.discount = order.Discount;
+            ViewBag.tax = order.Tax;
+            ViewBag.speakers = Speakers;
+            ViewBag.cartitem = cartItems;
+            return View("OrderDetail");
+        }
     }
 
 }
