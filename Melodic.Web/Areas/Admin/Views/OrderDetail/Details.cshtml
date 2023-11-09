@@ -108,7 +108,7 @@
                                         <tr class="item">
                                             <td>@item.Speaker.Name.Truncate(30).ToUpper()</td>
                                             <td>@item.Quantity</td>
-                                            <td>@item.Speaker.Price.ToString("c")</td>
+                                            <td>@item.Speaker.Price.ToString("##,#0VND")</td>
 
                                         </tr>
                                     }
@@ -117,7 +117,7 @@
                                     <td></td>
 
                                     <td>
-                                        Total: @ViewBag.getTotal.ToString("c")
+                                        Total: @ViewBag.getTotal.ToString("##,#0VND")
                                     </td>
                                 </tr>
                             </table>
