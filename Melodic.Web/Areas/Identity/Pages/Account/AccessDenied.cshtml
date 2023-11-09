@@ -5,6 +5,13 @@
 }
 
 <header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
+    <div class="h-50 d-flex align-items-center justify-content-center">
+        <div class="d-flex flex-column  align-items-center">
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+            <p class="text-danger">You do not have access to this resource.</p>
+            <div >
+                <a asp-action="index" asp-area="customer" asp-controller="home" class="btn clear-btn ">Go to home screen</a>
+            </div>
+        </div>
+    </div>
 </header>

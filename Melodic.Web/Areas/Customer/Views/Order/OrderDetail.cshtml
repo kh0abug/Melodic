@@ -62,12 +62,12 @@
                 </div>
                 <div class="col-sm-6 ">
                     <h5 class="mb-3">To:</h5>
-                    
-                    <div><span class="text-dark mb-1">FullName :@ViewBag.fullname</span></div>
-                    
-                    <div><span class ="text-dark mb-1">Address :@ViewBag.address</span></div>
 
-                  
+                    <div><span class="text-dark mb-1">FullName :@ViewBag.fullname</span></div>
+
+                    <div><span class="text-dark mb-1">Address :@ViewBag.address</span></div>
+
+
                     <div><span class="text-dark mb-1">Phone: @ViewBag.phonenumber</span></div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                     <tbody>
                           @foreach (var speaker in ViewBag.speakers)
                     {
-                        var cartItem = (ViewBag.cartitem as List<Melodic.Domain.Entities.Cart>).FirstOrDefault(item => item.IdSpeaker == speaker.Id);
+                        var cartItem = (ViewBag.cartitem as List<Melodic.Domain.Entities.OrderDetail>).FirstOrDefault(item => item.SpeakerId == speaker.Id);
                         if (cartItem != null)
                         {
                             var totalPriceForSpeaker = speaker.Price * cartItem.Quantity;

@@ -12,24 +12,24 @@
     @* mainpagelogin *@
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <section >
+        <section>
             <form id="account" method="post">
-            @*     <h2>Use a local account to log in.</h2> *@
+                @*     <h2>Use a local account to log in.</h2> *@
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 @* input usename *@
                 <div class="wrap-input100 validate-input">
                     <label asp-for="Input.Email" class="form-label label-input100 fw-bold" style="font-size: 19px;"></label>
-                    <input asp-for="Input.Email" placeholder="Enter your Email" class="form-control input100" autocomplete="username" aria-required="true"  />
+                    <input asp-for="Input.Email" id="email" placeholder="Enter your Email" class="form-control input100" autocomplete="username" aria-required="true" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <br />
                 @* inputpassword *@
                 <div class="wrap-input100 validate-input">
                     <label asp-for="Input.Password" class="form-label label-input100 fw-bold" style="font-size: 19px;"></label>
-                    <input asp-for="Input.Password" placeholder="Enter your Password" class="form-control input100" autocomplete="current-password" aria-required="true" />
-                   
+                    <input asp-for="Input.Password" id="password" placeholder="Enter your Password" class="form-control input100" autocomplete="current-password" aria-required="true" />
+
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
 
@@ -45,7 +45,7 @@
                         <a class="float-end forgot-pass" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                     </div>
                 </div>
-                
+
                 <br />
 
                 <div class="container-login100-form-btn">
@@ -56,7 +56,7 @@
                         </button>
                     </div>
                 </div>
-                
+
 
             </form>
         </section>
@@ -64,12 +64,12 @@
     </div>
     <div class="col-md-3"></div>
 </div>
-<br />  
 <br />
-    @* another sevice *@
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
+<br />
+@* another sevice *@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
 
         <section class="login-another">
 
@@ -84,50 +84,53 @@
             <div>
                 <h5 class="">Login With</h5>
             </div>
-           <br />
+            <br />
             <div class="">
 
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
                         <div>
                             <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                        <button type="submit" class="login100-social-item bg-@provider.Name.ToLower()" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="bi bi-@provider.DisplayName.ToLower() "></i></button>
-                                }
+                                There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                    article
+                                    about setting up this ASP.NET application to support logging in via external services
+                                </a>.
                             </p>
                         </div>
-                    </form>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+
+                                        <button type="submit" class="login100-social-item bg-@provider.Name.ToLower()" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="bi bi-@provider.DisplayName.ToLower() "></i></button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
                 }
-            }
 
             </div>
         </section>
-        </div>
     </div>
+</div>
 
 
-    <br />
+<br />
 
-    @*Create account*@
+@*Create account*@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-    <h5 class="text-center create-account">
+        <h5 class="text-center create-account">
             <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="create-account">Register as a new Account<i class="bi bi-arrow-right"></i></a>
-    </h5>
-    
+        </h5>
+
     </div>
 </div>
 
