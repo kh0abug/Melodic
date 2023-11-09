@@ -36,9 +36,10 @@
                         <li class="my-2">
                             <a class="text-dark" asp-area="" asp-controller="Store" asp-action="Index">Store</a>
                         </li>
-                    <li class="my-2">
-                        <a class="text-dark" asp-area="" asp-controller="Order" asp-action="Transistor">Transistor</a>
-                    </li>
+                    @if (User.IsInRole(ApplicationRole.Role_Customer)){<li class="my-2">
+                        <a class="text-dark" asp-area="" asp-controller="Order" asp-action="History">Purchase History</a>
+                    </li>}
+                    
                     </ul>
                 </div>
                 <div>

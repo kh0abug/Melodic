@@ -35,7 +35,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             List<Speaker> Speakers = _dbContext.Speakers
                .Where(speaker => speakerIds.Contains(speaker.Id))
                .ToList();
-
+           
             ViewBag.phonenumber=phonenumber; 
             ViewBag.payment=payment; 
             ViewBag.address=address;
@@ -61,12 +61,29 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 TotalPrice = totalPrice,
             };
             _dbContext.Orders.Add(order);
-            foreach (var speaker in Speakers) {
-                var orderdetail = new OrderDetail
+            foreach (var speaker in Speakers)
+            {
+                var speakerId = speaker.Id;
+
+                // Lọc danh sách cartItems cho speaker cụ thể
+                var itemsForSpeaker = cartItems.Where(item => item.IdSpeaker == speakerId).ToList();
+
+                // Tạo các đối tượng OrderDetail cho mỗi item và thêm chúng vào DBSet
+                foreach (var item in itemsForSpeaker)
                 {
-                    OrderId=id,
-                    SpeakerId=speaker.Id,
-                };
+                    var orderdetail = new OrderDetail
+                    {
+                        OrderId = id,
+                        SpeakerId = speakerId,
+                        Quantity = (int)item.Quantity,
+                    };
+
+                    _dbContext.OrderDetails.Add(orderdetail);
+                }
+            }
+            foreach (var cartItem in cartItems)
+            {
+                _dbContext.Carts.Remove(cartItem);
             }
             _dbContext.SaveChanges();
             return View();
@@ -77,7 +94,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
         {
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
 
-            var payments = currentUser.Payment.Select(u => u.CardNumber).ToList();
+            List<Payment> payments = currentUser.Payment.ToList();
             List<Cart> cartItems = _dbContext.Carts
                     .Where(cart => cart.IdUser == currentUser.Id)
                     .ToList();
@@ -101,7 +118,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
             return RedirectToAction("Index");
         }
-     public  string GenerateRandomString()
+     public string GenerateRandomString()
         {
             int length = 16;
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -125,11 +142,36 @@ namespace Melodic.Web.Areas.Customer.Controllers
         }
 
 
-        public IActionResult Transistor(){
-            return View();
+        public IActionResult History(){
+            ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+          List<Order> Order = _dbContext.Orders.Where(u => u.UserId == currentUser.Id).ToList()  ;
+            ViewBag.Order = Order ;
+            return View("History");
         }
 
+        public IActionResult OrderDetail(string id)
 
+        {
+            ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+            List<OrderDetail> cartItems = _dbContext.OrderDetails.Where(u => u.OrderId.Equals(id)).ToList() ;
+                   
+            var Ids = cartItems.Select(cartItem => cartItem.SpeakerId).ToList();
+            List<Speaker> Speakers = _dbContext.Speakers
+               .Where(speaker => Ids.Contains(speaker.Id))
+               .ToList();
+            var order = _dbContext.Orders.FirstOrDefault(o => o.Id == id) as Order;
+            ViewBag.id= order.Id;
+            ViewBag.total = order.Total;
+            ViewBag.fullname = order.FullName;
+            ViewBag.address = order.Address;
+            ViewBag.phonenumber = order.PhoneNumber;
+            ViewBag.totalprice = order.TotalPrice;
+            ViewBag.discount = order.Discount;
+            ViewBag.tax = order.Tax;
+            ViewBag.speakers = Speakers;
+            ViewBag.cartitem = cartItems;
+            return View("OrderDetail");
+        }
     }
 
 }

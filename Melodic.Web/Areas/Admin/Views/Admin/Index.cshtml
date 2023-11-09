@@ -1,4 +1,7 @@
-﻿  <!-- Animated -->
+﻿@model Order
+
+  <!-- Animated -->
+
 <div class="animated fadeIn">
     <!-- Widgets  -->
     <div class="row">
@@ -11,7 +14,7 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text">$<span class="count">23569</span></div>
+                                <div class="stat-text">$<span class="count">@ViewBag.Revenue</span></div>
                                 <div class="stat-heading">Revenue</div>
                             </div>
                         </div>
@@ -29,8 +32,8 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count">3435</span></div>
-                                <div class="stat-heading">Sales</div>
+                                <div class="stat-text"><span class="count">@ViewBag.CountProduct</span></div>
+                                <div class="stat-heading">Products</div>
                             </div>
                         </div>
                     </div>
@@ -47,8 +50,8 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count">349</span></div>
-                                <div class="stat-heading">Templates</div>
+                                <div class="stat-text"><span class="count">@ViewBag.Sold</span></div>
+                                <div class="stat-heading">Sold</div>
                             </div>
                         </div>
                     </div>
@@ -65,8 +68,8 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count">2986</span></div>
-                                <div class="stat-heading">Clients</div>
+                                <div class="stat-text"><span class="count">@ViewBag.CountStock</span></div>
+                                <div class="stat-heading">Stock</div>
                             </div>
                         </div>
                     </div>
@@ -74,6 +77,7 @@
             </div>
         </div>
     </div>
+
     <!-- /Widgets -->
     <!--  Traffic  -->
     <div class="row">

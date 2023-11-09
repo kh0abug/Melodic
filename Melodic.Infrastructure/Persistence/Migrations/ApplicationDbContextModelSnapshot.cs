@@ -36,6 +36,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+
+                    b.ToTable("Brands", (string)null);
+
                     b.ToTable("Brands");
 
                     b.HasData(
@@ -59,6 +62,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Id = 4,
                             Name = "Nanomax"
                         });
+
+                    b.ToTable("Brands");
+
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.Cart", b =>
@@ -74,7 +80,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("IdUser", "IdSpeaker");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.EVoucher", b =>
@@ -102,7 +108,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EVouchers");
+                    b.ToTable("EVouchers", (string)null);
 
                     b.HasData(
                         new
@@ -193,7 +199,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.OrderDetail", b =>
@@ -211,7 +217,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("SpeakerId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("Melodic.Domain.Entities.Speaker", b =>
@@ -258,6 +264,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("BrandId");
 
+
+                    b.ToTable("Speakers", (string)null);
+
                     b.ToTable("Speakers");
 
                     b.HasData(
@@ -272,6 +281,9 @@ namespace Melodic.Infrastructure.Persistence.Migrations
                             Price = 950000.0,
                             UnitInStock = 10
                         });
+
+                    b.ToTable("Speakers");
+
                 });
 
             modelBuilder.Entity("Melodic.Infrastructure.Identity.ApplicationUser", b =>
@@ -504,7 +516,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Melodic.Infrastructure.Identity.ApplicationUser", b =>
                 {
-                    b.OwnsMany("Melodic.Domain.ValueObjects.Payment", "Payment", b1 =>
+                    b.OwnsMany("Melodic.Infrastructure.Identity.ApplicationUser.Payment#Melodic.Domain.ValueObjects.Payment", "Payment", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -529,7 +541,7 @@ namespace Melodic.Infrastructure.Persistence.Migrations
 
                             b1.HasKey("ApplicationUserId", "Id");
 
-                            b1.ToTable("Payment");
+                            b1.ToTable("Payment", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");

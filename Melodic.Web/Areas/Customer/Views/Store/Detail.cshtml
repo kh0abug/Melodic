@@ -111,12 +111,18 @@
             },
             success: function (response) {
                 if (response.success) {
+                    // Hiển thị thông báo thành công
+                    var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+                    successToast.show();
 
+                    // Tự động ẩn thông báo sau 5 giây (5000 ms)
+                    setTimeout(function () {
+                        successToast.hide();
+                    }, 2000); // Thời gian tồn tại ở đây là 5 giây
                 } else {
-
+                    // Xử lý trường hợp không thành công
                 }
-            }
-            ,
+            },
             error: function () {
                 alert("An error occurred while adding the product to the cart.");
             }
@@ -124,6 +130,28 @@
     }
 
 
+
 </script>
+<div class="position-fixed bottom-0 end-0 p-3" id="popupContainer">
+    <div class="toast rounded" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            Product added to cart successfully!
+        </div>
+    </div>
+</div>
+<style>
+    /* CSS tùy chỉnh cho thông báo toast */
+    .toast.rounded {
+        border-radius: 25px; /* Điều này tạo ra góc tròn */
+        background-color: #28a745; /* Màu nền cho thông báo thành công */
+    }
+
+    /* CSS tùy chỉnh cho nội dung của thông báo */
+    .toast-body {
+        font-weight: bold; /* Chữ in đậm */
+        color: #fff; /* Đổi màu chữ */
+    }
+
+</style>
 
 
