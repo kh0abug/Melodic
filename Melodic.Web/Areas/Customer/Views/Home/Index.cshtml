@@ -3,7 +3,31 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<script>
 
+    function AddToCart(id) {
+        $.ajax({
+            type: 'POST',
+            url: '/Customer/Cart/AddToCart',
+            data: {
+                id: id
+            },
+            success: function (response) {
+                if (response.success) {
+
+                } else {
+
+                }
+            }
+            ,
+            error: function () {
+                alert("An error occurred while adding the product to the cart.");
+            }
+        });
+    }
+
+
+</script>
 
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
