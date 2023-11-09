@@ -40,7 +40,7 @@
                                     <th>ID</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Role</th>
+                                    <th>Action</th>
                                     
                                 </tr>
                             </thead>
@@ -55,16 +55,21 @@
                                             </td>
                                             <td>@item.Email</td>
                                             <td>@item.PhoneNumber</td>
-                                            <td>@item.Roles.FirstOrDefault()</td>
-                                            @*<td>
-                                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@item.UserId">Active/Block</a>
-                                    </td>*@
+                                            <td>
+                                                <button value="@item.UserId" class="delete-button btn btn-danger btn-sm">
+                                                    <span class="ti-eraser text-white"></span>
+                                                </button>
+                                            </td>
                                         </tr>
                                     }
                                 }
                             </tbody>
                         </table>
+                       
                     </div>
+                    <form hidden id="page-delete" method="post" asp-action="Delete">
+                        <input id="current-id" name="id" />
+                    </form>
 
                 </div>
             </div>
