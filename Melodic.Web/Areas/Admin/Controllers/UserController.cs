@@ -32,42 +32,42 @@ namespace Melodic.Web.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            var users = await _userManager.Users.ToListAsync();
-            var userViewModel = new List<UserViewModel>();
+        var users = await _userManager.Users.ToListAsync();
+        var userViewModel = new List<UserViewModel>();
             foreach (ApplicationUser user in users)
             {
                 var thisViewModel = new UserViewModel();
-                thisViewModel.UserId = user.Id;
+        thisViewModel.UserId = user.Id;
                 thisViewModel.Email = user.Email;
                 thisViewModel.PhoneNumber = user.PhoneNumber;
                 thisViewModel.Roles = await GetUserRoles(user);
-                userViewModel.Add(thisViewModel);
+        userViewModel.Add(thisViewModel);
             }
             return View(userViewModel);
-        }
+}
 
-        public async Task<IActionResult> Delete(string id)
+public async Task<IActionResult> Delete(string id)
+{
+    ApplicationUser user = await _userManager.FindByIdAsync(id);
+    if (user != null)
+    {
+
+        IdentityResult result = await _userManager.DeleteAsync(user);
+        if (result.Succeeded)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
-            if (user != null)
-            {
-
-                IdentityResult result = await _userManager.DeleteAsync(user);
-                if (result.Succeeded)
-                {
-                    _notyfService.Success("Deleted!");
-                    return RedirectToAction("index");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "User not found");
-            }
-            return View("Index", _userManager.Users);
+            _notyfService.Success("Deleted!");
+            return RedirectToAction("index");
         }
+        else
+        {
+            return NotFound();
+        }
+    }
+    else
+    {
+        ModelState.AddModelError("", "User not found");
+    }
+    return View("Index", _userManager.Users);
+}
     }
 }
