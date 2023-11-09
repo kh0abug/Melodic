@@ -1,0 +1,159 @@
+﻿@model PaginatedList<Order>
+
+@{
+    ViewData["Title"] = "Order Management";
+}
+
+
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Managements</a></li>
+                            <li class="active">Orders</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="display:flex;justify-content:space-between">
+                        <div style="display: flex; margin:auto;">
+                            <div class="col-12">
+                                <form asp-controller="Order" asp-action="Index" method="get" style="display:inline;margin-left:6rem;">
+                                    <div>
+                                        <fieldset class="form-group d-inline-flex pr-2">
+
+                                            <div>
+                                                <div>
+                                                    <input type="text" name="SearchString" placeholder="Searching..." class="input-css" style="border: 1px solid #dce7f1;border-radius: .25rem;padding: 2px; width: 15rem" />
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div style="margin-bottom:1rem">
+                                        <span style=" font-weight: 700;">From date:</span> <input type="date" id="birthdaytime" name="fromDate" style="
+                                                                    border: 1px solid;
+                                                                    border-radius: 7px;
+                                                                    padding: 2px;
+                                                                ">
+                                        <span style=" font-weight: 700;">To date:</span> <input type="date" id="birthdaytime" name="toDate" style="
+                                    border: 1px solid;
+                                    border-radius: 7px;
+                                    padding: 2px;
+                                ">
+                                    </div>
+                                    <button type="submit" class="btn btn-danger h-25 w-25">Search</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>CreateDate</th>
+                                    <th>FullName</th>
+                                    <th>Address</th>
+                                    <th>PhoneNumber</th>
+                                    <th>Tax</th>
+                                    <th>Discount</th>
+                                    <th>Total</th>
+                                    <th>TotalPrice</th>
+                                    <th>Payment</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null)
+                                {
+                                    @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Created</td>
+                                            <td>@item.FullName</td>
+                                            <td>@item.Address.Truncate(30)</td>
+                                            <td>@item.PhoneNumber</td>
+                                            <td>@item.Tax</td>
+                                            <td>@item.Discount</td>
+                                            <td>@item.Total</td>
+                                            <td>@item.TotalPrice.Value.ToString("c")</td>
+                                            <td>@item.Payment</td>
+
+
+                                            <td>
+
+                                                <a asp-controller="OrderDetail" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                                    <span class="ti-receipt text-white"></span>
+                                                </a>
+                                                
+
+                                                
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Order" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">
+                                                    <span class="ti-pencil-alt text-white"></span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <button value="@item.Id" class="delete-button btn btn-danger btn-sm">
+                                                    <span class="ti-eraser text-white"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="3" style="color:crimson">No data ! <i class="far fa-frown"></i>
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                        <p>Page @Model.PageIndex / @Model.TotalPages</p>
+                        <ul class="pagination" id="pagination"></ul>
+                    </div>
+                    <form hidden id="page-delete" method="post" asp-action="Delete">
+                        <input id="current-id" name="id" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+@section Scripts{
+    @{
+        <partial name="_CustomPaging" />
+    }
+}

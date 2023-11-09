@@ -135,12 +135,22 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
                     _dbContext.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu.
 
-
+                    // Trả về Json đối tượng có success là true và message là "Added successfully"
+                    return Json(new { success = true, message = "Added successfully" });
                 }
-
+                else
+                {
+                    // Nếu sản phẩm không tồn tại, trả về Json đối tượng có success là false và message là "Product not found"
+                    return Json(new { success = false, message = "Product not found" });
+                }
             }
-            return Json(new { success = false, message = "User not found" });
+            else
+            {
+                // Nếu người dùng không tồn tại, trả về Json đối tượng có success là false và message là "User not found"
+                return Json(new { success = false, message = "User not found" });
+            }
         }
+
         public IActionResult Voucher(string voucher, double? totalPrice)
         {
             var Voucher = _dbContext.EVouchers.FirstOrDefault(vou => vou.Code.Equals(voucher));
@@ -151,7 +161,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
                 return RedirectToAction("Cart");
             }
-            string a = "Voucher is not available";
+            //string a = "Voucher is not available";
             return RedirectToAction("Cart");
         }
 

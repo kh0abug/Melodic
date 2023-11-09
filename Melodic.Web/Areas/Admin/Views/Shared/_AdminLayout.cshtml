@@ -31,6 +31,28 @@
            @RenderBody()
         </div>
         <!-- /.content -->
+
+        @*Modal CRUD*@
+        <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="margin:30px 0 0 -127px;width: 170%;">
+                    <div class="modal-header" style="border-bottom: none; padding: 0px; ">
+                        <h2 class="modal-title"></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa-solid fa-xmark" style="height:25px;width:25px; "></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="printThis">
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Modal CRUD*@
+
+        <div class="loaderbody" id="loaderbody">
+            <div class="loader"></div>
+        </div>
+
         <div class="clearfix"></div>
 
         <!-- Footer -->
@@ -43,6 +65,6 @@
 
     <partial name="_JsPartial"></partial>
     @await Component.InvokeAsync("Notyf")
-    @await RenderSectionAsync("Scripts",required:false);
+    @await RenderSectionAsync("Scripts",required:false)
 </body>
 </html>
