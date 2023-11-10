@@ -34,7 +34,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         modelBuilder.ApplyConfiguration(new Configurations.ApplicationUsersConfiguration());
         modelBuilder.Entity<Cart>().HasKey(c => new { c.IdUser, c.IdSpeaker });
         modelBuilder.Entity<Speaker>().HasMany(e => e.OrderDetails).WithOne(e => e.Speaker).HasForeignKey(e => e.SpeakerId);
-        modelBuilder.Entity<Order>().HasMany(e => e.OrderDetails).WithOne(e => e.Order).HasForeignKey(e => e.OrderId);
+        modelBuilder.Entity<Order>().HasKey(e => e.Id);
         modelBuilder.Entity<OrderDetail>().HasKey(e => new { e.OrderId, e.SpeakerId });
         modelBuilder.Entity<EVoucher>().HasData(
            new EVoucher()
