@@ -30,6 +30,7 @@ public class ProductController : Controller
     {
         var paginatedList = await _db.Speakers
                             .Include(x => x.Brand)
+                            .OrderByDescending(x => x.Id)
                             .PaginatedListAsync(pageNumber ?? 1, 4);
         return View(paginatedList);
     }

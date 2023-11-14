@@ -26,7 +26,7 @@ public class BrandController : Controller
     // GET: ProductController
     public async Task<IActionResult> Index(int? pageNumber)
     {
-        var paginatedList = await _db.Brands.PaginatedListAsync(pageNumber ?? 1, 4);
+        var paginatedList = await _db.Brands.OrderByDescending(x => x.Id).PaginatedListAsync(pageNumber ?? 1, 4);
         return View(paginatedList);
     }
     
