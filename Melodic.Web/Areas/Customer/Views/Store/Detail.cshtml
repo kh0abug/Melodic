@@ -60,7 +60,7 @@
                     <hr />
 
                  <br />
-                    <a href="#" class="btn btn-primary shadow-0" style=" box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);"><i class="bi bi-cart4"></i> Add to cart </a>
+                    <a href="#" class="btn btn-primary shadow-0" style=" box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);" onclick="AddToCart(@Model.Id)"><i class="bi bi-cart4"></i> Add to cart </a>
 
                 </div>
             </main>
@@ -79,7 +79,7 @@
                         <img src="@speaker.Img" style="max-height: 259px;" class="card-img-top rounded-2" />
                     </a>
                     <div class="card-body p-0 pt-3">
-                        <a style="width: 100%" class="btn buy-btn"><i class="bi bi-cart3 fw-bold" onclick="AddToCart(@speaker.Id)">&nbsp; Add To Card</i></a>
+                        <a style="width: 100%" class="btn buy-btn" onclick="AddToCart(@speaker.Id)"><i class="bi bi-cart3 fw-bold">&nbsp; Add To Card</i></a>
                         <br>
                         <h5 class="card-title">
                             <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black; margin-left: 15px;  ">@speaker.Name</a>
@@ -93,6 +93,7 @@
     text-overflow: ellipsis; margin-left: 15px;">@speaker.Decription</p>
                         <p class="">
                             <span class="text-muted" style="margin-left: 15px;">Brands: </span>@speaker.Brand.Name
+                            <span class="text-muted" style="margin-left: 15px;">Brands: </span>@speaker.Brand.Name
                         </p>
                     </div>
                 </div>
@@ -100,8 +101,10 @@
         }
     </div>
 </section>
-<script>
 
+
+
+<script>
     function AddToCart(id) {
         $.ajax({
             type: 'POST',
@@ -113,6 +116,11 @@
                 if (response.success) {
                     // Hiển thị thông báo thành công
                     var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+                    var message = response.message; // Lấy nội dung từ response
+
+                    // Đặt nội dung cho thông báo bằng cách sử dụng Bootstrap methods
+                    successToast._element.querySelector('.toast-body').innerText = message;
+
                     successToast.show();
 
                     // Tự động ẩn thông báo sau 5 giây (5000 ms)
@@ -120,25 +128,49 @@
                         successToast.hide();
                     }, 2000); // Thời gian tồn tại ở đây là 5 giây
                 } else {
-                    // Xử lý trường hợp không thành công
+                    var failToast = new bootstrap.Toast(document.getElementById('failToast'));
+                    var message = response.message; // Lấy nội dung từ response
+
+                    // Đặt nội dung cho thông báo bằng cách sử dụng Bootstrap methods
+                    failToast._element.querySelector('.toast-body').innerText = message;
+
+                    failToast.show();
+
+                    // Tự động ẩn thông báo sau 5 giây (5000 ms)
+                    setTimeout(function () {
+                        failToast.hide();
+                    }, 2000); // Thời gian tồn tại ở đây là 5 giây var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+                    var message = response.message; // Lấy nội dung từ response
+
+                    // Đặt nội dung cho thông báo bằng cách sử dụng Bootstrap methods
+                    failToast._element.querySelector('.toast-body').innerText = message;
+
+                    failToast.show();
+
+                    // Tự động ẩn thông báo sau 5 giây (5000 ms)
+                    setTimeout(function () {
+                        failToast.hide();
+                    }, 2000); // Thời gian tồn tại ở đây là 5 giây
                 }
             },
-            error: function () {
-                alert("An error occurred while adding the product to the cart.");
+            error: function (errorResponse) {
+                alert("An error occurred while adding the product to the cart. Error: " + errorResponse.responseText);
             }
         });
     }
-
-
-
 </script>
+
 <div class="position-fixed bottom-0 end-0 p-3" id="popupContainer">
     <div class="toast rounded" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">
-            Product added to cart successfully!
+        </div>
+    </div>
+    <div class="toast roundeds" id="failToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
         </div>
     </div>
 </div>
+
 <style>
     /* CSS tùy chỉnh cho thông báo toast */
     .toast.rounded {
@@ -152,6 +184,21 @@
         color: #fff; /* Đổi màu chữ */
     }
 
+    .toast.roundeds {
+        border-radius: 25px; /* Điều này tạo ra góc tròn */
+        background-color: #dc3545; /* Màu nền cho thông báo thành công */
+    }
+
+    /* CSS tùy chỉnh cho nội dung của thông báo */
+    .toastfail-body {
+        font-weight: bold; /* Chữ in đậm */
+        color: #fff; /* Đổi màu chữ */
+    }
+
+    #popupContainer {
+        z-index: 1000; /* Ensure it appears above other content */
+    }
 </style>
+
 
 

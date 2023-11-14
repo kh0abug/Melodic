@@ -24,18 +24,17 @@
                 <div>
                     <div class="input_container">
                         <label class="input_label">Card holder name</label>
-                        <input class="input_field" type="text" name="fullname" placeholder="Enter your full name">
+                        <input class="input_field" type="text" name="fullname" placeholder="Enter your full name" required>
                     </div>
                     <div class="input_container">
                         <label class="input_label">Card Number</label>
-                        <input class="input_field" type="text" name="cardnumber" id="cardnumber" placeholder="0000 0000 0000 0000" oninput="formatCardNumber(this);">
-
+                        <input class="input_field" type="text" name="cardnumber" id="cardnumber" placeholder="0000 0000 0000 0000" oninput="formatCardNumber(this);" required>
                     </div>
                     <div class="input_container">
                         <label class="input_label">Expiry Date / CVV</label>
                         <div class="split">
-                            <input class="input_field" style="width: 250px;" type="text" name="exdate" placeholder="01/23">
-                            <input class="input_field" style="width: 110px;" type="number" name="cvv" placeholder="CVV">
+                            <input class="input_field" style="width: 250px;" type="text" name="exdate" placeholder="01/23" required>
+                            <input class="input_field" style="width: 110px;" type="number" name="cvv" placeholder="CVV" required>
                         </div>
                     </div>
                     <br />
@@ -44,6 +43,7 @@
                     </button>
                 </div>
             </form>
+
           
            
             <div class="col-md-3"></div>

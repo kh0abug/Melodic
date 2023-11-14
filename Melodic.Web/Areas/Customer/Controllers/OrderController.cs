@@ -26,12 +26,16 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
         public IActionResult Bill(string fullname, string phonenumber, string payment, string address, double totalPrice, double tax, double discount, double total)
         {
+
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
             string id = GenerateRandomString();
+
             List<Cart> cartItems = _dbContext.Carts
                     .Where(cart => cart.IdUser == currentUser.Id)
                     .ToList();
             var speakerIds = cartItems.Select(cartItem => cartItem.IdSpeaker).ToList();
+           
+
             List<Speaker> Speakers = _dbContext.Speakers
                .Where(speaker => speakerIds.Contains(speaker.Id))
                .ToList();
@@ -61,12 +65,16 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 TotalPrice = totalPrice,
             };
             _dbContext.Orders.Add(order);
-            foreach (var speaker in Speakers) {
+            foreach (var speaker in Speakers)
+            {
+                var cartitemexist = _dbContext.Carts.FirstOrDefault(cart => cart.IdUser == currentUser.Id && cart.IdSpeaker == speaker.Id);
                 var orderdetail = new OrderDetail
                 {
-                    OrderId=id,
-                    SpeakerId=speaker.Id,
+                    OrderId = id,
+                    SpeakerId = speaker.Id,
+                    Quantity=cartitemexist.Quantity,
                 };
+                speaker.UnitInStock -=  cartitemexist.Quantity;
             }
             _dbContext.SaveChanges();
             return View();
