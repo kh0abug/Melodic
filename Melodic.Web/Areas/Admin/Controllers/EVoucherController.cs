@@ -22,7 +22,7 @@ public class EVoucherController : Controller
     }
     public async Task<IActionResult> Index(int? pageNumber)
     {
-        var paginatedList = await _db.EVouchers.PaginatedListAsync(pageNumber ?? 1, 4);
+        var paginatedList = await _db.EVouchers.OrderByDescending(x => x.Id).PaginatedListAsync(pageNumber ?? 1, 4);
         return View(paginatedList);
     }
     public async Task<IActionResult> CreateAndUpdate(int? id)
@@ -34,7 +34,7 @@ public class EVoucherController : Controller
         }
         else
         {
-            EVoucher voucher = await _db.EVouchers
+            var voucher = await _db.EVouchers
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
             return View(voucher);

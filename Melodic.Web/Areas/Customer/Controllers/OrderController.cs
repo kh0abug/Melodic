@@ -117,7 +117,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             if (existingId != null)
             {
                 var existingIds
-= _dbContext.Orders.FirstOrDefault(u => u.Id.Equals(randomString.ToString()));
+                 = _dbContext.Orders.Where(u => u.Id == randomString.ToString());
 
                 return randomString.ToString();
             }
