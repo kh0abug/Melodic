@@ -12,5 +12,6 @@ namespace Melodic.Web.Areas.Customer.ViewModel
         public double? TotalPrice { get; set; }
         public double? Tax { get; set; }
         public double? Discount { get; set; }
+        public string Voucher {  get; set; }
     }
 }

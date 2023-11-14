@@ -23,7 +23,20 @@ namespace Melodic.Web.Areas.Customer.Controllers
             _dbContext = dbContext;
 
         }
+        public IActionResult SearchOrder(string search)
+        {
+            ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
+            if (search != null)
+            {
+                List<Order> Order = _dbContext.Orders.Where(u => u.UserId == currentUser.Id && (u.Id.Contains(search) || u.Total.ToString().Contains(search))).ToList();
+                if (Order.Count == 0) {ViewBag.Order = null; }
+                else { ViewBag.Order = Order; }
+                 
+                return View("History");
+            }
+            return RedirectToAction("History");
 
+        }
         public IActionResult Bill(string fullname, string phonenumber, string payment, string address, double totalPrice, double tax, double discount, double total)
         {
 
@@ -51,6 +64,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             ViewBag.fullname = fullname;
             ViewBag.cartitem = cartItems;
             ViewBag.id = id;
+            ViewBag.Date=DateTime.Now.ToString();
             var order = new Order
             {
                 Id = id,
@@ -63,6 +77,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 Total = total,
                 Tax = tax,
                 TotalPrice = totalPrice,
+                Created=DateTime.Now
             };
             _dbContext.Orders.Add(order);
             foreach (var speaker in Speakers)
@@ -72,9 +87,14 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 {
                     OrderId = id,
                     SpeakerId = speaker.Id,
-                    Quantity=cartitemexist.Quantity,
+                    Quantity=cartitemexist.Quantity
                 };
-                speaker.UnitInStock -=  cartitemexist.Quantity;
+                speaker.UnitInStock -= cartitemexist.Quantity;
+                _dbContext.OrderDetails.Add(orderdetail);
+            }
+            foreach (var cartItem in cartItems)
+            {
+                _dbContext.Carts.Remove(cartItem);
             }
             _dbContext.SaveChanges();
             return View();
@@ -135,7 +155,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
         public IActionResult History(){
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
-          List<Order> Order = _dbContext.Orders.Where(u => u.UserId == currentUser.Id).ToList()  ;
+            List<Order> Order = _dbContext.Orders.Where(u => u.UserId == currentUser.Id).ToList()  ;
             ViewBag.Order = Order ;
             return View("History");
         }
@@ -144,14 +164,14 @@ namespace Melodic.Web.Areas.Customer.Controllers
 
         {
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
-            List<OrderDetail> cartItems = _dbContext.OrderDetails.Where(u => u.OrderId.Equals(id)).ToList() ;
-                   
+            List<OrderDetail> cartItems = _dbContext.OrderDetails.Where(u => u.OrderId.Equals(id)).ToList();
+
             var Ids = cartItems.Select(cartItem => cartItem.SpeakerId).ToList();
             List<Speaker> Speakers = _dbContext.Speakers
                .Where(speaker => Ids.Contains(speaker.Id))
                .ToList();
             var order = _dbContext.Orders.FirstOrDefault(o => o.Id == id) as Order;
-            ViewBag.id= order.Id;
+            ViewBag.id = order.Id;
             ViewBag.total = order.Total;
             ViewBag.fullname = order.FullName;
             ViewBag.address = order.Address;
@@ -161,8 +181,10 @@ namespace Melodic.Web.Areas.Customer.Controllers
             ViewBag.tax = order.Tax;
             ViewBag.speakers = Speakers;
             ViewBag.cartitem = cartItems;
+            ViewBag.Date = order.Created;
             return View("OrderDetail");
         }
+        
     }
 
 }

@@ -63,6 +63,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             {
                 double? discount = Convert.ToDouble(TempData["Discount"]);
                 double? total = TotalPrice + Tax - discount;
+                cartViewModel.Voucher = Convert.ToString(TempData["Voucher"]);
                 cartViewModel.Total = total;
                 cartViewModel.Discount = discount;
             }
@@ -165,7 +166,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             {
                 double? discount = totalPrice * Voucher.Percent;
                 TempData["Discount"] = discount.ToString();
-
+                TempData["Voucher"] = Voucher.Description.ToString();
                 return RedirectToAction("Cart");
             }
             //string a = "Voucher is not available";

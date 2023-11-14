@@ -205,12 +205,13 @@
                                 <label class="form-label">Have coupon?</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control border" name="voucher" placeholder="Voucher code" />
+
                                     <input type="hidden" name="totalPrice" id="totalPrice" value="@Model.TotalPrice" />
                                     <button type="submit" class="btn btn-light border">Apply</button>
                                 </div>
                             </div>
                         </form>
-
+                        <p class="form-label">@Model.Voucher</p>
                     </div>
                 </div>
                 <div class="card shadow-0 border">
