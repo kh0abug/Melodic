@@ -276,7 +276,7 @@
                                                 <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black  ">@speaker.Name</a>
                                             </h5>
                                             <p class="card-text ellipsis-text" style="height: 48px">@speaker.Decription</p>
-                                            <span class="fw-lighter">Price: </span><span class="card-price fw-bold">@speaker.Price.ToString("##,# VND")</span>
+                                            <span class="fw-lighter">Price: </span><span class="card-price fw-bold">@speaker.Price.ToString("##,# VND")</span><br>
                                             <span class="fw-lighter">Quantity: <span class="fw-bold">@speaker.UnitInStock</span></span><br>
                                             <span class="fw-lighter">Brand: <span class="fw-bold">@speaker.Brand.Name</span></span>
                                         </div>
