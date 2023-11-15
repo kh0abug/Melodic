@@ -35,7 +35,7 @@
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark store-button" asp-area="" asp-controller="Store" asp-action="Index">Store</a>
+                            <a class="nav-link text-dark store-button" method="get" name="searchterm" asp-area="" asp-controller="Store" asp-action="Store">Store</a>
                         </li>
                     </ul>
 
@@ -45,7 +45,7 @@
                     <div class="input-box  search-container d-flex flex-column  align-items-center">
                         <form asp-controller="Store" asp-action="Index" method="get" class="input-box">
                             <i class="uil uil-search"></i>
-                            <input type="text" name="searchterm"  placeholder="Search" value="@ViewBag.SearchTerm" aria-label="Search"  required>
+                            <input type="text" name="searchterm"  placeholder="Search" value="@ViewBag.SearchTerm" aria-label="Search">
 
                         </form>
                     </div>

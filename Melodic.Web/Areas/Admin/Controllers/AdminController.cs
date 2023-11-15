@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Melodic.Web.Areas.Admin.Controllers;
 
 [Area("Admin")]
-[Authorize(Roles = ApplicationRole.Role_Admin)]
+//[Authorize(Roles = ApplicationRole.Role_Admin)]
 public class AdminController : Controller
 {
     private readonly ApplicationDbContext _context;

@@ -246,7 +246,7 @@
                                         <span class="btn pe-none fw-bold">Sort by</span>
                                     </li>
                                     <li class="nav-item btn btn-light">
-                                        <button name="orderby" type="submit" value="latest" class="btn sort-by">Latest</button>
+                                        <button name="orderby" type="submit" value="latest" class="btn sort-by">Newest</button>
                                     </li>
                                    @*  <li class="nav-item btn btn-light">
                                         <button name="orderby" type="submit" value="" class="btn sort-by">Top sales</button>
@@ -276,7 +276,7 @@
                                                 <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black  ">@speaker.Name</a>
                                             </h5>
                                             <p class="card-text ellipsis-text" style="height: 48px">@speaker.Decription</p>
-                                            <span class="fw-lighter">Price: </span><span class="card-price fw-bold">@speaker.Price.ToString("##,# VND")</span>
+                                            <span class="fw-lighter">Price: </span><span class="card-price fw-bold">@speaker.Price.ToString("##,# VND")</span><br>
                                             <span class="fw-lighter">Quantity: <span class="fw-bold">@speaker.UnitInStock</span></span><br>
                                             <span class="fw-lighter">Brand: <span class="fw-bold">@speaker.Brand.Name</span></span>
                                         </div>
@@ -291,7 +291,7 @@
                                             }
                                             else
                                             {
-                                                <a class="btn buy-btn shadow-0 me-1 icon_1" href="#" disabled title="Plaese login before add product to cart"><i class="fw-bold bi bi-cart3" style="font-size: 23px;"></i></a>
+                                                <a class="btn buy-btn shadow-0 me-1 icon_1"  disabled title="Plaese login before add product to cart"><i class="fw-bold bi bi-cart3" style="font-size: 23px;"></i></a>
 
                                             }
 
