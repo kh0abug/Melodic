@@ -85,9 +85,10 @@
                                 <tr class="heading">
                                     <td>Payment Method</td>
                                     <td></td>
-                                    <td></td>
+                                    <td>#Visa</td>
 
                                 </tr>
+
                                 <tr class="item">
                                     <td>@Model.Order.Payment</td>
                                     <td></td>
@@ -117,8 +118,8 @@
                                     <td></td>
 
                                     <td>
-                                        @*Total: @ViewBag.getTotal.ToString("##,#0VND")*@
-                                        Total: @Model.Order.Total.Value.ToString("##,#0VND")
+                                        
+                                        Total: @Model.Order.TotalPrice.Value.ToString("##,#0VND")
                                     </td>
                                 </tr>
 
