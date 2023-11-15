@@ -4,5 +4,18 @@
     ViewData["Title"] = "Confirm email change";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<header>
+    <div class="h-50 d-flex align-items-center justify-content-center">
+        <div class="d-flex flex-column  align-items-center">
+            <h1>@ViewData["Title"]</h1>
+
+            <p> @Model.StatusMessage</p>
+            <div>
+                <a class="btn clear-btn " asp-area="Identity" asp-page="/Account/Login">Login</a>
+
+            </div>
+        </div>
+    </div>
+</header>
+
