@@ -1,10 +1,13 @@
 ﻿using Melodic.Application.ExtensionMethods;
 using Melodic.Application.Parameters;
+using Melodic.Domain.Entities;
 using Melodic.Infrastructure.Persistence;
 using Melodic.Web.Areas.Customer.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Data.Common;
+using System.Reflection.Metadata;
 
 namespace Melodic.Web.Areas.Customer.Controllers;
 
@@ -68,7 +71,7 @@ public class StoreController : Controller
         speakers = parameter.OrderBy?.ToLower() switch
         {
             "price_desc" => speakers.Include(s => s.Brand).OrderByDescending(s => s.Price),
-            "latest" => speakers.OrderByDescending(s => s.Created),
+            "latest" => speakers.OrderByDescending(s => s.Id),
             _ => speakers.OrderBy(s => s.Price),
         };
 
@@ -85,8 +88,42 @@ public class StoreController : Controller
         });
     }
 
-   
+    public async Task<IActionResult> Store()
+    {
+        var speakers = _context.Speakers.Include(s => s.Brand).OrderByDescending(s => s.Id).AsQueryable();
+        var brands = _context.Brands.AsNoTracking().Take(10);
+        
+        ViewBag.ListSpeaker = speakers.ToList();
+        ViewBag.ListBrands = brands.ToList();
 
+        return View();
+    }
+
+
+    public async Task<IActionResult> SortSpeakerByPriceIsc()
+    {
+        var speakers = _context.Speakers.Include(s => s.Brand).AsQueryable();
+        var brands = _context.Brands.AsNoTracking().Take(10);
+
+        ViewBag.ListSpeaker = speakers.OrderBy(s => s.Price).ToList();
+        ViewBag.ListBrands = brands.ToList();
+
+        return View("Store");
+    }
+
+   
+    public async Task<IActionResult> SortSpeakerByPriceDesc()
+    {
+
+
+        var speakers = _context.Speakers.Include(s => s.Brand).AsQueryable();
+        var brands = _context.Brands.AsNoTracking().Take(10);
+
+        ViewBag.ListSpeaker = speakers.OrderByDescending(s => s.Price).ToList();
+        ViewBag.ListBrands = brands.ToList();
+
+        return View("Store");
+    }
     public async Task<IActionResult> Detail(int? id)
     {
         if (id == null && id == 0)
@@ -103,6 +140,19 @@ public class StoreController : Controller
 
         ViewBag.Brands = _context.Speakers.Include(s => s.Brand).Where(s => s.BrandId == speaker.BrandId).OrderBy(x => Guid.NewGuid()).Take(4).ToList();
         return View(speaker);
+    }
+
+    public async Task<IActionResult> GetSpeakerByBrandID(int id)
+    {
+        var speakers = _context.Speakers.Include(s => s.Brand).Where(s => s.Brand.Id == id).ToList();
+        var brands = _context.Brands.AsNoTracking().Take(10);
+        if (speakers == null)
+        {
+            TempData["NotFoundMessage"] = "No Speaker Found.";
+        }
+        ViewBag.ListSpeaker = speakers.ToList();
+        ViewBag.ListBrands = brands.ToList();
+        return View("Store");
     }
 }
 
