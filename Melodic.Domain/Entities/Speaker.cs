@@ -26,7 +26,7 @@ public class Speaker : AuditableEntity
 
     [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than 0")]
-    public int UnitInStock { get; set; }
+    public int? UnitInStock { get; set; }
 
     [ValidateNever]
     public string? Img { get; set; }

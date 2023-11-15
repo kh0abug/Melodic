@@ -19,10 +19,10 @@ public class AdminController : Controller
     // GET: AdminController
     public IActionResult Index()
     {
-        ViewBag.CountStock = _context.Speakers.Sum(p => p.UnitInStock).ToString("##,#0");
+        ViewBag.CountStock = _context.Speakers.Sum(p => p.UnitInStock).Value.ToString("##,#0");
         ViewBag.CountProduct = (from ok in _context.Speakers select ok.Id).Count().ToString("##,#0");
         ViewBag.Revenue = _context.Orders.Sum(inv => inv.TotalPrice).Value.ToString();
-        ViewBag.Sold = _context.OrderDetails.Sum(inv => inv.Quantity).ToString("##,#0");
+        ViewBag.Sold = _context.OrderDetails.Sum(inv => inv.Quantity).Value.ToString("##,#0");
         return View();
     }
 

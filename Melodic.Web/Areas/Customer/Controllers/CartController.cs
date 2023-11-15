@@ -63,6 +63,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             {
                 double? discount = Convert.ToDouble(TempData["Discount"]);
                 double? total = TotalPrice + Tax - discount;
+                cartViewModel.Voucher = Convert.ToString(TempData["Voucher"]);
                 cartViewModel.Total = total;
                 cartViewModel.Discount = discount;
             }
@@ -111,17 +112,20 @@ namespace Melodic.Web.Areas.Customer.Controllers
                 // Lấy thông tin sản phẩm dựa vào id (từ cơ sở dữ liệu hoặc nguồn dữ liệu khác)
                 var product = _dbContext.Speakers.FirstOrDefault(p => p.Id == id);
 
-                if (product != null)
+                if (product != null && product.UnitInStock>0)
                 {
                     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng của người dùng chưa.
                     var existingCartItem = _dbContext.Carts.FirstOrDefault(cart => cart.IdUser == currentUser.Id && cart.IdSpeaker == id);
 
-                    if (existingCartItem != null)
-                    {
-                        // Nếu sản phẩm đã tồn tại, bạn có thể tăng số lượng (quantity).
+                    if (existingCartItem != null && existingCartItem.Quantity < product.UnitInStock)
+                    { // Nếu sản phẩm đã tồn tại, bạn có thể tăng số lượng (quantity).
                         existingCartItem.Quantity += 1;
+                        _dbContext.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu.
+
+                        // Trả về Json đối tượng có success là true và message là "Added successfully"
+                        return Json(new { success = true, message = "Added successfully" });
                     }
-                    else
+                    if(existingCartItem == null) 
                     {
                         // Nếu sản phẩm chưa tồn tại trong giỏ hàng, bạn có thể tạo một mục mới.
                         var newCartItem = new Cart
@@ -131,17 +135,21 @@ namespace Melodic.Web.Areas.Customer.Controllers
                             Quantity = 1 // Số lượng ban đầu là 1
                         };
                         _dbContext.Carts.Add(newCartItem);
+                        _dbContext.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu.
+
+                        // Trả về Json đối tượng có success là true và message là "Added successfully"
+                        return Json(new { success = true, message = "Added successfully" });
                     }
+                    else
+                    {
+                        return Json(new { success = false, message = "Exceeded quantity in stock." });
 
-                    _dbContext.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu.
-
-                    // Trả về Json đối tượng có success là true và message là "Added successfully"
-                    return Json(new { success = true, message = "Added successfully" });
+                    }
                 }
                 else
                 {
                     // Nếu sản phẩm không tồn tại, trả về Json đối tượng có success là false và message là "Product not found"
-                    return Json(new { success = false, message = "Product not found" });
+                    return Json(new { success = false, message = "The product is temporarily out of stock" });
                 }
             }
             else
@@ -158,7 +166,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             {
                 double? discount = totalPrice * Voucher.Percent;
                 TempData["Discount"] = discount.ToString();
-
+                TempData["Voucher"] = Voucher.Description.ToString();
                 return RedirectToAction("Cart");
             }
             //string a = "Voucher is not available";
@@ -170,10 +178,11 @@ namespace Melodic.Web.Areas.Customer.Controllers
         {
             ApplicationUser currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
             var productToUpdate = _dbContext.Carts.FirstOrDefault(cart => cart.IdUser == currentUser.Id && cart.IdSpeaker == itemId);
+            var product = _dbContext.Speakers.FirstOrDefault(p => p.Id == itemId);
 
-            if (productToUpdate == null)
+            if (productToUpdate == null||newQuantity>product.UnitInStock)
             {
-                return Json(new { success = false, message = "Product not found" });
+                return Json(new { success = false, message = "Exceeded quantity in stock" });
             }
 
             productToUpdate.Quantity = newQuantity;
