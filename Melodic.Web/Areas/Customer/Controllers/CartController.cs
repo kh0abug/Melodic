@@ -155,7 +155,7 @@ namespace Melodic.Web.Areas.Customer.Controllers
             else
             {
                 // Nếu người dùng không tồn tại, trả về Json đối tượng có success là false và message là "User not found"
-                return Json(new { success = false, message = "User not found" });
+                return Json(new { success = false, message = "Please login after buy Speaker" });
             }
         }
 
