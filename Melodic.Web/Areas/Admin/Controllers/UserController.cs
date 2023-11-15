@@ -49,8 +49,6 @@ namespace Melodic.Web.Areas.Admin.Controllers
         { 
             var users = await _userManager.Users.PaginatedListAsync(pageNumber ?? 1, 4);
             return View(users);
-
-
         }
         public async Task<IActionResult> Delete(string id)
         {
