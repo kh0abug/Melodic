@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Melodic.Web.Areas.Admin.Controllers;
 [Area("Admin")]
-[Authorize(Roles = ApplicationRole.Role_Admin)]
+//[Authorize(Roles = ApplicationRole.Role_Admin)]
 public class EVoucherController : Controller
 {
     private readonly ApplicationDbContext _db;
