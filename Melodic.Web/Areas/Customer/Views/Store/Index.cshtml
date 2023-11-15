@@ -248,9 +248,9 @@
                                     <li class="nav-item btn btn-light">
                                         <button name="orderby" type="submit" value="latest" class="btn sort-by">Latest</button>
                                     </li>
-                                    <li class="nav-item btn btn-light">
+                                   @*  <li class="nav-item btn btn-light">
                                         <button name="orderby" type="submit" value="" class="btn sort-by">Top sales</button>
-                                    </li>
+                                    </li> *@
                                     <li class="nav-item dropdown btn">
                                         <button class="nav-item  btn sort-by  dropdown-toggle text-start" style="width: inherit !important;"
                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -285,15 +285,16 @@
 
                                             @if (User.IsInRole(ApplicationRole.Role_Admin)||User.IsInRole(ApplicationRole.Role_Customer))
                                             {
-                                                <a class="btn btn-primary shadow-0 me-1 icon_1" onclick="AddToCart(@speaker.Id)"><i class="bi bi-cart3"></i></a>
+
+                                                <a class="btn  buy-btn  shadow-0 me-1 icon_1" onclick="AddToCart(@speaker.Id)"><i class="bi bi-cart3"></i></a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-primary shadow-0 me-1 icon_1" href="#" disabled title="Plaese login after add product to cart"><i class="bi bi-cart3"></i></a>
+                                                <a class="btn buy-btn shadow-0 me-1 icon_1" href="#" disabled title="Plaese login before add product to cart"><i class="fw-bold bi bi-cart3" style="font-size: 23px;"></i></a>
 
                                             }
 
-                                            <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-info-circle"></i></a>
+                                            <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="btn btn-info shadow-0 me-1 icon_1"><i class="bi bi-info-circle" style="font-size: 23px;"></i></a>
                                         </div>
                                     </div>
                                 </div>

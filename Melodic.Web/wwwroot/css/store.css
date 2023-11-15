@@ -214,3 +214,30 @@ a:hover {
 .error {
     background-color: #dc3545;
 }
+
+/*buy btn*/
+.buy-btn {
+    background-color: #ffdabf;
+    color: black;
+    width: 65%;
+    font-weight: bolder;
+    border: solid 1px #f04e27;
+}
+
+    .buy-btn:hover {
+        background-color: #f04e27;
+        color: white;
+    }
+
+
+.btn-info {
+    float: right;
+    background-color: #2d899a;
+    color: black;
+    font-weight: bolder;
+    border: solid 1px #2d899a;
+}
+    .btn-info:hover {
+        background-color: #2dcf9a;
+        color: black;
+    }
