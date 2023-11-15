@@ -49,7 +49,7 @@ namespace Melodic.Web.Areas.Admin.Controllers
                     break;
                 }
             }
-            ViewBag.getTotal = _context.OrderDetails.Sum(c => c.Quantity * c.Speaker.Price);
+            //ViewData["getTotal"] = _context.OrderDetails.Sum(c => c.Quantity * c.Speaker.Price);
 
             return View(orderDetailVM);
         }

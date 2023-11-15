@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Melodic.Application.ExtensionMethods;
 using Melodic.Infrastructure.Identity;
 using Melodic.Infrastructure.Persistence;
 using Melodic.Web.Areas.Admin.ViewModel;
@@ -21,50 +22,58 @@ namespace Melodic.Web.Areas.Admin.Controllers
             _db = db;
             _userManager = userManager;
             _notyfService = notyfService;
+
         }
         //GET: UserController
         private async Task<List<string>> GetUserRoles(ApplicationUser user)
         {
             return new List<string>(await _userManager.GetRolesAsync(user));
         }
+        //public async Task<IActionResult> Index(int? pageNumber)
+        //{
+        //    var users = await _userManager.Users.ToListAsync();
+        //    var userViewModel = new List<UserViewModel>();
+        //    foreach (ApplicationUser user in users)
+        //    {
+        //        var thisViewModel = new UserViewModel();
+        //        thisViewModel.UserId = user.Id;
+        //        thisViewModel.Email = user.Email;
+        //        thisViewModel.PhoneNumber = user.PhoneNumber;
+        //        thisViewModel.Roles = await GetUserRoles(user);
+        //        userViewModel.Add(thisViewModel);
+        //    }
+        //    return View(userViewModel);
+        //}
+
         public async Task<IActionResult> Index(int? pageNumber)
+        { 
+            var users = await _userManager.Users.PaginatedListAsync(pageNumber ?? 1, 4);
+            return View(users);
+
+
+        }
+        public async Task<IActionResult> Delete(string id)
         {
-        var users = await _userManager.Users.ToListAsync();
-        var userViewModel = new List<UserViewModel>();
-            foreach (ApplicationUser user in users)
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            if (user != null)
             {
-                var thisViewModel = new UserViewModel();
-        thisViewModel.UserId = user.Id;
-                thisViewModel.Email = user.Email;
-                thisViewModel.PhoneNumber = user.PhoneNumber;
-                thisViewModel.Roles = await GetUserRoles(user);
-        userViewModel.Add(thisViewModel);
+
+                IdentityResult result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    _notyfService.Success("Deleted!");
+                    return RedirectToAction("index");
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
-            return View(userViewModel);
-}
-
-public async Task<IActionResult> Delete(string id)
-{
-    ApplicationUser user = await _userManager.FindByIdAsync(id);
-    if (user != null)
-    {
-
-        IdentityResult result = await _userManager.DeleteAsync(user);
-        if (result.Succeeded)
-        {
-            _notyfService.Success("Deleted!");
-            return RedirectToAction("index");
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+            }
+            return View("Index");
         }
-        else
-        {
-            return NotFound();
-        }
-    }
-    else
-    {
-        ModelState.AddModelError("", "User not found");
-    }
-    return View("Index");
-}
     }
 }

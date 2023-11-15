@@ -1,5 +1,6 @@
 ﻿@using Melodic.Infrastructure.Identity;
-@model List<UserViewModel>
+@using Melodic.Application.ExtensionMethods;
+@model PaginatedList<ApplicationUser>
 @{
     ViewData["Title"] = "User management";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -41,31 +42,33 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Action</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @foreach (var item in Model.Items)
                                 {
-                                    if (item.Roles.FirstOrDefault() != ApplicationRole.Role_Admin)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @item.UserId
-                                            </td>
-                                            <td>@item.Email</td>
-                                            <td>@item.PhoneNumber</td>
-                                            <td>
-                                                <button value="@item.UserId" class="delete-button btn btn-danger btn-sm">
-                                                    <span class="ti-eraser text-white"></span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    }
+
+                                    <tr>
+                                        <td>
+                                            @item.Id
+                                        </td>
+                                        <td>@item.Email</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>
+                                            
+                                            <button value="@item.Id" class="delete-button btn btn-danger btn-sm">
+                                                <span class="ti-eraser text-white"></span>
+                                            </button>
+
+                                        </td>
+                                    </tr>
+
                                 }
                             </tbody>
                         </table>
-                       
+                        <p>Page @Model.PageIndex / @Model.TotalPages</p>
+                        <ul class="pagination" id="pagination"></ul>
                     </div>
                     <form hidden id="page-delete" method="post" asp-action="Delete">
                         <input id="current-id" name="id" />
@@ -76,4 +79,8 @@
         </div>
     </div>
 </div>
-
+@section Scripts{
+    @{
+        <partial name="_CustomPaging" />
+    }
+}

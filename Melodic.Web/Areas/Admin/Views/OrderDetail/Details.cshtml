@@ -101,6 +101,7 @@
                                     <td>Quantity</td>
                                     <td>Price</td>
                                 </tr>
+
                                 @if (Model != null)
                                 {
                                     foreach (var item in Model.OrderDetails)
@@ -109,7 +110,6 @@
                                             <td>@item.Speaker.Name.Truncate(30).ToUpper()</td>
                                             <td>@item.Quantity</td>
                                             <td>@item.Speaker.Price.ToString("##,#0VND")</td>
-
                                         </tr>
                                     }
                                 }
@@ -117,9 +117,11 @@
                                     <td></td>
 
                                     <td>
-                                        Total: @ViewBag.getTotal.ToString("##,#0VND")
+                                        @*Total: @ViewBag.getTotal.ToString("##,#0VND")*@
+                                        Total: @Model.Order.Total.Value.ToString("##,#0VND")
                                     </td>
                                 </tr>
+
                             </table>
                         </div>
                     </div>
