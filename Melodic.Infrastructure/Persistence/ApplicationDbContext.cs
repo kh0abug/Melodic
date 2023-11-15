@@ -42,7 +42,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                Id = 1,
                Code = "EVOUNCHERKM5%",
                VouncherName = "KM5%",
-               Description = "Discount for speaker",
+               Description = "Discount 5% for speaker",
                Percent = 0.5
            },
            new EVoucher()
@@ -50,7 +50,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                Id = 2,
                Code = "EVOUNCHERKM10%",
                VouncherName = "KM10%",
-               Description = "Discount for speaker",
+               Description = "Discount 10% for speaker",
                Percent = 0.10
            },
            new EVoucher()
@@ -58,7 +58,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                Id = 3,
                Code = "EVOUNCHERKM15%",
                VouncherName = "KM15%",
-               Description = "Discount for speaker",
+               Description = "Discount 15% for speaker",
                Percent = 0.15
            },
            new EVoucher()
@@ -66,7 +66,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                Id = 4,
                Code = "EVOUNCHERKM20%",
                VouncherName = "KM20%",
-               Description = "Discount for speaker",
+               Description = "Discount 20% for speaker",
                Percent = 0.20
            },
            new EVoucher()
@@ -74,7 +74,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                Id = 5,
                Code = "EVOUNCHERKM25%",
                VouncherName = "KM25%",
-               Description = "Discount for speaker",
+               Description = "Discount 25% for speaker",
                Percent = 0.25
            }
         );

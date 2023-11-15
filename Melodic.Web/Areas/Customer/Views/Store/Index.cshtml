@@ -1,49 +1,106 @@
 ﻿@using Melodic.Web.Areas.Customer.ViewModel;
 @model StoreViewModel
-<script>
 
- function AddToCart(id) {
-    $.ajax({
-        type: 'POST',
-        url: '/Customer/Cart/AddToCart',
-        data: {
-            id: id
-        },
-        success: function (response) {
-            if (response.success) {
-                // Hiển thị thông báo thành công
-                var successToast = new bootstrap.Toast(document.getElementById('successToast'));
-                successToast.show();
-                
-                // Tự động ẩn thông báo sau 5 giây (5000 ms)
-                setTimeout(function() {
-                    successToast.hide();
-                }, 2000); // Thời gian tồn tại ở đây là 5 giây
-            } else {
-                // Xử lý trường hợp không thành công
-            }
 
-        },
-        error: function () {
-            alert("An error occurred while adding the product to the cart.");
+    <script>
+        function AddToCart(id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Customer/Cart/AddToCart',
+                data: {
+                    id: id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // Hiển thị thông báo thành công
+                        var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+                        var message = response.message; // Lấy nội dung từ response
+
+                        // Đặt nội dung cho thông báo bằng cách sử dụng Bootstrap methods
+                        successToast._element.querySelector('.toast-body').innerText = message;
+
+                        successToast.show();
+
+                        // Tự động ẩn thông báo sau 5 giây (5000 ms)
+                        setTimeout(function () {
+                            successToast.hide();
+                        }, 2000); // Thời gian tồn tại ở đây là 5 giây
+                    } else {
+                        var failToast = new bootstrap.Toast(document.getElementById('failToast'));
+                        var message = response.message; // Lấy nội dung từ response
+
+                        // Đặt nội dung cho thông báo bằng cách sử dụng Bootstrap methods
+                        failToast._element.querySelector('.toast-body').innerText = message;
+
+                        failToast.show();
+
+                        // Tự động ẩn thông báo sau 5 giây (5000 ms)
+                        setTimeout(function () {
+                            failToast.hide();
+                        }, 2000); // Thời gian tồn tại ở đây là 5 giây var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+                        var message = response.message; // Lấy nội dung từ response
+
+                        // Đặt nội dung cho thông báo bằng cách sử dụng Bootstrap methods
+                        failToast._element.querySelector('.toast-body').innerText = message;
+
+                        failToast.show();
+
+                        // Tự động ẩn thông báo sau 5 giây (5000 ms)
+                        setTimeout(function () {
+                            failToast.hide();
+                        }, 2000); // Thời gian tồn tại ở đây là 5 giây
+                    }
+                },
+                error: function (errorResponse) {
+                    alert("An error occurred while adding the product to the cart. Error: " + errorResponse.responseText);
+                }
+            });
         }
-    });
-}
-
-
-
-
 </script>
-<script src=""></script>
-<link rel="stylesheet" href="~/css/Store.css" asp-append-version="true" />
-<!-- Breadcrumb -->
+
 <div class="position-fixed bottom-0 end-0 p-3" id="popupContainer">
     <div class="toast rounded" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">
-            Product added to cart successfully!
+        </div>
+    </div>
+    <div class="toast roundeds" id="failToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
         </div>
     </div>
 </div>
+
+<style>
+    /* CSS tùy chỉnh cho thông báo toast */
+    .toast.rounded {
+        border-radius: 25px; /* Điều này tạo ra góc tròn */
+        background-color: #28a745; /* Màu nền cho thông báo thành công */
+    }
+
+    /* CSS tùy chỉnh cho nội dung của thông báo */
+    .toast-body {
+        font-weight: bold; /* Chữ in đậm */
+        color: #fff; /* Đổi màu chữ */
+    }
+
+    .toast.roundeds {
+        border-radius: 25px; /* Điều này tạo ra góc tròn */
+        background-color: #dc3545; /* Màu nền cho thông báo thành công */
+    }
+
+    /* CSS tùy chỉnh cho nội dung của thông báo */
+    .toastfail-body {
+        font-weight: bold; /* Chữ in đậm */
+        color: #fff; /* Đổi màu chữ */
+    }
+
+    #popupContainer {
+        z-index: 1000; /* Ensure it appears above other content */
+    }
+</style>
+
+<link rel="stylesheet" href="~/css/Store.css" asp-append-version="true" />
+<!-- Breadcrumb -->
+
 <style>
     #popupContainer {
         position: fixed;
@@ -224,15 +281,10 @@
 
                                         <div class="">
 
-                                            @if (User.IsInRole(ApplicationRole.Role_Admin)||User.IsInRole(ApplicationRole.Role_Customer))
-                                            {
+                                            
                                                 <a class="btn btn-primary shadow-0 me-1 icon_1" onclick="AddToCart(@speaker.Id)"><i class="bi bi-cart3"></i></a>
-                                            }
-                                            else
-                                            {
-                                                <a class="btn btn-primary shadow-0 me-1 icon_1" href="#" disabled title="Plaese login after add product to cart"><i class="bi bi-cart3"></i></a>
-
-                                            }
+                                           
+                                            
 
                                             <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="btn btn-primary shadow-0 me-1 icon_1"><i class="bi bi-info-circle"></i></a>
                                         </div>

@@ -1,9 +1,21 @@
 ﻿@page
-
 @{
 }
+
 <h1>Transistor</h1>
-<table class="table table-striped">
+
+<div class="d-flex justify-content-end mb-3">
+    <form asp-controller="Order" asp-action="SearchOrder" class="form-inline" method="post">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="OrderId or Total" name="search" />
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+@if (ViewBag.Order != null){
+    <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">OrderId</th>
@@ -13,16 +25,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in ViewBag.Order )
+        @foreach (var item in ViewBag.Order)
         {
             <tr>
                 <th scope="row">@item.Id</th>
                 <td>@item.FullName</td>
                 <td>@item.Total</td>
-                <td><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id" >Detail</a></td>
+                <td><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@item.Id">Detail</a></td>
             </tr>
         }
-
-
     </tbody>
-</table>
+    </table>
+}
+else
+{
+    <p class="text-danger font-weight-bold">No orders found.</p>
+}
+
+
