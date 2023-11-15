@@ -39,7 +39,7 @@ public class StoreController : Controller
         {
             return View(new StoreViewModel
             {
-                Speakers = await speakers.Include(s => s.Brand).AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize),
+                Speakers = await speakers.Include(s => s.Brand).AsNoTracking().OrderByDescending(s => s.Id).PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize),
 
                 RequestParameters = parameter,
                 Brands = await brands.ToListAsync()
