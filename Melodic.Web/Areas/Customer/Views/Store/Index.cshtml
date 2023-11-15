@@ -276,7 +276,7 @@
                                                 <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black  ">@speaker.Name</a>
                                             </h5>
                                             <p class="card-text ellipsis-text" style="height: 48px">@speaker.Decription</p>
-                                            <span class="fw-lighter">Price: </span><span class="card-price">@speaker.Price.ToString("##,#VND")</span>
+                                            <span class="fw-lighter">Price: </span><span class="card-price fw-bold">@speaker.Price.ToString("##,# VND")</span>
                                             <span class="fw-lighter">Quantity: <span class="fw-bold">@speaker.UnitInStock</span></span><br>
                                             <span class="fw-lighter">Brand: <span class="fw-bold">@speaker.Brand.Name</span></span>
                                         </div>
@@ -286,7 +286,7 @@
                                             @if (User.IsInRole(ApplicationRole.Role_Admin)||User.IsInRole(ApplicationRole.Role_Customer))
                                             {
 
-                                                <a class="btn  buy-btn  shadow-0 me-1 icon_1" onclick="AddToCart(@speaker.Id)"><i class="bi bi-cart3" style="font-size: 23px;"></i></a>
+                                                <a class="btn  buy-btn  shadow-0 me-1 icon_1" onclick="AddToCart(@speaker.Id)"><i class="fw-bold bi bi-cart3" style="font-size: 23px;"></i></a>
                                             }
                                             else
                                             {

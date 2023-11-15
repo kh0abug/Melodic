@@ -129,7 +129,7 @@
             <h6 class="mb-0">
                 <a class="b-crumb-item" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door detail-icon"></i>&nbsp; Home</a>
                 <span class="text-black-50 mx-2 fw-bolder">/</span>
-                <a class="b-crumb-item is-active" asp-area="Customer" asp-controller="Cart" asp-action="Cart"><i class="bi bi-shop detail-icon"></i>&nbsp; Cart</a>
+                <a class="b-crumb-item is-active" asp-area="Customer" asp-controller="Cart" asp-action="Cart"><i class="bi bi-cart4 detail-icon"></i>&nbsp; Cart</a>
 
             </h6>
         </nav>
@@ -162,20 +162,20 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
-                                    <div class="">
+                                    <div class="" style="margin-right: 5px;">
                                         <input id="quantity-@speaker.Id" class="form-control" value="@cartItem.Quantity" />
                                         <button class="btn btn-light" onclick="changeQuantity(@speaker.Id, -1) ">-</button>
                                         <button class="btn btn-light" onclick="changeQuantity(@speaker.Id, 1)">+</button>
                                     </div>
                                     <div class="">
-                                        <text class="h6"> @Price $</text> <br />
-                                        <small class="text-muted text-nowrap"> @speaker.Price / per item </small>
+                                        <text class="h6">@($"{Price:##,#} VND")</text> <br />
+                                        <small class="text-muted text-nowrap"> @speaker.Price.ToString("##,# VND") / per item </small>
                                     </div>
                                 </div>
                                 <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
                                     <div class="float-md-end">
-                                        <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-                                        <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@speaker.Id" class="btn btn-light border text-danger icon-hover-danger">Remove</a>
+@*                                         <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
+ *@                                        <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@speaker.Id" class="btn btn-light border text-danger icon-hover-danger">Remove</a>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <p class="mb-2">Total price:</p>
-                            <p class="mb-2">@Model.TotalPrice</p>
+                            <p class="mb-2">@($"{Model.TotalPrice:##,#} VND")</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <p class="mb-2">Discount:</p>
@@ -228,17 +228,17 @@
                             }
                             else
                             {
-                                <p class="mb-2 text-success">-$0.00</p>
+                                <p class="mb-2 text-success">-0.00 VND</p>
                             }
                         </div>
                         <div class="d-flex justify-content-between">
                             <p class="mb-2">TAX:</p>
-                            <p class="mb-2">@Model.Tax</p>
+                            <p class="mb-2">@($"{Model.Tax:##,#} VND")</p>
                         </div>
                         <hr />
                         <div class="d-flex justify-content-between">
                             <p class="mb-2">Total :</p>
-                            <p class="mb-2 fw-bold">@Model.Total</p>
+                            <p class="mb-2 fw-bold">@($"{Model.Total:##,#} VND")</p>
                         </div>
 
                         <div class="mt-3">
