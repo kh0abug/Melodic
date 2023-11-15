@@ -1,19 +1,20 @@
 ﻿@using Melodic.Domain.Entities;
 @model Speaker
 
+
 <link rel="stylesheet" href="~/css/detail.css" asp-append-version="true" />
 <div class="bg-b--crumb">
     <div class="container b-crumb-contaier">
         <!-- Breadcrumb -->
         <nav class="d-flex">
-            <h6 class="mb-0">              
+            <h6 class="mb-0">
                 <a class="b-crumb-item" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door detail-icon"></i>&nbsp; Home</a>
                 <span class="text-black-50 mx-2 fw-bolder">/</span>
                 <a class="b-crumb-item" asp-area="" asp-controller="Store" asp-action="Index"><i class="bi bi-shop detail-icon"></i>&nbsp; Store</a>
                 <span class="text-black-50 mx-2 fw-bolder">/</span>
                 <a href="" class="b-crumb-item"><i class="bi bi-speaker detail-icon"></i>&nbsp; Detail</a>
                 <span class="text-black-50 mx-2 fw-bolder">/</span>
-                <a href="" class="b-crumb-item is-active" >@Model.Name</a>
+                <a href="" class="b-crumb-item is-active">@Model.Name</a>
             </h6>
         </nav>
         <!-- Breadcrumb -->
@@ -26,8 +27,8 @@
         <div class="row gx-5">
             <aside class="col-lg-7">
                 <div class="border rounded-4 mb-3 d-flex justify-content-center">
-   
-                        <img style="max-width: 70%; max-height: 60vh; margin: auto;" class="rounded-4 fit" src="@Model.Img" />                 
+
+                    <img style="max-width: 70%; max-height: 60vh; margin: auto;" class="rounded-4 fit" src="@Model.Img" />
                 </div>
 
 
@@ -37,30 +38,29 @@
                 <div class="ps-lg-3">
                     <h4 class="detail-name">
                         @Model.Name <br />
-                        
+
                     </h4>
-                
-
-                    <div class="mb-3">
-                        <span class="fw-light">Price: </span>
-                        <span class="h5" style="color: #f04e27">@Model.Price</span>
-                        <span class="text-muted">/per box</span>
-                    </div>
-
                     <p>
                         @Model.Decription.
                     </p>
 
-                    <div class="row">
-                        <dd class="col-2">Brand:</dd>
-                        <dt class="col-10">@Model.Brand.Name</dt>
+                    <div class="mb-3">
+                        <span class="fw-light">Price: </span>
+                        <span class="h5" style="color: #f04e27">@Model.Price.ToString("##,# VND")</span>
+                        <span class="text-muted">/per box</span>
                     </div>
-                   
+
+                    
+                    <p class="fw-light">Quantity: <span class="fw-bold " style="font-size: 20px;" >@Model.UnitInStock</span></p>
+
+                    <p class="fw-light">Brand: <span class="fw-bold">@Model.Brand.Name</span></p>
+
+
                     <br />
                     <hr />
 
-                 <br />
-                    <a href="#" class="btn btn-primary shadow-0" style=" box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);" onclick="AddToCart(@Model.Id)"><i class="bi bi-cart4"></i> Add to cart </a>
+                    <br />
+                    <a style="width: 100%" class="btn card-btn" onclick="AddToCart(@Model.Id)"><span><i class="bi bi-cart3 fw-bold">&nbsp; Add To Card</i></span></a>
 
                 </div>
             </main>
@@ -71,28 +71,29 @@
         <h1>Similar Items</h1>
         @foreach (var speaker in ViewBag.Brands)
         {
-            <div class="col-lg-3 col-md-6 col-sm-6 ">
 
-                <div class="card my-2 shadow-0" style="max-height: 565px; max-width: 270px;  box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+
+                <div class="card my-2 shadow-0" style="min-height: 565px;  box-shadow: -1px 3px 9px 0px rgba(0, 0, 0, 0.35);">
                     <a href="#" class="">
 
-                        <img src="@speaker.Img" style="max-height: 259px;" class="card-img-top rounded-2" />
+                        <img src="@speaker.Img" style="min-height: 304px;" class="card-img-top rounded-2" />
                     </a>
                     <div class="card-body p-0 pt-3">
                         <a style="width: 100%" class="btn buy-btn" onclick="AddToCart(@speaker.Id)"><i class="bi bi-cart3 fw-bold">&nbsp; Add To Card</i></a>
-                        <br>
-                        <h5 class="card-title">
+                        <h5 class="card-title" style="margin-top: 10px;">
                             <a asp-controller="Store" asp-action="Detail" asp-route-id="@speaker.Id" class="text-decoration-none ellipsis-text-name" style="color: black; margin-left: 15px;  ">@speaker.Name</a>
                         </h5>
-
-                        <h6 style="margin-left: 15px;"><span class="fw-lighter">Price: </span><span style="color: #f04e27">@speaker.Price</span></h6>
                         <p class="home-des" style=" display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis; margin-left: 15px;">@speaker.Decription</p>
+
+                        <h6 style="margin-left: 15px;"><span class="fw-lighter">Price: </span><span style="color: #f04e27; font-size: 20px;">@speaker.Price.ToString("##,# VND")</span></h6>
+                        <h6 style="margin-left: 15px;"><span class="fw-lighter">Quantity: </span><span style="font-size: 20px;">@speaker.UnitInStock</span></h6>
+
                         <p class="">
-                            <span class="text-muted" style="margin-left: 15px;">Brands: </span>@speaker.Brand.Name
                             <span class="text-muted" style="margin-left: 15px;">Brands: </span>@speaker.Brand.Name
                         </p>
                     </div>

@@ -23,7 +23,7 @@ public class StoreController : Controller
         ViewBag.SearchTerm = parameter.SearchTerm;
 
 
-        var speakers = _context.Speakers.AsQueryable();
+        var speakers = _context.Speakers.Include( s => s.Brand).AsQueryable();
 
 
         var brands = _context.Brands.AsNoTracking().Take(10);
@@ -39,7 +39,7 @@ public class StoreController : Controller
         {
             return View(new StoreViewModel
             {
-                Speakers = await speakers.AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize),
+                Speakers = await speakers.Include(s => s.Brand).AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize),
 
                 RequestParameters = parameter,
                 Brands = await brands.ToListAsync()
@@ -56,23 +56,23 @@ public class StoreController : Controller
         }
         else
         {
-            speakers = speakers.Where(s => s.Name!.Contains(parameter.SearchTerm!));
+            speakers = speakers.Include(s => s.Brand).Where(s => s.Name!.Contains(parameter.SearchTerm!));
             speakers = speakers.Where(s => s.Price >= parameter.MinPrice && s.Price <= parameter.MaxPrice);
         }
 
         if (parameter.BrandId is not null)
         {
-            speakers = speakers.Where(s => s.BrandId == parameter.BrandId);
+            speakers = speakers.Include(s => s.Brand).Where(s => s.BrandId == parameter.BrandId);
         }
 
         speakers = parameter.OrderBy?.ToLower() switch
         {
-            "price_desc" => speakers.OrderByDescending(s => s.Price),
+            "price_desc" => speakers.Include(s => s.Brand).OrderByDescending(s => s.Price),
             "latest" => speakers.OrderByDescending(s => s.Created),
             _ => speakers.OrderBy(s => s.Price),
         };
 
-        var result = await speakers.AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize);
+        var result = await speakers.Include(s => s.Brand).AsNoTracking().PaginatedListAsync(parameter.PageNumber ?? 1, parameter.PageSize);
         if (!result.Items.Any())
         {
             result = null;
@@ -91,7 +91,7 @@ public class StoreController : Controller
         {
             return NotFound();
         }
-        var speaker = await _context.Speakers
+        var speaker = await _context.Speakers.Include(s => s.Brand)
             .AsNoTracking()
             .Include(s => s.Brand)
             .Where(s => s.Id == id).FirstAsync();
