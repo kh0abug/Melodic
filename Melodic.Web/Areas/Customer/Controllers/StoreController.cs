@@ -85,6 +85,8 @@ public class StoreController : Controller
         });
     }
 
+   
+
     public async Task<IActionResult> Detail(int? id)
     {
         if (id == null && id == 0)
